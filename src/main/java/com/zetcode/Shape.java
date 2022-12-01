@@ -5,7 +5,7 @@ import java.util.Random;
 public class Shape {
 
     protected enum Tetrominoe { NoShape, ZShape, SShape, LineShape,
-        TShape, SquareShape, LShape, MirroredLShape }
+        TShape, SquareShape, LShape, MirroredLShape } // Listado de constantes
 
     private Tetrominoe pieceShape;
     private int coords[][];
@@ -21,7 +21,18 @@ public class Shape {
 
         coords = new int[4][2];
 
-        coordsTable = new int[][][] {
+        /* Para conocer la posición de una pieza esta clase NO almacena la posición de las 4 casillas de la pieza,
+           en su lugar, coge como base una de las 4 piezas y luego muestra la distancia que hay entre las casillas de ellas.
+           Dos variables en BOARD almacenan la posición de la casilla base, y a partir de ahi se puede calcular la posicion de las otras 3.
+           Ejemplo: En la pieza que es una linea recta (LineShape) guarda como base la segunda casilla empezando por la izquierda y 
+           a partir de ahí saca el resto de posiciones mediante {0, -1} {0, 0} {0, 1} {0, 2}.
+          
+         
+          
+          
+         */
+        
+        coordsTable = new int[][][] {  
                 { { 0, 0 },   { 0, 0 },   { 0, 0 },   { 0, 0 } },
                 { { 0, -1 },  { 0, 0 },   { -1, 0 },  { -1, 1 } },
                 { { 0, -1 },  { 0, 0 },   { 1, 0 },   { 1, 1 } },

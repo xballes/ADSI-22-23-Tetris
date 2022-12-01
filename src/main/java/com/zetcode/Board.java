@@ -14,19 +14,19 @@ import java.awt.event.KeyEvent;
 
 public class Board extends JPanel {
 
-    private final int BOARD_WIDTH = 10;
-    private final int BOARD_HEIGHT = 22;
+    private final int BOARD_WIDTH = 10;   // Cuadrados de largo
+    private final int BOARD_HEIGHT = 22;  // Cuadrados de alto
     private final int PERIOD_INTERVAL = 300;
 
     private Timer timer;
     private boolean isFallingFinished = false;
-    private boolean isPaused = false;
-    private int numLinesRemoved = 0;
+    private boolean isPaused = false;     // Juego en pausa si true, despausa si false
+    private int numLinesRemoved = 0;      // Lineas eliminadas
     private int curX = 0;
     private int curY = 0;
-    private JLabel statusbar;
-    private Shape curPiece;
-    private Tetrominoe[] board;
+    private JLabel statusbar;             // Imagen del numero de puntuacion de abajo en la pantalla
+    private Shape curPiece;               // Puntero a la pieza actual en movimiento
+    private Tetrominoe[] board;           // Lista de las piezas en pantalla??
 
     public Board(Tetris parent) {
 
@@ -35,19 +35,19 @@ public class Board extends JPanel {
 
     private void initBoard(Tetris parent) {
 
-        setFocusable(true);
-        statusbar = parent.getStatusBar();
-        addKeyListener(new TAdapter());
+        setFocusable(true); // Dar focus para poder meter inputs sin tener que pinchar en la ventana
+        statusbar = parent.getStatusBar(); // Pointer al label de los puntos de la clase Tetris
+        addKeyListener(new TAdapter());  // KeyListener, la clase privada, que maneja que acciones se hacen tras hacer ciertos inputs.
     }
 
     private int squareWidth() {
 
-        return (int) getSize().getWidth() / BOARD_WIDTH;
+        return (int) getSize().getWidth() / BOARD_WIDTH; // Cuantos pixeles ocupa de largo (obtiene las dimensiones del panel, y luego coge la anchura)
     }
 
     private int squareHeight() {
 
-        return (int) getSize().getHeight() / BOARD_HEIGHT;
+        return (int) getSize().getHeight() / BOARD_HEIGHT; // Cuantos pixeles ocupa de largo (obtiene las dimensiones del panel, y luego coge la altura)
     }
 
     private Tetrominoe shapeAt(int x, int y) {
@@ -69,14 +69,14 @@ public class Board extends JPanel {
 
     private void pause() {
 
-        isPaused = !isPaused;
+        isPaused = !isPaused; // Si pausa, despausa. Si jugando, pausa
 
-        if (isPaused) {
+        if (isPaused) {  // Si se quiere pausar
 
-            statusbar.setText("paused");
+            statusbar.setText("paused");  // Cambiar el texto del label de la pantalla a PAUSED
         } else {
 
-            statusbar.setText(String.valueOf(numLinesRemoved));
+            statusbar.setText(String.valueOf(numLinesRemoved)); // Cambiar el texto de label de la pantalla al numero de lineas limpiadas
         }
 
         repaint();
@@ -86,7 +86,7 @@ public class Board extends JPanel {
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        doDrawing(g);
+        doDrawing(g); // a paintComponent le ha metido un metodo extra
     }
 
     private void doDrawing(Graphics g) {
@@ -124,6 +124,9 @@ public class Board extends JPanel {
 
     private void dropDown() {
 
+    	
+    	// Bajar la pieza de golpe, sigue bajandola hasta que colapsa con otra
+    	
         int newY = curY;
 
         while (newY > 0) {
@@ -282,7 +285,6 @@ public class Board extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
             doGameCycle();
         }
     }
@@ -315,23 +317,25 @@ public class Board extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
 
+        	// Se pulsa algo en el teclado
+        	
             if (curPiece.getShape() == Tetrominoe.NoShape) {
-
+            	// Si se hace input sin pieza en mano, no se hace nada
                 return;
             }
 
-            int keycode = e.getKeyCode();
+            int keycode = e.getKeyCode(); // Saber que tecla se pulso
 
             // Java 12 switch expressions
             switch (keycode) {
 
-                case KeyEvent.VK_P -> pause();
-                case KeyEvent.VK_LEFT -> tryMove(curPiece, curX - 1, curY);
-                case KeyEvent.VK_RIGHT -> tryMove(curPiece, curX + 1, curY);
-                case KeyEvent.VK_DOWN -> tryMove(curPiece.rotateRight(), curX, curY);
-                case KeyEvent.VK_UP -> tryMove(curPiece.rotateLeft(), curX, curY);
-                case KeyEvent.VK_SPACE -> dropDown();
-                case KeyEvent.VK_D -> oneLineDown();
+                case KeyEvent.VK_P -> pause();                                                  // La P es pausar/despausar
+                case KeyEvent.VK_LEFT -> tryMove(curPiece, curX - 1, curY);                     // Izq es mover
+                case KeyEvent.VK_RIGHT -> tryMove(curPiece, curX + 1, curY);                    // Dch es mover
+                case KeyEvent.VK_DOWN -> tryMove(curPiece.rotateRight(), curX, curY);           // Abo es rotar
+                case KeyEvent.VK_UP -> tryMove(curPiece.rotateLeft(), curX, curY);              // Arr es rotar
+                case KeyEvent.VK_SPACE -> dropDown();                                           // Espacio es dejar caer
+                case KeyEvent.VK_D -> oneLineDown();                                            // D es bajar una casilla
             }
         }
     }

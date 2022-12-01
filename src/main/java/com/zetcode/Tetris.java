@@ -18,7 +18,7 @@ public class Tetris extends JFrame {
 	
 	private static final Logger logger = LogManager.getLogger(Tetris.class);
 
-    private JLabel statusbar;
+    private JLabel statusbar; // Puntuación
 
     public Tetris() {
 
@@ -26,6 +26,8 @@ public class Tetris extends JFrame {
     }
 
     private void initUI() {
+    	
+    	// Inicializar la ventana de juego
 
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
@@ -38,6 +40,7 @@ public class Tetris extends JFrame {
         setSize(200, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+
     }
 
     JLabel getStatusBar() {
@@ -50,8 +53,12 @@ public class Tetris extends JFrame {
     	logger.info("Playing");
         EventQueue.invokeLater(() -> {
 
+        	
+        	// EL JUEGO INICIA AQUI, LA AUTENTIFICACION DEL USUARIO DEBE VENIR ANTES DE ESTO
             var game = new Tetris();
             game.setVisible(true);
+            
+            
         });
     }
 }
