@@ -18,11 +18,13 @@ public class GestorUsuarios {
 	public boolean verificarUsuario(String pNombre, String pCont) {
 
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE nombre='"+pNombre+"' && contraseña = '"+pCont+"'");
+		boolean val;
 		try {
-			return r.next();
-		} catch (SQLException e) {
-			return false;
-		} 
+			val = r.next();
+			r.close();
+		} catch (SQLException e) {return false;}
+		
+		return val;
 	}
 	
 	
@@ -37,16 +39,17 @@ public class GestorUsuarios {
 
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE nombre='"+pNombre+"'");
 		try {
-			 if (r.next()) {return 2;}
+			 if (r.next()) {r.close(); return 2;}
 			 
 			
 				 
 			ResultSet r2 = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE nombre='"+pMail+"'");
 
-			if (r2.next()) {return 3;}
+			if (r2.next()) {r.close(); r2.close(); return 3;}
 			else {
 				
 				SGBD.getInstancia().execSQLVoid("INSERT INTO USUARIO VALUES('"+pNombre+"', '"+pCont+"', '"+pMail+"', 1, 1, 1)");
+				r.close(); r2.close();
 				return 0;
 			
 			}
@@ -66,7 +69,9 @@ public class GestorUsuarios {
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseña FROM Usuario WHERE email='"+pMail+"'");
 		try {
 			if (r.next()) {
-				return r.getString(1);
+				String res = r.getString(1);
+				r.close();
+				return res;
 				
 			} else {return null;}
 			
@@ -95,6 +100,7 @@ public class GestorUsuarios {
 			boolean enc;
 			try {
 				enc = r.next();
+				r.close();
 			} catch (SQLException e) {
 				return false;
 			}
