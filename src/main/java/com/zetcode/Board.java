@@ -322,8 +322,26 @@ public class Board extends JPanel {
     	return matriz;
     	
     }
+    
 
-    private class GameCycle implements ActionListener {
+    public int getBOARD_WIDTH() {
+		return BOARD_WIDTH;
+	}
+
+	public int getBOARD_HEIGHT() {
+		return BOARD_HEIGHT;
+	}
+	
+	public int getNumLinesRemoved() {
+		return numLinesRemoved;
+	}
+	
+	
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	private class GameCycle implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {

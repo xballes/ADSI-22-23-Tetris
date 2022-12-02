@@ -1,5 +1,6 @@
 package controlador;
 
+
 import com.zetcode.Board;
 
 public class GestorGuardado {
@@ -19,13 +20,8 @@ public class GestorGuardado {
 	}
 	
 	public void guardarPartida(Board pPartida) {
-		int[][]matriz=pPartida.calcularMatriz();
-		SGBD.getInstancia().execSQLVoid("execSQL(\"INSERT INTO PARTIDA (puntuacion,nivel,usuario,fechaPartida) VALUES (%puntuacion%,%nivel%,%usuario%,%fechaPartida%)");
-		
-		
-		
+		GestorPartida.getInstancia().guardarPartida(pPartida);
 	}
-	
 	
 	
 	}
