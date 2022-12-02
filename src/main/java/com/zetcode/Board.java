@@ -2,6 +2,8 @@ package com.zetcode;
 
 import com.zetcode.Shape.Tetrominoe;
 
+import vista.PausaGuardado;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -17,7 +19,6 @@ public class Board extends JPanel {
     private final int BOARD_WIDTH = 10;   // Cuadrados de largo
     private final int BOARD_HEIGHT = 22;  // Cuadrados de alto
     private final int PERIOD_INTERVAL = 300;
-
     private Timer timer;
     private boolean isFallingFinished = false;
     private boolean isPaused = false;     // Juego en pausa si true, despausa si false
@@ -27,6 +28,10 @@ public class Board extends JPanel {
     private JLabel statusbar;             // Imagen del numero de puntuacion de abajo en la pantalla
     private Shape curPiece;               // Puntero a la pieza actual en movimiento
     private Tetrominoe[] board;           // Lista de las piezas en pantalla??
+    
+    
+    private Tetris puntero;
+    
 
     public Board(Tetris parent) {
 
@@ -38,6 +43,7 @@ public class Board extends JPanel {
         setFocusable(true); // Dar focus para poder meter inputs sin tener que pinchar en la ventana
         statusbar = parent.getStatusBar(); // Pointer al label de los puntos de la clase Tetris
         addKeyListener(new TAdapter());  // KeyListener, la clase privada, que maneja que acciones se hacen tras hacer ciertos inputs.
+        puntero=parent;
     }
 
     private int squareWidth() {
@@ -68,18 +74,16 @@ public class Board extends JPanel {
     }
 
     private void pause() {
-
-        isPaused = !isPaused; // Si pausa, despausa. Si jugando, pausa
-
-        if (isPaused) {  // Si se quiere pausar
-
-            statusbar.setText("paused");  // Cambiar el texto del label de la pantalla a PAUSED
-        } else {
-
-            statusbar.setText(String.valueOf(numLinesRemoved)); // Cambiar el texto de label de la pantalla al numero de lineas limpiadas
-        }
-
+    
+        isPaused = true; // Si pausa, despausa. Si jugando, pausa
+        puntero.setVisible(false);
+        PausaGuardado.visibilizar(this);
         repaint();
+    }
+    public void despausar() {
+    	isPaused = false;
+    	 puntero.setVisible(true);
+    	 repaint();
     }
 
     @Override
