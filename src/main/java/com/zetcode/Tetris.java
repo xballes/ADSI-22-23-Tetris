@@ -32,7 +32,7 @@ public class Tetris extends JFrame {
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
 
-        var board = new Board(this);
+        var board = new Board(this,"NombreUsuario");
         add(board);
         board.start();
 
