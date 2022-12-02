@@ -78,8 +78,10 @@ public class PausaGuardado extends JFrame {
 	
 	private class Accion1 implements ActionListener {
 
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) { //Botón guardar partida
 			puntero.dispose();
+			board.calcularMatriz();
+			board.despausar();
 			//Registro.visibilizar();
 		}
 		

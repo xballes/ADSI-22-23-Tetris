@@ -15,7 +15,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class Board extends JPanel {
-
     private final int BOARD_WIDTH = 10;   // Cuadrados de largo
     private final int BOARD_HEIGHT = 22;  // Cuadrados de alto
     private final int PERIOD_INTERVAL = 300;
@@ -31,14 +30,13 @@ public class Board extends JPanel {
     
     
     private Tetris puntero;
-    
+    private String nombreUsuario;
 
-    public Board(Tetris parent) {
-
-        initBoard(parent);
+    public Board(Tetris parent,String nombreUsuario) {
+        initBoard(parent,nombreUsuario);
     }
 
-    private void initBoard(Tetris parent) {
+    private void initBoard(Tetris parent,String nombreUsuario) {
 
         setFocusable(true); // Dar focus para poder meter inputs sin tener que pinchar en la ventana
         statusbar = parent.getStatusBar(); // Pointer al label de los puntos de la clase Tetris
@@ -283,6 +281,46 @@ public class Board extends JPanel {
                 x + squareWidth() - 1, y + squareHeight() - 1);
         g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
                 x + squareWidth() - 1, y + 1);
+    }
+    
+    public int[][] calcularMatriz(){
+    	int[][] matriz=new int[BOARD_HEIGHT][BOARD_WIDTH];
+    	
+    	for (int f = BOARD_HEIGHT-1; f != -1; f--) {
+    		
+    		for (int c = 0; c != BOARD_WIDTH; c++) {
+    			
+    			Tetrominoe p = this.shapeAt(c, f);
+    			int val;
+    	        if (p == Tetrominoe.NoShape) {val = 0;}
+    	        else if (p == Tetrominoe.ZShape) {val = 1;}
+    	        else if (p == Tetrominoe.SShape) {val = 2;}
+    	        else if (p == Tetrominoe.LineShape) {val = 3;}
+    	        else if (p == Tetrominoe.TShape) {val = 4;}
+    	        else if (p == Tetrominoe.SquareShape) {val = 5;}
+    	        else if (p == Tetrominoe.LShape) {val = 6;}
+    	        else /* if p == Tetrominoe.LaPiezaQueFalta*/{val = 7;}
+    	        matriz[f][c] = val;
+    			
+    		}
+    	}
+    	
+    	for (int f = 0; f != BOARD_HEIGHT; f++) {
+    		
+    		for (int c = 0; c != BOARD_WIDTH; c++) {
+    			
+    			System.out.print(matriz[f][c]);
+    			System.out.print(" ");
+    			
+    		}
+    		System.out.println();
+    	}
+    	
+    	
+    	
+
+    	return matriz;
+    	
     }
 
     private class GameCycle implements ActionListener {
