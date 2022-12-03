@@ -28,19 +28,15 @@ public class GestorPartida {
 		System.out.println(fecha);
 		int puntuacion=pPartida.getNumLinesRemoved();
 		String nombreUsuario=pPartida.getNombreUsuario();
-		//SGBD.getInstancia().execSQLVoid("INSERT INTO partida_guardada VALUES (%fecha%,%puntuacion%,%nivel%)");
+		SGBD.getInstancia().execSQLVoid("INSERT INTO partida_guardada VALUES ('"+fecha+"','"+puntuacion+"',1)");
 		int numcolumnas=pPartida.getBOARD_WIDTH(); //i -> numcolumna
 		int numaltura=pPartida.getBOARD_HEIGHT(); //j-> numaltura
 		int i =0;
-		int[]alturas=new int[numaltura*numcolumnas];
+		//int[]alturas=new int[numaltura*numcolumnas];
 		while(i<numcolumnas) {
-			for(int j=0;j<numaltura;j++) {
-				int alt=(matriz[j][i]); //va a recorrer cada altura de la primera columna,luego de la segunda columna...
-				alturas[j]=alt;
-				System.out.println(alturas[j]);
-			}	
-			//String sentenciaSQL = "INSERT INTO COLUMNA(usuario,fechaPartida,numcolumna,alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22) VALUES(%nombreUsuario%,%fecha%,%i%,%alt1%,%alt1%,%alt2%,%alt3%,%alt4%,%alt5%,%alt6%,%alt7%,%alt8%,%alt9%,%alt10%,%alt11%,%alt12%,%alt13%,%alt14%,%alt15%,%alt16%,%alt17%,%alt18%,%alt19%,%alt20%,%alt21%,%alt22%";
-			//SGBD.getInstancia().execSQLVoid(sentenciaSQL);
+			String sentenciaSQL = "INSERT INTO columna VALUES('"+i+"','"+matriz[1][i]+"','"+matriz[2][i]+"','"+matriz[3][i]+"','"+matriz[4][i]+"','"+matriz[5][i]+"','"+matriz[6][i]+"','"+matriz[7][i]+"','"+matriz[8][i]+"','"+matriz[9][i]+"','"+matriz[10][i]+"','"+matriz[11][i]+"','"+matriz[12][i]+"','"+matriz[13][i]+"','"+matriz[14][i]+"','"+matriz[15][i]+"','"+matriz[16][i]+"','"+matriz[17][i]+"','"+matriz[18][i]+"','"+matriz[19][i]+"','"+matriz[20][i]+"','"+matriz[21][i]+"','"+matriz[22][i]+"','"+fecha+"')";
+			SGBD.getInstancia().execSQLVoid(sentenciaSQL);                                                                                                                                                                                             
+			//System.out.println(matriz[1][i]);
 			i++;	
 		}	
 	}
