@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class GestorUsuarios {
 
-	private static GestorUsuarios puntero;
+	private static GestorUsuarios puntero;	
 	
 	
 	private GestorUsuarios() {}

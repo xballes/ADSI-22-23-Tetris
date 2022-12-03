@@ -112,7 +112,8 @@ public class MenuPrincipal extends JFrame {
 	private class Accion4 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A RANKING GENERAL AQUI
+			// Ver ranking general
+			
 		}
 		
 		
