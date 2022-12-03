@@ -1,6 +1,8 @@
 package controlador;
 
 import java.sql.ResultSet;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.time.LocalDate;
 
 import com.zetcode.Board;
@@ -27,20 +29,19 @@ public class GestorPartida {
 		int puntuacion=pPartida.getNumLinesRemoved();
 		String nombreUsuario=pPartida.getNombreUsuario();
 		//SGBD.getInstancia().execSQLVoid("INSERT INTO partida_guardada VALUES (%fecha%,%puntuacion%,%nivel%)");
-		int numcolumnas=pPartida.getBOARD_WIDTH();
-		int numaltura=pPartida.getBOARD_HEIGHT();
+		int numcolumnas=pPartida.getBOARD_WIDTH(); //i -> numcolumna
+		int numaltura=pPartida.getBOARD_HEIGHT(); //j-> numaltura
 		int i =0;
 		while(i<numcolumnas) {
-			System.out.println("Columna nº"+i);
+			//System.out.println("Columna nº"+i);
 			for(int j=0;j<numaltura;j++) {
-				String indice=String.valueOf(j); //número de la columna
-				String alt=String.valueOf(matriz[j][i]); //alt1,alt2,alt3... por cada columna
+				int[]alturas=new int[numaltura];
+				int alt=(matriz[j][i]); //va a recorrer cada altura de la primera columna...
 				System.out.println(alt);
 		}
 			//String sentenciaSQL = "INSERT INTO COLUMNA(usuario,fechaPartida,numcolumna,alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22) VALUES(%nombreUsuario%,%fecha%,%i%,%alt1%,%alt1%,%alt2%,%alt3%,%alt4%,%alt5%,%alt6%,%alt7%,%alt8%,%alt9%,%alt10%,%alt11%,%alt12%,%alt13%,%alt14%,%alt15%,%alt16%,%alt17%,%alt18%,%alt19%,%alt20%,%alt21%,%alt22%";
 			//SGBD.getInstancia().execSQLVoid(sentenciaSQL);
 			i++;
-			System.out.println("-------------------");
 			
 			
 	}
