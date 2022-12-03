@@ -22,6 +22,9 @@ public class GestorGuardado {
 	public void guardarPartida(Board pPartida) {
 		GestorPartida.getInstancia().guardarPartida(pPartida);
 	}
+	public boolean cargarPartida(String pNombreUsuario,String pFecha) {
+		return GestorPartida.getInstancia().cargarPartida(pNombreUsuario,pFecha);
+	}
 	
 	
 	}
