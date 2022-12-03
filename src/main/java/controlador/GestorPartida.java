@@ -32,22 +32,17 @@ public class GestorPartida {
 		int numcolumnas=pPartida.getBOARD_WIDTH(); //i -> numcolumna
 		int numaltura=pPartida.getBOARD_HEIGHT(); //j-> numaltura
 		int i =0;
+		int[]alturas=new int[numaltura*numcolumnas];
 		while(i<numcolumnas) {
-			//System.out.println("Columna nº"+i);
 			for(int j=0;j<numaltura;j++) {
-				int[]alturas=new int[numaltura];
-				int alt=(matriz[j][i]); //va a recorrer cada altura de la primera columna...
-				System.out.println(alt);
-		}
+				int alt=(matriz[j][i]); //va a recorrer cada altura de la primera columna,luego de la segunda columna...
+				alturas[j]=alt;
+				System.out.println(alturas[j]);
+			}	
 			//String sentenciaSQL = "INSERT INTO COLUMNA(usuario,fechaPartida,numcolumna,alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22) VALUES(%nombreUsuario%,%fecha%,%i%,%alt1%,%alt1%,%alt2%,%alt3%,%alt4%,%alt5%,%alt6%,%alt7%,%alt8%,%alt9%,%alt10%,%alt11%,%alt12%,%alt13%,%alt14%,%alt15%,%alt16%,%alt17%,%alt18%,%alt19%,%alt20%,%alt21%,%alt22%";
 			//SGBD.getInstancia().execSQLVoid(sentenciaSQL);
-			i++;
-			
-			
+			i++;	
+		}	
 	}
-		
-	}
-	
-	
-	}
+}
 
