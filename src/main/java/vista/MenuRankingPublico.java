@@ -15,7 +15,9 @@ import java.awt.Font;
 public class MenuRankingPublico extends JFrame {
 
 	private JPanel contentPane;
-
+	private static MenuRankingPublico puntero;
+	
+	
 
 	public MenuRankingPublico() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
