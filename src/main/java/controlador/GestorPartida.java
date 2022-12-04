@@ -64,19 +64,28 @@ public class GestorPartida {
 			boolean val2;
 			try {
 				rsmd = (ResultSetMetaData) r2.getMetaData();
-				int numcolumnas=rsmd.getColumnCount();//22
+				int numcolumnas=rsmd.getColumnCount();//numero de columnas -> 22
+				int[][]matriz=new int[10][numcolumnas]; // matriz -> [altura(weigth][anchura(width)] 22x10
 				while(r2.next()) {
-					for (int i = 1; i <= numcolumnas; i++) {
-						String valorColumna = r2.getString(i);
-				           System.out.print("  "+valorColumna+"  ");
-				       }
-				       System.out.println("");
+					for (int i = 1; i <= numcolumnas; i++){ // indice,alt1,alt2,alt3... recorre las columnas
+						int valorColumna = r2.getInt(i);
+						System.out.print("  "+valorColumna+"  ");
+						String valorColumnaString=r2.getString(i); //todas las columnas en un String
+						/*for(int j=0;j<valorColumnaString.length();j++) {
+							matriz[j+1][i]=valorColumnaString.charAt(j);
+						}*/
+						//System.out.println(valorColumnaString);
+						/*for(int j=0;j<10;j++) {
+							matriz[j][i]=valorColumnaString.charAt(j);
+						}*/
 					}
+					System.out.println("");
+				}       
 				r2.close();
 			} catch (SQLException e1) {return false;}
 				return true;
 		}else {
 		return false;
 		}
-	}	
+	}
 }
