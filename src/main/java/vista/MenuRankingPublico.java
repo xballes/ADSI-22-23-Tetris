@@ -48,6 +48,9 @@ public class MenuRankingPublico extends JFrame {
 		
 		JButton btnNewButton_3 = new JButton("Volver");
 		panel.add(btnNewButton_3);
+		
+		
+		//prueba prueb
 	}
 
 }
