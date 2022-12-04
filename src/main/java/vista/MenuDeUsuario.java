@@ -8,9 +8,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import controlador.GestorGuardado;
+
 @SuppressWarnings("serial")
 
-public class MenuDeUsuario extends JFrame {
+public class MenuDeUsuario extends JFrame implements Ventana {
 	
 	private static MenuDeUsuario puntero;
 	private JPanel contenido;
@@ -28,7 +30,10 @@ public class MenuDeUsuario extends JFrame {
 	private String usuario; 
 	
 	
-	
+	public void redirigir() {
+		MenuDeUsuario.visibilizar(usuario);
+		
+	}
 
 
 	
@@ -127,11 +132,17 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion2 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A CARGAR PARTIDA (EL QUE SE ENCARGA DE GUARDAR PARTIDA ES EL QUE IMPLEMENTA ESTO)
+			boolean Resultado=GestorGuardado.getInstancia().cargarPartida(usuario);		
+			if(Resultado!=false) {
+				PopUp.visibilizar("La partida se ha cargado correctamente", puntero);	
+			}
+			else {
+				PopUp.visibilizar("La partida no se ha cargado correctamente", puntero);
+				
+			}
 		}
-		
-		
 	}
+		
 	
 	private class Accion3 implements ActionListener {
 

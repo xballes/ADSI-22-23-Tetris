@@ -1,6 +1,8 @@
 package controlador;
 
 
+import java.sql.SQLException;
+
 import com.zetcode.Board;
 
 public class GestorGuardado {
@@ -22,8 +24,8 @@ public class GestorGuardado {
 	public void guardarPartida(Board pPartida) {
 		GestorPartida.getInstancia().guardarPartida(pPartida);
 	}
-	public boolean cargarPartida(String pNombreUsuario,String pFecha) {
-		return GestorPartida.getInstancia().cargarPartida(pNombreUsuario,pFecha);
+	public boolean cargarPartida(String pNombreUsuario){
+		return GestorPartida.getInstancia().cargarPartida(pNombreUsuario);
 	}
 	
 	
