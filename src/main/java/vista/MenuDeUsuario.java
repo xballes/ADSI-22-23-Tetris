@@ -145,7 +145,8 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion4 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// VER RANKING GENERAL
+			puntero.dispose();
+			MenuRankingPublico.visibilizar(usuario);
 		}
 		
 		

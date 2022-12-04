@@ -112,7 +112,8 @@ public class MenuPrincipal extends JFrame {
 	private class Accion4 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// Ver ranking general
+			puntero.dispose();
+			MenuRankingPublico.visibilizar(null);
 			
 		}
 		

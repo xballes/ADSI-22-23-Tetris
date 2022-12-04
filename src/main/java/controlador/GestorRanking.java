@@ -20,26 +20,37 @@ public class GestorRanking {
 	
 	//metodos para ver ranking general
 	
-	public Gson obtenerRankingTodosNivelesPublico() {
+	public String obtenerRankingTodosNivelesPublico() {
 		
 		Gson json1 = new Gson();
 		
 		
-		ResultSet resul = SGBD.getInstancia().execSQL("SELECT nombreUsu, nivel, puntosAct FROM PUNTUACION ORDER BY puntosAct DESC");
+		ResultSet resul = SGBD.getInstancia().execSQL("SELECT usuario, nivel, puntosActuales FROM PUNTUACION ORDER BY puntosActuales DESC");
 		
-		boolean enc = false;
+		ArrayList<Tripleta> objeto = new ArrayList<Tripleta>();
 		
 		try {
-			enc = resul.next();
+		
+			int cont = 0;
+			while (resul.next() && cont < 10){
+			 String nombre  = resul.getString("usuario");
+			 int  nivel = resul.getInt("nivel");
+			 int puntos = resul.getInt("puntosActuales");
+			 Tripleta tri = new Tripleta(nivel, puntos, nombre);
+			 objeto.add (tri);
+			 cont++;
+			}
 			resul.close();
-		} catch (SQLException e) {
-			
+		}catch (SQLException e) {
+				
 		}
+	
+		String res = json1.toJson(objeto);
 		
+		System.out.println(objeto.size());
+		System.out.println(res);
 		
-		//prueba22
-		
-		return json1;
+		return res;
 		
 	}
 	
@@ -79,5 +90,19 @@ public class GestorRanking {
 	}
 	
 	
-	//prueba
+	//clase privada
+	
+	private class Tripleta {
+		int punt;
+		int nivel;
+		String nombre;
+		
+		public Tripleta (int val1, int val2, String val3) {
+			punt = val1;
+			nivel = val2;
+			nombre = val3;
+			}
+	}
+	
+
 }

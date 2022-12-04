@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -16,15 +19,23 @@ public class MenuRankingPublico extends JFrame {
 
 	private JPanel contentPane;
 	private static MenuRankingPublico puntero;
+	private String nombreUsuario;
 	
-	
+	public static void visibilizar(String pNombreUsuario) {
+		MenuRankingPublico.puntero = new MenuRankingPublico(pNombreUsuario);
+		
+		
+	}
 
-	public MenuRankingPublico() {
+	public MenuRankingPublico(String pNombreUsuario) {
+		
+		nombreUsuario = pNombreUsuario;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 500, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(new BorderLayout(50, 50));
 		setContentPane(contentPane);
 		
 		JLabel lblNewLabel = new JLabel("Menu Ranking General");
@@ -34,9 +45,10 @@ public class MenuRankingPublico extends JFrame {
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(5, 1, 0, 10));
+		panel.setLayout(new GridLayout(5, 1, 0, 40));
 		
 		JButton btnNewButton = new JButton("Visualizar ranking de todos los niveles");
+		btnNewButton.addActionListener(new Accion1());
 		panel.add(btnNewButton);
 		
 		JButton btnVerRankingDel = new JButton("Ver ranking del nivel 1");
@@ -49,10 +61,39 @@ public class MenuRankingPublico extends JFrame {
 		panel.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Volver");
+		btnNewButton_3.addActionListener(new Accion5());
 		panel.add(btnNewButton_3);
 		
+		super.setVisible(true);
+		super.setResizable(false);
 		
-		//prueba prueb
+		
+		contentPane.add(new JPanel(), BorderLayout.WEST);
+		contentPane.add(new JPanel(), BorderLayout.SOUTH);
+		contentPane.add(new JPanel(), BorderLayout.EAST);
+		
+		
+	}
+	
+	
+	private class Accion1 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			TablaTodosGeneral.visibilizar(nombreUsuario);
+		}
+	}
+	
+	private class Accion5 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			if(nombreUsuario == null) {
+				MenuPrincipal.visibilizar();
+			}else {
+				MenuDeUsuario.visibilizar(nombreUsuario);
+			}
+		}
 	}
 
 }

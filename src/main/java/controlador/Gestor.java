@@ -1,5 +1,7 @@
 package controlador;
 
+import com.google.gson.Gson;
+
 public class Gestor {
 
 	private static Gestor puntero;
@@ -38,5 +40,10 @@ public class Gestor {
 	public boolean borrarUsuario(String pNombre) {
 		return GestorUsuarios.getInstancia().borrarUsuario(pNombre);
 	}
+	
+	public String obtenerRankingTodosNivelesPublico() {
+		return GestorRanking.getInstancia().obtenerRankingTodosNivelesPublico();
+	}
+	
 	
 }
