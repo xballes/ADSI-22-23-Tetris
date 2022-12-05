@@ -55,11 +55,36 @@ public class GestorRanking {
 	}
 	
 	
-	public Gson obtenerRankingNivelPublico(int pNivel) {
+	public String obtenerRankingNivelPublico(int pNivel) {
 	
 		Gson json2 = new Gson();
 		
-		return json2;
+		int niv = pNivel;
+		
+		
+		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT usuario, puntosActuales FROM PUNTUACION  WHERE nivel = "+niv+"  ORDER BY puntosActuales DESC");
+		
+		ArrayList<DuplaNivel> obj = new ArrayList<DuplaNivel>();
+		
+		try {
+			
+			int cont=0;
+			while( resulNivel.next() && cont < 10) {
+				String nombre = resulNivel.getString("usuario");
+				int puntos = resulNivel.getInt("puntosActuales");
+				DuplaNivel dup = new DuplaNivel(puntos, nombre);
+				obj.add(dup);
+				cont++;
+			}
+			resulNivel.close();
+		} catch (SQLException e) {
+			
+		}
+		
+		String res = json2.toJson(obj);
+		
+		return res;
+		
 	}
 	
 	//metodos para ver ranking privado
@@ -81,10 +106,6 @@ public class GestorRanking {
 		
 		Gson json4 = new Gson();
 		
-		ArrayList<Integer> al = new ArrayList<>();
-		
-		String res = json4.toJson(al);
-		
 		
 		return json4;
 	}
@@ -104,5 +125,15 @@ public class GestorRanking {
 			}
 	}
 	
+	
+	private class DuplaNivel {
+		int puntos;
+		String nombre;
+		
+		public DuplaNivel (int val1, String val2) {
+			puntos = val1;
+			nombre = val2;
+		}
+	}
 
 }

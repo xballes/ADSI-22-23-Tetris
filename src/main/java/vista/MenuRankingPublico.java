@@ -21,6 +21,7 @@ public class MenuRankingPublico extends JFrame {
 	private static MenuRankingPublico puntero;
 	private String nombreUsuario;
 	
+	
 	public static void visibilizar(String pNombreUsuario) {
 		MenuRankingPublico.puntero = new MenuRankingPublico(pNombreUsuario);
 		
@@ -52,12 +53,15 @@ public class MenuRankingPublico extends JFrame {
 		panel.add(btnNewButton);
 		
 		JButton btnVerRankingDel = new JButton("Ver ranking del nivel 1");
+		btnVerRankingDel.addActionListener(new Accion2());
 		panel.add(btnVerRankingDel);
 		
 		JButton btnNewButton_1 = new JButton("Ver ranking del nivel 2");
+		btnNewButton_1.addActionListener(new Accion3());
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Ver ranking del nivel 3");
+		btnNewButton_2.addActionListener(new Accion4());
 		panel.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Volver");
@@ -83,6 +87,32 @@ public class MenuRankingPublico extends JFrame {
 			TablaTodosGeneral.visibilizar(nombreUsuario);
 		}
 	}
+	
+	private class Accion2 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			TablaNivelGeneral.visibilizar(nombreUsuario, 1);
+		}
+	}
+	
+	private class Accion3 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			TablaNivelGeneral.visibilizar(nombreUsuario, 2);
+		}
+	}
+	
+	
+	private class Accion4 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			TablaNivelGeneral.visibilizar(nombreUsuario, 3);
+		}
+	}
+	
 	
 	private class Accion5 implements ActionListener {
 
