@@ -65,19 +65,20 @@ public class GestorPartida {
 			try {
 				rsmd = (ResultSetMetaData) r2.getMetaData();
 				int numcolumnas=rsmd.getColumnCount();//numero de columnas -> 22
-				int[][]matriz=new int[10][numcolumnas]; // matriz -> [altura(weigth][anchura(width)] 22x10
+				int[][]matriz=new int[numcolumnas][10]; // matriz -> [22][10] i-> 22 j-> 10
 				while(r2.next()) {
-					for (int i = 1; i <= numcolumnas; i++){ // indice,alt1,alt2,alt3... recorre las columnas
-						int valorColumna = r2.getInt(i);
+					int i=1;
+					while(i<=numcolumnas) {// indice,alt1,alt2,alt3... recorre las columnas
+						int j=1;
+						int valorColumna = r2.getInt(i);//como int
+						String valorColumnaString = r2.getString(i); //como String
 						System.out.print("  "+valorColumna+"  ");
-						String valorColumnaString=r2.getString(i); //todas las columnas en un String
-						/*for(int j=0;j<valorColumnaString.length();j++) {
-							matriz[j+1][i]=valorColumnaString.charAt(j);
-						}*/
-						//System.out.println(valorColumnaString);
-						/*for(int j=0;j<10;j++) {
-							matriz[j][i]=valorColumnaString.charAt(j);
-						}*/
+						/*while(j<=10) {
+							matriz[i][j]=valorColumnaString.charAt(j); //////¿?¿?¿?
+							j++;
+						}
+						j++;*/
+						i++;
 					}
 					System.out.println("");
 				}       
