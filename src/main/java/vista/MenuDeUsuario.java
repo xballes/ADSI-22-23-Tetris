@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import controlador.GestorGuardado;
+import controlador.Gestor;
 
 @SuppressWarnings("serial")
 
@@ -27,8 +27,8 @@ public class MenuDeUsuario extends JFrame implements Ventana {
 	// Variables internas de IU
 	
 	
-	private String usuario; 
-	
+	private String usuario;
+	private String fecha;	
 	
 	public void redirigir() {
 		MenuDeUsuario.visibilizar(usuario);
@@ -132,14 +132,17 @@ public class MenuDeUsuario extends JFrame implements Ventana {
 	private class Accion2 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			boolean Resultado=GestorGuardado.getInstancia().cargarPartida(usuario);		
-			if(Resultado!=false) {
-				PopUp.visibilizar("La partida se ha cargado correctamente", puntero);	
-			}
-			else {
-				PopUp.visibilizar("La partida no se ha cargado correctamente", puntero);
+			//Comprobar saves...
+			puntero.dispose();
+			PartidasGuardadas.visibilizar(usuario);
+			//boolean Resultado=Gestor.getInstancia().cargarPartida(usuario);		
+			//if(Resultado!=false) {
+				//PopUp.visibilizar("La partida se ha cargado correctamente", puntero);	
+			//}
+			//else {
+				//PopUp.visibilizar("La partida no se ha cargado correctamente", puntero);
 				
-			}
+			//}
 		}
 	}
 		

@@ -4,10 +4,14 @@ import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.RowId;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 
 import org.mariadb.jdbc.client.result.ResultSetMetaData;
 
@@ -30,11 +34,10 @@ public class GestorPartida {
 	public void guardarPartida(Board pPartida) {
 		int[][]matriz=pPartida.calcularMatriz(); 
 		LocalDate now = LocalDate.now();
-		String fecha=now.toString();
-		System.out.println(fecha);
+		Timestamp fecha=new Timestamp(System.currentTimeMillis());
 		int puntuacion=pPartida.getNumLinesRemoved();
 		String nombreUsuario=pPartida.getNombreUsuario();
-		SGBD.getInstancia().execSQLVoid("INSERT INTO partida_guardada VALUES ('"+pPartida.getNombreUsuario()+"','"+fecha+"','"+puntuacion+"',1)");
+		SGBD.getInstancia().execSQLVoid("INSERT INTO partida VALUES ('"+pPartida.getNombreUsuario()+"','"+fecha+"','"+puntuacion+"',1)");
 		int numcolumnas=pPartida.getBOARD_WIDTH(); //i -> numcolumna
 		int numaltura=pPartida.getBOARD_HEIGHT(); //j-> numaltura
 		int i =0;
@@ -47,8 +50,34 @@ public class GestorPartida {
 		}	
 	}
 	
+	public String mostrarPartidas(String pNombreUsuario) {
+		Gson json1 = new Gson();
+		String sentenciaSQL = "SELECT * FROM partida WHERE(nombreUsuario='"+pNombreUsuario+"')";
+		ResultSet r = SGBD.getInstancia().execSQL(sentenciaSQL);
+		boolean val;
+		ArrayList<PartidaTripleta> tripleta = new ArrayList<PartidaTripleta>();
+		try {
+			val=r.next();
+			while(val) {
+				int puntuacion=r.getInt("puntuacion");
+				int nivel=r.getInt("nivel");
+				Timestamp fecha=r.getTimestamp("fechaPartida");
+				PartidaTripleta partida=new PartidaTripleta(puntuacion,nivel,fecha);
+				tripleta.add(partida);
+				val=r.next();
+			}
+			r.close();
+			
+			
+		}catch(SQLException e) {}
+		
+		String json = json1.toJson(tripleta);
+		return json;
+	}
+	
+	
 	public boolean cargarPartida(String pNombreUsuario){
-		String sentenciaSQL = "SELECT * FROM partida_guardada WHERE(nombreUsuario='"+pNombreUsuario+"')";
+		String sentenciaSQL = "SELECT * FROM partida1 WHERE(nombreUsuario='"+pNombreUsuario+"')";
 		ResultSet r = SGBD.getInstancia().execSQL(sentenciaSQL);
 		boolean val;
 		try {
@@ -73,11 +102,10 @@ public class GestorPartida {
 						int valorColumna = r2.getInt(i);//como int
 						String valorColumnaString = r2.getString(i); //como String
 						System.out.print("  "+valorColumna+"  ");
-						/*while(j<=10) {
-							matriz[i][j]=valorColumnaString.charAt(j); //////¿?¿?¿?
+						while(j<numcolumnas) {
+							matriz[i][j]=valorColumnaString.charAt(0); //////¿?¿?¿?
 							j++;
 						}
-						j++;*/
 						i++;
 					}
 					System.out.println("");
@@ -89,4 +117,14 @@ public class GestorPartida {
 		return false;
 		}
 	}
+		private class PartidaTripleta {
+		int puntuacion;
+		int nivel;
+		Timestamp fecha=new Timestamp(System.currentTimeMillis());
+	public PartidaTripleta (int pPuntuacion, int pNivel, Timestamp pFecha) {
+		puntuacion = pPuntuacion;
+		nivel = pNivel;
+		fecha = pFecha;
+		}
+}
 }

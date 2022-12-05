@@ -10,7 +10,7 @@ import javax.swing.*;
 
 import com.zetcode.Board;
 
-import controlador.GestorGuardado;
+import controlador.Gestor;
 import controlador.GestorPartida;
 
 @SuppressWarnings("serial")
@@ -84,7 +84,7 @@ public class PausaGuardado extends JFrame {
 		public void actionPerformed(ActionEvent e) { //Botón guardar partida
 			puntero.dispose();
 			board.calcularMatriz();
-			GestorGuardado.getInstancia().guardarPartida(board);
+			Gestor.getInstancia().guardarPartida(board);
 			board.despausar();
 			//Registro.visibilizar();
 		}
