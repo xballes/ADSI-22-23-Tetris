@@ -1,5 +1,7 @@
 package controlador;
 
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 
 public class Gestor {
@@ -53,7 +55,7 @@ public class Gestor {
 		return GestorRanking.getInstancia().obtenerRankingTodosNivelPersonal(pNombre);
 	}
 	
-	public String obtenerRankingNivelPriv(String pNombre,int pNivel) {
+	public ArrayList<Integer> obtenerRankingNivelPriv(String pNombre,int pNivel) {
 		return GestorRanking.getInstancia().obtenerRankingNivelPriv(pNombre, pNivel);
 	}
 	

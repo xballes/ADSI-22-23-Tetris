@@ -1,6 +1,6 @@
 package vista;
 
-import controlador.GestorRanking;
+
 
 public class Main {
 	

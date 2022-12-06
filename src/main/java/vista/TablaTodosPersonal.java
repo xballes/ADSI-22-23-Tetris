@@ -95,7 +95,6 @@ public class TablaTodosPersonal extends JFrame {
 		}
 		
 		contentPane.add(new JPanel(), BorderLayout.WEST);
-		contentPane.add(new JPanel(), BorderLayout.SOUTH);
 		contentPane.add(new JPanel(), BorderLayout.EAST);
 		
 		super.setResizable(false);

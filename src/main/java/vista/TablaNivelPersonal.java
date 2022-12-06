@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +24,7 @@ public class TablaNivelPersonal extends JFrame {
 	private static TablaNivelPersonal puntero;
 	private String nombreUsuario;
 	private int nivel;
+	private ArrayList<Integer> res;
 	
 	public static  void visibilizar(String pNombreUsuario, int pNivel) {	
 		TablaNivelPersonal.puntero = new TablaNivelPersonal(pNombreUsuario, pNivel);
@@ -33,6 +35,7 @@ public class TablaNivelPersonal extends JFrame {
 		nombreUsuario = pNombreUsuario;
 		nivel = pNivel;
 		
+		res = new ArrayList<Integer>();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -52,38 +55,22 @@ public class TablaNivelPersonal extends JFrame {
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 		
 		
-		String res = GestorRanking.getInstancia().obtenerRankingNivelPriv(nombreUsuario,nivel);
-		
-		String[] array = res.split(",");
-		String[] puntos = new String [array.length];
+		res = GestorRanking.getInstancia().obtenerRankingNivelPriv(nombreUsuario,nivel);
 		
 	
-		for(int i=0;i<array.length;i++) {
-			int ind=0;
-			
-			if(array[i].charAt(ind)=='[') {
-				ind++;
-			}
-			
-			String aux="";
-			
-			puntos[i] = array[i].charAt(ind) + aux;
-			
-			ind++;
-		}
-		
-		for(int i=0;i<puntos.length;i++) {
-			System.out.println(puntos[i]);
-		}
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(puntos.length+1, 2, 10, 10));
+		panel.setLayout(new GridLayout(res.size()+1, 2, 10, 10));
 		
 		panel.add(new JLabel("Puntuación"));
 		
-		for(int i=0; i < puntos.length; i++) {
-			panel.add(new JLabel(puntos[i]));
+		for(int i=0; i < res.size(); i++) {
+			
+			String aux = "";
+			String rs =  res.get(i) + aux;
+			panel.add(new JLabel(rs));
+			
 		}
 		
 		contentPane.add(new JPanel(), BorderLayout.WEST);
@@ -98,7 +85,7 @@ public class TablaNivelPersonal extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			MenuRankingPublico.visibilizar(nombreUsuario);
+			MenuRankingPersonal.visibilizar(nombreUsuario);
 		}
 	}
 

@@ -33,7 +33,7 @@ public class TablaTodosGeneral extends JFrame {
 		nombreUsuario = pNombreUsuario;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 800);
+		setBounds(100, 100, 400, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(50, 50));
@@ -117,8 +117,6 @@ public class TablaTodosGeneral extends JFrame {
 		}
 		
 		contentPane.add(new JPanel(), BorderLayout.WEST);
-		contentPane.add(new JPanel(), BorderLayout.SOUTH);
-		contentPane.add(new JPanel(), BorderLayout.EAST);
 		
 		super.setResizable(false);
 		super.setVisible(true);

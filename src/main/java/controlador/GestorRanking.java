@@ -36,7 +36,7 @@ public class GestorRanking {
 			 String nombre  = resul.getString("usuario");
 			 int  nivel = resul.getInt("nivel");
 			 int puntos = resul.getInt("puntosActuales");
-			 Tripleta tri = new Tripleta(nivel, puntos, nombre);
+			 Tripleta tri = new Tripleta(puntos,nivel, nombre);
 			 objeto.add (tri);
 			 cont++;
 			}
@@ -103,7 +103,7 @@ public class GestorRanking {
 			while( resulTodos.next() && cont<10) {
 				int nivel = resulTodos.getInt("nivel");
 				int puntos = resulTodos.getInt("puntosActuales");
-				DuplaTodos dupla = new DuplaTodos(nivel, puntos);
+				DuplaTodos dupla = new DuplaTodos(puntos,nivel);
 				objetos.add(dupla);
 				cont++;
 			}
@@ -119,9 +119,7 @@ public class GestorRanking {
 	}
 	
 	
-	public String obtenerRankingNivelPriv(String pNombre,int pNivel) {
-		
-		Gson json4 = new Gson();
+	public ArrayList obtenerRankingNivelPriv(String pNombre,int pNivel) {
 		
 		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT puntosActuales FROM PUNTUACION WHERE nivel="+pNivel+" && usuario='"+pNombre+"'  ORDER BY puntosActuales DESC");
 		
@@ -139,10 +137,7 @@ public class GestorRanking {
 			
 		}
 		
-		String result1 = json4.toJson(puntuaciones);
-		
-		
-		return result1;
+		return puntuaciones;
 	}
 	
 	
