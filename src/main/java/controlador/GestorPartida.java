@@ -85,7 +85,7 @@ public class GestorPartida {
 		int[][] matriz=new int[BOARD_HEIGHT][BOARD_WIDTH]; 
 		 */
 		//System.out.println(pFecha); //Dec 6, 2022, 4:37:34 PM -> yyyy-mm-dd hh:mm:ss[.fffffffff]
-		String fechaformato;
+		String fechaformato="";
 		String hora="";
 		String minuto="";
 		String segundos="";
@@ -199,6 +199,19 @@ public class GestorPartida {
 		System.out.println(hora);
 		System.out.println(minuto);
 		System.out.println(segundos);
+		fechaformato.concat(anio);
+		fechaformato.concat("-");
+		fechaformato.concat(mes);
+		fechaformato.concat("-");
+		fechaformato.concat(dia);
+		fechaformato.concat(" ");
+		fechaformato.concat(hora);
+		fechaformato.concat(":");
+		fechaformato.concat(minuto);
+		fechaformato.concat(":");
+		fechaformato.concat(segundos);
+		fechaformato.concat("000000");
+		
 		}
 		Timestamp fechaFormato= Timestamp.valueOf(pFecha);
 		String sentenciaSQL = "SELECT alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22 FROM columna WHERE(nombreUsuario='"+pNombreUsuario+"' AND fechaPartida='"+Timestamp.valueOf(pFecha)+"')";
