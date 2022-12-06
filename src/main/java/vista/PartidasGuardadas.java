@@ -23,6 +23,9 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 	private JPanel par;
 	private JPanel par2;
 	private JButton[] botones;
+	private String []puntos;
+	private String []niveles;
+	private String []fechas;
 	private String usuario;
 	private JPanel contentPane;
 
@@ -101,9 +104,9 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 		contentPane.add(panel, BorderLayout.CENTER);
 		String[]p=partidas.split("}");
 		int i=0;
-		String[]puntuacion=new String[p.length-1];
-		String[]nivel=new String[p.length-1];
-		String[]fecha=new String[p.length-1];
+		puntos=new String[p.length-1];
+		niveles=new String[p.length-1];
+		fechas=new String[p.length-1];
 		String aux;
 		i = 0;
 		while (i <= p.length-2) {
@@ -116,7 +119,7 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 				j++;
 
 			}
-			puntuacion[i] = aux;
+			puntos[i] = aux;
 
 			while (p[i].charAt(j) != ':'){j++;}
 			j++;
@@ -127,7 +130,7 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 				j++;
 
 			}
-			nivel[i] = aux;
+			niveles[i] = aux;
 
 			aux = "";
 
@@ -140,30 +143,30 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 
 			}
 			
-			fecha[i] = aux;
+			fechas[i] = aux;
 
 			i++;
 
 		}
-		panel.setLayout(new GridLayout(puntuacion.length+1, 4, 7, 10)); //
+		panel.setLayout(new GridLayout(puntos.length+1, 4, 5, 10)); //
 		panel.add(new JLabel("Puntuación"));
 		panel.add(new JLabel("Nivel"));
 		panel.add(new JLabel("Fecha de la Partida"));
 		panel.add(new JLabel("Botones"));
-		for(int z=0; z < puntuacion.length; z++) {
-			panel.add(new JLabel(puntuacion[z]));
-			//System.out.println(puntuacion[z]);
-			panel.add(new JLabel(nivel[z]));
-			//System.out.println(nivel[z]);
-			panel.add(new JLabel(fecha[z]));
-			//System.out.println(fecha[z]);
-			panel.add(new JButton("Consultar Partida"));
+		Boton[]botonesPartida=new Boton[puntos.length];
+		for(int z=0; z < puntos.length; z++) {
+			panel.add(new JLabel(puntos[z]));
+			panel.add(new JLabel(niveles[z]));
+			panel.add(new JLabel(fechas[z]));
+			botonesPartida[z]=new Boton(z,"Cargar Partida "+(z+1));
+			panel.add(botonesPartida[z]);
+			botonesPartida[z].addActionListener(new Accion2());
+			//botones[z].addActionListener(new ActionListener()) 
+			
 		}
 		System.out.println(partidas);
 		this.contenido.add(panel, BorderLayout.CENTER);
-		System.out.println(fecha[0]);
 	}
-	
 	
 	private class Accion1 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -171,5 +174,19 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 			MenuDeUsuario.visibilizar(usuario);
 			}	
 	}	
-}
 	
+	private class Accion2 implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int id=(((Boton)e.getSource()).id);
+			Gestor.getInstancia().cargarPartida(usuario, fechas[id], puntos[id]);
+			
+		}
+	}
+	private class Boton extends JButton{
+		private int id;
+		public Boton(int id,String string) {
+			super(string);
+			this.id = id;
+		}
+	}
+	}

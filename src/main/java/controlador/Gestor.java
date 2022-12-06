@@ -15,9 +15,6 @@ public class Gestor {
 		return Gestor.puntero;
 	}
 	
-	
-	
-	
 	public boolean verificarUsuario(String pNombre, String pCont) {
 		return GestorUsuarios.getInstancia().verificarUsuario(pNombre, pCont);
 	}
@@ -43,8 +40,8 @@ public class Gestor {
 	public void guardarPartida(Board pPartida) {
 		GestorPartida.getInstancia().guardarPartida(pPartida);
 	}
-	public boolean cargarPartida(String pNombreUsuario){
-		return GestorPartida.getInstancia().cargarPartida(pNombreUsuario);
+	public int[][] cargarPartida(String pNombreUsuario,String pFecha,String pPuntos){
+		return GestorPartida.getInstancia().cargarPartida(pNombreUsuario,pFecha,pPuntos);
 	}
 	public String mostrarPartidas(String pNombreUsuario) {
 		return GestorPartida.getInstancia().mostrarPartidas(pNombreUsuario);

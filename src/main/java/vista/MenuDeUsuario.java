@@ -134,6 +134,7 @@ public class MenuDeUsuario extends JFrame implements Ventana {
 		public void actionPerformed(ActionEvent e) {
 			//Comprobar saves...
 			puntero.dispose();
+			//Gestor.getInstancia().mostrarPartidas(usuario);
 			PartidasGuardadas.visibilizar(usuario);
 			//boolean Resultado=Gestor.getInstancia().cargarPartida(usuario);		
 			//if(Resultado!=false) {
