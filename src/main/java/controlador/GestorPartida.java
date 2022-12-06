@@ -75,148 +75,103 @@ public class GestorPartida {
 		String json = json1.toJson(tripleta);
 		return json;
 	}
+	private String transformarFormato(String entrada) {
+		
+		// Pre: MMM DD, YYYY, HH:MM:SS (A/P)M
+		// Post: YYY-MM-DD HH:MM:SS.000000
+
+		String año = "";
+		String mes = "";
+		String dia = "";
+		String momento = "";
+		
+		int i = 0;
+		
+		while (i < 3) {
+			mes = mes + entrada.charAt(i);
+			i++;
+		}
+		
+		switch (mes) {
+		case "Jan": mes = "01"; break;
+		case "Feb": mes = "02"; break;
+		case "Mar": mes = "03"; break;
+		case "Apr": mes = "04"; break;
+		case "May": mes = "05"; break;
+		case "Jun": mes = "06"; break;
+		case "Jul": mes = "07"; break;
+		case "Ago": mes = "08"; break;
+		case "Sep": mes = "09"; break;
+		case "Oct": mes = "10"; break;
+		case "Nov": mes = "11"; break;
+		case "Dec": mes = "12"; break;
+
+		}
+		
+		i++;
+		while (entrada.charAt(i) != ',') {
+			dia = dia + entrada.charAt(i);
+			i++;
+		}
+		
+		if (dia.length() == 1) {dia = "0" + dia;}
+		
+		i = i+2;
+		
+		while (entrada.charAt(i) != ',') {
+			año = año + entrada.charAt(i);
+			i++;
+		}
+		i++;
+		i++;
+		
+		while (entrada.charAt(i) != ' ') {
+			momento = momento + entrada.charAt(i);
+			i++;
+		}
+		
+		i++;
+		
+		String hora = "";
+		int j = 0;
+		
+		while (momento.charAt(j) != ':') {
+			hora = hora + momento.charAt(j);
+			j++;
+		}	
+		
+		if (entrada.charAt(i) == 'P' && !hora.contentEquals("12") && !hora.contentEquals("0")) {
 	
+			int h = Integer.parseInt(hora);
+			hora =Integer.toString(Integer.parseInt(hora) + 12);
+			
+			if (h < 10) {
+				momento = hora + momento.substring(1, momento.length());
+
+			} else {
+				momento = hora + momento.substring(2, momento.length());
+
+			}
+			
+
+		} else if (hora.length() == 1) {
+			momento = "0" + momento;
+		}
+		else if (hora.contentEquals("12") && entrada.charAt(i) == 'A') {
+			momento = "00" + momento.substring(2, momento.length());
+			}
+		
+		return año+"-"+mes+"-"+dia+" "+momento+".000000";
+		
+		
+	}
 	
 	public int[][] cargarPartida(String pNombreUsuario,String pFecha,String pPuntos){
-		/*BOARD
-		private final int BOARD_WIDTH = 10;   // Cuadrados de largo
-    	private final int BOARD_HEIGHT = 22;  // Cuadrados de alto
-   
-		int[][] matriz=new int[BOARD_HEIGHT][BOARD_WIDTH]; 
-		 */
-		//System.out.println(pFecha); //Dec 6, 2022, 4:37:34 PM -> yyyy-mm-dd hh:mm:ss[.fffffffff]
-		String fechaformato="";
-		String hora="";
-		String minuto="";
-		String segundos="";
-		String anio="";
-		String dia="";
-		String mes="";
-		int i=0;
-		while(i<pFecha.length()) {
-			while(i<3) { //MES
-				mes=mes+pFecha.charAt(i);
-				System.out.println("Bucle1");
-				i++;
-			}
-			System.out.println(mes);
-			switch(mes) {
-			case "Jan":mes="01";
-			break;
-			case "Feb":mes="02";
-			break;
-			case "Mar":mes="03";
-			break;
-			case "Apr":mes="04";
-			break;
-			case "May":mes="05";
-			break;
-			case "Jun":mes="06";
-			break;
-			case "Jul":mes="07";
-			break;
-			case "Aug":mes="08";
-			break;
-			case "Sep":mes="09";
-			break;
-			case "Oct":mes="10";
-			break;
-			case "Nov":mes="11";
-			break;
-			case "Dec":mes="12";
-			break;	
-			
-			}
-			//Dec 6, 2022, 4:37:34 PM -> yyyy-mm-dd hh:mm:ss[.fffffffff]
-			while(pFecha.charAt(i)!=' ') { //AVANZAR
-			i++;	
-			}
-			i++;
-			while(pFecha.charAt(i)!=',') { //DIA
-				dia=dia+pFecha.charAt(i);
-				System.out.println("Bucle2");
-				System.out.println(dia);
-				i++;
-			}
-			i++;
-			if(dia.length()==1) {
-				dia="0"+dia;
-			}
-			while(pFecha.charAt(i)==' ' || pFecha.charAt(i)==',') { //AVANZAR
-				System.out.println("Bucle3");
-				
-				i++;	
-				}
-				i++;
-			while(pFecha.charAt(i)!=',') { //AÑO
-					System.out.println("Bucle4");
-					anio=anio+pFecha.charAt(i);
-					System.out.println(anio);
-					i++;
-					}	
-			i++;
-			while(pFecha.charAt(i)==' ' || pFecha.charAt(i)==',') { //AVANZAR
-				System.out.println("Bucle5");
-				i++;	
-				}
-				i++;
-			while(pFecha.charAt(i)!=':') { //HORA
-				System.out.println("Bucle6");
-				System.out.println(hora);
-				hora=hora+pFecha.charAt(i);
-				i++;
-			}
-			i++;
-			while(pFecha.charAt(i)!=':') { //MINUTOS
-				System.out.println("Bucle7");
-				System.out.println(minuto);
-				minuto=minuto+pFecha.charAt(i);
-				i++;
-			}
-			i++;
-			if(minuto.length()==1) {
-				minuto="0"+minuto;
-			}
-			while(pFecha.charAt(i)!=' ') { //SEGUNDOS
-				System.out.println("Bucle8");
-				System.out.println(segundos);
-				segundos=segundos+pFecha.charAt(i);
-				i++;
-			}
-			if(segundos.length()==1) {
-				segundos="0"+segundos;
-			}
-			while(pFecha.charAt(i)!=' ') {
-				System.out.println("Bucle9");
-				i++;
-			}
-			i++;
-			if(pFecha.charAt(i)=='P') {
-				hora=hora+12;
-			}
-		System.out.println(mes);
-		System.out.println(dia);	
-		System.out.println(hora);
-		System.out.println(minuto);
-		System.out.println(segundos);
-		fechaformato.concat(anio);
-		fechaformato.concat("-");
-		fechaformato.concat(mes);
-		fechaformato.concat("-");
-		fechaformato.concat(dia);
-		fechaformato.concat(" ");
-		fechaformato.concat(hora);
-		fechaformato.concat(":");
-		fechaformato.concat(minuto);
-		fechaformato.concat(":");
-		fechaformato.concat(segundos);
-		fechaformato.concat("000000");
-		
-		}
-		Timestamp fechaFormato= Timestamp.valueOf(pFecha);
-		String sentenciaSQL = "SELECT alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22 FROM columna WHERE(nombreUsuario='"+pNombreUsuario+"' AND fechaPartida='"+Timestamp.valueOf(pFecha)+"')";
-		ResultSet r = SGBD.getInstancia().execSQL(sentenciaSQL);
+		String fechaFormato=transformarFormato(pFecha);
+		System.out.println(fechaFormato);
+		Timestamp fechaCorrecta=Timestamp.valueOf(fechaFormato);
 		int resultado=nivelPartida(pNombreUsuario,pFecha,pPuntos);
+		//System.out.println(resultado);
 		int numcolumnas;
 		if(resultado==1) {
 			numcolumnas=10;
@@ -226,23 +181,43 @@ public class GestorPartida {
 			numcolumnas=14;
 		}
 		int [][]matriz= new int [numcolumnas][22]; // r.getFetchSize() o 22
-		for(int x =0;i<numcolumnas;x++) {
-			String sentenciaSQL2 = "SELECT alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22 FROM columna WHERE(nombreUsuario='"+pNombreUsuario+"' AND fechaPartida='"+pFecha+"' AND numcolumna='"+x+"')"; //Devuelve cada fila de la matriz
+		for(int x =0;x!=numcolumnas;x++) { 
+			/*
+			  - - - - - - - - - - - -
+			  1 2 3 4 5 6 7 8 9 10 11 12  ... 22
+			  - - - - - - - - - - - -
+			  7 7 7 0 0 0 0 0 0 0 0 0 .... (numcolumna=0)
+			  0 0 7 0 0 0 0 0 0 0 0 0 .... (numcolumna=1)
+			  .
+			  .
+			  .
+			  .............................(numcolumna=10)
+			 */
+			String sentenciaSQL2 = "SELECT alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22 FROM columna WHERE(nombreUsuario='"+pNombreUsuario+"' AND fechaPartida='"+fechaCorrecta+"' AND numcolumna='"+x+"')"; //Devuelve cada fila de la matriz
 			ResultSet r2 = SGBD.getInstancia().execSQL(sentenciaSQL2);
 		try {
 			if (r2.next()) {
-				for(int j=0;j<22;j++) {
+				for(int j=0;j!=22;j++) {
 				matriz[x][j]=r2.getInt(j);
 				} 
-				r.close();
+				r2.close();
 		}
 		} catch (SQLException e) {}	
 		}
+		for (int f = 0; f != numcolumnas; f++) {
+    		for (int c = 0; c != 22; c++) {
+    			System.out.print(matriz[f][c]);
+    			System.out.print(" ");
+    		}
+    		System.out.println();
+    	}
 		return matriz;
 	}
-	
 	public int nivelPartida(String pNombreUsuario,String pFecha,String pPuntos){
-		String sentenciaSQL = "SELECT nivel FROM partida WHERE(nombreUsuario='"+pNombreUsuario+"' AND puntuacion='"+Integer.parseInt(pPuntos)+"' AND fechaPartida='"+Timestamp.valueOf(pFecha)+"')";
+		String fechaFormato=transformarFormato(pFecha);
+		//System.out.println(fechaFormato);
+		Timestamp fechaCorrecta=Timestamp.valueOf(fechaFormato);
+		String sentenciaSQL = "SELECT nivel FROM partida WHERE(nombreUsuario='"+pNombreUsuario+"' AND puntuacion='"+Integer.parseInt(pPuntos)+"' AND fechaPartida='"+fechaCorrecta+"')";
 		ResultSet r = SGBD.getInstancia().execSQL(sentenciaSQL);
 		int resultado;
 		try {
@@ -253,6 +228,7 @@ public class GestorPartida {
 			} else {return -1;}
 		} catch (SQLException e) {return -1;}
 	}	
+	
 	
 		private class PartidaTripleta {
 		int puntuacion;
