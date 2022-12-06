@@ -93,7 +93,7 @@ public class GestorRanking {
 	
 		Gson json3 = new Gson();
 		
-		ResultSet resulTodos = SGBD.getInstancia().execSQL("SELECT nivel, puntosActuales FROM PUNTUACION WHERE usuario="+pNombre+" ORDER BY puntosActuales DESC");
+		ResultSet resulTodos = SGBD.getInstancia().execSQL("SELECT nivel, puntosActuales FROM PUNTUACION WHERE usuario='"+pNombre+"' ORDER BY puntosActuales DESC");
 		
 		ArrayList<DuplaTodos> objetos = new ArrayList<DuplaTodos>();
 		
@@ -119,16 +119,34 @@ public class GestorRanking {
 	}
 	
 	
-	public Gson obtenerRankingNivelPriv(int pNivel) {
+	public String obtenerRankingNivelPriv(String pNombre,int pNivel) {
 		
 		Gson json4 = new Gson();
 		
+		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT puntosActuales FROM PUNTUACION WHERE nivel="+pNivel+" && usuario='"+pNombre+"'  ORDER BY puntosActuales DESC");
 		
-		return json4;
+		ArrayList<Integer> puntuaciones = new ArrayList<Integer>();
+		
+		try {
+			int cont=0;
+			while( resulNivel.next() && cont<10) {
+				int puntos = resulNivel.getInt("puntosActuales");
+				puntuaciones.add(puntos);
+				cont++;
+			}
+			
+		} catch (SQLException e) {
+			
+		}
+		
+		String result1 = json4.toJson(puntuaciones);
+		
+		
+		return result1;
 	}
 	
 	
-	//clase privada
+	//clases privadas
 	
 	private class Tripleta {
 		int punt;

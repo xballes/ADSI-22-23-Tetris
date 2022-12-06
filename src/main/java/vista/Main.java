@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.GestorRanking;
 
 public class Main {
 	
@@ -10,9 +11,7 @@ public class Main {
 	
 		MenuPrincipal.visibilizar();
 	
-		
-		
-		
+	
 	}
 }
 

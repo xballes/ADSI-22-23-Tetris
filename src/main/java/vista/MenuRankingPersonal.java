@@ -88,7 +88,7 @@ public class MenuRankingPersonal extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			//TablaNivelGeneral.visibilizar(nombreUsuario, 1);
+			TablaNivelPersonal.visibilizar(nombreUsuario, 1);
 		}
 	}
 	
@@ -96,7 +96,7 @@ public class MenuRankingPersonal extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			//TablaNivelGeneral.visibilizar(nombreUsuario, 2);
+			TablaNivelPersonal.visibilizar(nombreUsuario, 2);
 		}
 	}
 	
@@ -105,7 +105,7 @@ public class MenuRankingPersonal extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			//TablaNivelGeneral.visibilizar(nombreUsuario, 3);
+			TablaNivelPersonal.visibilizar(nombreUsuario, 3);
 		}
 	}
 	

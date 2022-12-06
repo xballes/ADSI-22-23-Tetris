@@ -53,5 +53,9 @@ public class Gestor {
 		return GestorRanking.getInstancia().obtenerRankingTodosNivelPersonal(pNombre);
 	}
 	
+	public String obtenerRankingNivelPriv(String pNombre,int pNivel) {
+		return GestorRanking.getInstancia().obtenerRankingNivelPriv(pNombre, pNivel);
+	}
+	
 	
 }

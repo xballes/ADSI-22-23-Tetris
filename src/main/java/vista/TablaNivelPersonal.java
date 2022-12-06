@@ -1,39 +1,38 @@
 package vista;
 
 import java.awt.BorderLayout;
-
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import controlador.GestorRanking;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import java.awt.GridLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-public class TablaNivelGeneral extends JFrame {
+import controlador.GestorRanking;
+
+
+
+public class TablaNivelPersonal extends JFrame {
 
 	private JPanel contentPane;
-	private static TablaNivelGeneral puntero;
+	private static TablaNivelPersonal puntero;
 	private String nombreUsuario;
 	private int nivel;
 	
-	
 	public static  void visibilizar(String pNombreUsuario, int pNivel) {	
-		TablaNivelGeneral.puntero = new TablaNivelGeneral(pNombreUsuario, pNivel);	
+		TablaNivelPersonal.puntero = new TablaNivelPersonal(pNombreUsuario, pNivel);
 	}
-	
-	private TablaNivelGeneral(String pNombreUsuario, int pNivel) {
+
+	private TablaNivelPersonal(String pNombreUsuario, int pNivel) {
 		
 		nombreUsuario = pNombreUsuario;
 		nivel = pNivel;
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -42,7 +41,8 @@ public class TablaNivelGeneral extends JFrame {
 		contentPane.setLayout(new BorderLayout(50, 50));
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Menu de nivel" + " " + nivel);
+		
+		JLabel lblNewLabel = new JLabel("Menu de nivel" + " " + nivel + " y del usuario: " + nombreUsuario);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
@@ -52,58 +52,38 @@ public class TablaNivelGeneral extends JFrame {
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 		
 		
-		String resul = GestorRanking.getInstancia().obtenerRankingNivelPublico(nivel);
+		String res = GestorRanking.getInstancia().obtenerRankingNivelPriv(nombreUsuario,nivel);
 		
-		String[] array = resul.split("}");
-		String[] puntos = new String [array.length-1];
-		String[] nombre = new String [array.length-1];
+		String[] array = res.split(",");
+		String[] puntos = new String [array.length];
 		
-		
-		for(int i=0; i != array.length-1;i++) {
-			
+	
+		for(int i=0;i<array.length;i++) {
 			int ind=0;
 			
-			while(array[i].charAt(ind)!=':') {
-				ind++;
-			}
-			String aux = "";
-			ind++;
-			
-			while(array[i].charAt(ind)!=',') {
-				aux = aux + array[i].charAt(ind);
+			if(array[i].charAt(ind)=='[') {
 				ind++;
 			}
 			
-			puntos[i] =aux;
-
-			while(array[i].charAt(ind)!=':') {
-				ind++;
-			}
+			String aux="";
+			
+			puntos[i] = array[i].charAt(ind) + aux;
 			
 			ind++;
-			ind++;
-			
-			aux = "";
-			
-			while(array[i].charAt(ind)!='"') {
-				aux = aux + array[i].charAt(ind);
-				ind++;
-			}
-			
-			nombre[i]=aux;
 		}
-			
-
+		
+		for(int i=0;i<puntos.length;i++) {
+			System.out.println(puntos[i]);
+		}
+		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new GridLayout(puntos.length+1, 2, 10, 10));
 		
 		panel.add(new JLabel("Puntuación"));
-		panel.add(new JLabel("Nombre"));
 		
 		for(int i=0; i < puntos.length; i++) {
 			panel.add(new JLabel(puntos[i]));
-			panel.add(new JLabel(nombre[i]));
 		}
 		
 		contentPane.add(new JPanel(), BorderLayout.WEST);
@@ -112,7 +92,8 @@ public class TablaNivelGeneral extends JFrame {
 		super.setResizable(false);
 		super.setVisible(true);
 	}
-
+	
+	
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -120,10 +101,5 @@ public class TablaNivelGeneral extends JFrame {
 			MenuRankingPublico.visibilizar(nombreUsuario);
 		}
 	}
-	
 
-	
-	
-	
-	
 }
