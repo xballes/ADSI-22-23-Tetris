@@ -1,5 +1,9 @@
 package controlador;
 
+import java.util.ArrayList;
+
+import com.zetcode.Board;
+
 public class Gestor {
 
 	private static Gestor puntero;
@@ -37,6 +41,32 @@ public class Gestor {
 	
 	public boolean borrarUsuario(String pNombre) {
 		return GestorUsuarios.getInstancia().borrarUsuario(pNombre);
+	}
+	
+	public String obtenerRankingTodosNivelesPublico() {
+		return GestorRanking.getInstancia().obtenerRankingTodosNivelesPublico();
+	}
+	
+	public String obtenerRankingNivelPublico(int pNivel) {
+		return GestorRanking.getInstancia().obtenerRankingNivelPublico(pNivel);
+	}
+	
+	public String obtenerRankingTodosNivelPersonal(String pNombre) {
+		return GestorRanking.getInstancia().obtenerRankingTodosNivelPersonal(pNombre);
+	}
+	
+	public ArrayList<Integer> obtenerRankingNivelPriv(String pNombre,int pNivel) {
+		return GestorRanking.getInstancia().obtenerRankingNivelPriv(pNombre, pNivel);
+	}
+	
+	public void guardarPartida(Board pPartida) {
+		GestorPartida.getInstancia().guardarPartida(pPartida);
+	}
+	public int[][] cargarPartida(String pNombreUsuario,String pFecha,String pPuntos){
+		return GestorPartida.getInstancia().cargarPartida(pNombreUsuario,pFecha,pPuntos);
+	}
+	public String mostrarPartidas(String pNombreUsuario) {
+		return GestorPartida.getInstancia().mostrarPartidas(pNombreUsuario);
 	}
 	
 }

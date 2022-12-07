@@ -8,51 +8,55 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import com.zetcode.Board;
+
+import controlador.Gestor;
+import controlador.GestorPartida;
+
 @SuppressWarnings("serial")
 
-public class MenuPrincipal extends JFrame {
+public class PausaGuardado extends JFrame {
 	
-	private static MenuPrincipal puntero;
+	private static PausaGuardado puntero;
 	private JPanel contenido;
 	private JLabel titulo;
+	private Board board;
 
 	
 	private JPanel filas;
-	private JButton[] botones; // Registrar, Iniciar Sesion, Recupero cont, Ranking
+	private JButton[] botones; // Guardar partida, volver a la partida.
 
 	
-	public static void visibilizar() {
-		MenuPrincipal.puntero = new MenuPrincipal();
+	public static void visibilizar(Board pPuntero) {
+		PausaGuardado.puntero = new PausaGuardado(pPuntero);
 		
 		
 	}
 	
-	private MenuPrincipal () {
+	private PausaGuardado(Board pPuntero) {
 		// Crear panel principal
-		
+		board=pPuntero;
 		this.contenido = new JPanel();
 		super.setContentPane(this.contenido);
 		this.contenido.setLayout(new BorderLayout(50,50));
 		
 		// Crear titulo
 		
-		this.titulo = new JLabel("Menu Principal", SwingConstants.CENTER);
+		this.titulo = new JLabel("Menú de guardar partida", SwingConstants.CENTER);
 		this.titulo.setFont(new Font(Font.SANS_SERIF, 1, 30));
 		this.contenido.add(this.titulo, BorderLayout.NORTH);
 		
 		// Crear estructura para botones
 		
 		this.filas = new JPanel();
-		this.filas.setLayout(new GridLayout(4,1,5,50));
-		this.botones = new JButton[4];
+		this.filas.setLayout(new GridLayout(2,1,5,50));
+		this.botones = new JButton[2];
 		
-		for (int i = 0; i != 4; i++) {
+		for (int i = 0; i != 2; i++) {
 			String val = null;
 			switch (i) {
-			case 0: val = "Registrarse"; break;
-			case 1: val = "Iniciar Sesión"; break;	
-			case 2: val = "Recuperar Contraseña"; break;	
-			case 3: val = "Ver Ranking General"; break;	
+			case 0: val = "Guardar partida"; break;
+			case 1: val = "Volver a la partida"; break;	
 
 			}
 			
@@ -61,10 +65,6 @@ public class MenuPrincipal extends JFrame {
 		}
 		this.botones[0].addActionListener(new Accion1());
 		this.botones[1].addActionListener(new Accion2());
-		this.botones[2].addActionListener(new Accion3());
-		this.botones[3].addActionListener(new Accion4());
-
-
 		
 		this.contenido.add(this.filas, BorderLayout.CENTER);
 		this.contenido.add(new JPanel(), BorderLayout.WEST);
@@ -81,9 +81,12 @@ public class MenuPrincipal extends JFrame {
 	
 	private class Accion1 implements ActionListener {
 
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) { //Botón guardar partida
 			puntero.dispose();
-			Registro.visibilizar();
+			board.calcularMatriz();
+			Gestor.getInstancia().guardarPartida(board);
+			board.despausar();
+			//Registro.visibilizar();
 		}
 		
 		
@@ -91,37 +94,15 @@ public class MenuPrincipal extends JFrame {
 	}
 	private class Accion2 implements ActionListener {
 
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) { //Botón volver
 			puntero.dispose();
-			InicioSesion.visibilizar();
-		}
-		
-		
-	}
-	
-	private class Accion3 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			RecuperoContraseña.visibilizar();
-		}
-		
-		
-	}
-	
-	private class Accion4 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			MenuRankingPublico.visibilizar(null);		
+			board.despausar();
+			//InicioSesion.visibilizar();
+			
 			
 		}
 		
 		
-	}
-	
-	
+	}	
 }
 	
-	
-

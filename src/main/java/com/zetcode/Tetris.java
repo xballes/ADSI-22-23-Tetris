@@ -2,6 +2,8 @@ package com.zetcode;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.sql.Timestamp;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -10,19 +12,33 @@ import org.apache.logging.log4j.Logger;
 
 /*
 Java Tetris game clone
-
 Author: Jan Bodnar
 Website: https://zetcode.com
  */
+@SuppressWarnings("serial")
 public class Tetris extends JFrame {
 	
 	private static final Logger logger = LogManager.getLogger(Tetris.class);
 
+	private static Tetris puntero;
+	
+	private String nombreUsuario;
+	private Timestamp fechaDeSave;
+	
+	
     private JLabel statusbar; // Puntuación
 
-    public Tetris() {
-
+    
+    
+    private Tetris(String pUser, Timestamp fechaSave) {
+    	this.nombreUsuario = pUser;
+    	this.fechaDeSave = fechaSave;
         initUI();
+    }
+    
+    public static Tetris getInstancia(String pUser, Timestamp fechaSave) {
+    	Tetris.puntero = new Tetris(pUser, fechaSave);
+    	return Tetris.puntero;
     }
 
     private void initUI() {
@@ -42,23 +58,19 @@ public class Tetris extends JFrame {
         setLocationRelativeTo(null);
 
     }
+    
+    public String getNombreUsuario() {
+    	return this.nombreUsuario;
+    }
+    
+    public Timestamp getFechaSave() {
+    	return this.fechaDeSave;
+    }
 
     JLabel getStatusBar() {
 
         return statusbar;
     }
 
-    public static void main(String[] args) {
-
-    	logger.info("Playing");
-        EventQueue.invokeLater(() -> {
-
-        	
-        	// EL JUEGO INICIA AQUI, LA AUTENTIFICACION DEL USUARIO DEBE VENIR ANTES DE ESTO
-            var game = new Tetris();
-            game.setVisible(true);
-            
-            
-        });
-    }
+  
 }

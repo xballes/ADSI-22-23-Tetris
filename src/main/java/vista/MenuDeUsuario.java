@@ -127,7 +127,18 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion2 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A CARGAR PARTIDA (EL QUE SE ENCARGA DE GUARDAR PARTIDA ES EL QUE IMPLEMENTA ESTO)
+			//Comprobar saves...
+			puntero.dispose();
+			//Gestor.getInstancia().mostrarPartidas(usuario);
+			PartidasGuardadas.visibilizar(usuario);
+			//boolean Resultado=Gestor.getInstancia().cargarPartida(usuario);		
+			//if(Resultado!=false) {
+				//PopUp.visibilizar("La partida se ha cargado correctamente", puntero);	
+			//}
+			//else {
+				//PopUp.visibilizar("La partida no se ha cargado correctamente", puntero);
+				
+			//}
 		}
 		
 		
@@ -145,7 +156,9 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion4 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// VER RANKING GENERAL
+			puntero.dispose();
+			MenuRankingPublico.visibilizar(usuario);
+			
 		}
 		
 		
@@ -154,7 +167,9 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion5 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// VER RANKING PERSONAL
+			puntero.dispose();
+			MenuRankingPersonal.visibilizar(usuario);
+			
 		}
 		
 		

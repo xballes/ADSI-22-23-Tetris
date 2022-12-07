@@ -2,6 +2,8 @@ package com.zetcode;
 
 import com.zetcode.Shape.Tetrominoe;
 
+import vista.PausaGuardado;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -11,13 +13,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Timestamp;
 
 public class Board extends JPanel {
-
     private final int BOARD_WIDTH = 10;   // Cuadrados de largo
     private final int BOARD_HEIGHT = 22;  // Cuadrados de alto
     private final int PERIOD_INTERVAL = 300;
-
     private Timer timer;
     private boolean isFallingFinished = false;
     private boolean isPaused = false;     // Juego en pausa si true, despausa si false
@@ -27,10 +28,15 @@ public class Board extends JPanel {
     private JLabel statusbar;             // Imagen del numero de puntuacion de abajo en la pantalla
     private Shape curPiece;               // Puntero a la pieza actual en movimiento
     private Tetrominoe[] board;           // Lista de las piezas en pantalla??
+    
+    
+    private Tetris puntero;
+    private boolean tetris; // Se hizo un tetris???
+
 
     public Board(Tetris parent) {
-
         initBoard(parent);
+        this.tetris = false;
     }
 
     private void initBoard(Tetris parent) {
@@ -38,7 +44,10 @@ public class Board extends JPanel {
         setFocusable(true); // Dar focus para poder meter inputs sin tener que pinchar en la ventana
         statusbar = parent.getStatusBar(); // Pointer al label de los puntos de la clase Tetris
         addKeyListener(new TAdapter());  // KeyListener, la clase privada, que maneja que acciones se hacen tras hacer ciertos inputs.
+        puntero=parent;
     }
+    
+    
 
     private int squareWidth() {
 
@@ -68,18 +77,16 @@ public class Board extends JPanel {
     }
 
     private void pause() {
-
-        isPaused = !isPaused; // Si pausa, despausa. Si jugando, pausa
-
-        if (isPaused) {  // Si se quiere pausar
-
-            statusbar.setText("paused");  // Cambiar el texto del label de la pantalla a PAUSED
-        } else {
-
-            statusbar.setText(String.valueOf(numLinesRemoved)); // Cambiar el texto de label de la pantalla al numero de lineas limpiadas
-        }
-
+    
+        isPaused = true; // Si pausa, despausa. Si jugando, pausa
+        puntero.setVisible(false);
+        PausaGuardado.visibilizar(this);
         repaint();
+    }
+    public void despausar() {
+    	isPaused = false;
+    	 puntero.setVisible(true);
+    	 repaint();
     }
 
     @Override
@@ -254,6 +261,10 @@ public class Board extends JPanel {
             statusbar.setText(String.valueOf(numLinesRemoved));
             isFallingFinished = true;
             curPiece.setShape(Tetrominoe.NoShape);
+            
+            if (numFullLines == 4) {this.tetris = true;}
+            
+            
         }
     }
 
@@ -280,8 +291,70 @@ public class Board extends JPanel {
         g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
                 x + squareWidth() - 1, y + 1);
     }
+    
+    public int[][] calcularMatriz(){
+    	int[][] matriz=new int[BOARD_HEIGHT][BOARD_WIDTH];
+    	
+    	for (int f = BOARD_HEIGHT-1; f != -1; f--) {
+    		
+    		for (int c = 0; c != BOARD_WIDTH; c++) {
+    			
+    			Tetrominoe p = this.shapeAt(c, f);
+    			int val;
+    	        if (p == Tetrominoe.NoShape) {val = 0;}
+    	        else if (p == Tetrominoe.ZShape) {val = 1;}
+    	        else if (p == Tetrominoe.SShape) {val = 2;}
+    	        else if (p == Tetrominoe.LineShape) {val = 3;}
+    	        else if (p == Tetrominoe.TShape) {val = 4;}
+    	        else if (p == Tetrominoe.SquareShape) {val = 5;}
+    	        else if (p == Tetrominoe.LShape) {val = 6;}
+    	        else /* if p == Tetrominoe.LaPiezaQueFalta*/{val = 7;}
+    	        matriz[f][c] = val;
+    			
+    		}
+    	}
+    	
+    	for (int f = 0; f != BOARD_HEIGHT; f++) {
+    		
+    		for (int c = 0; c != BOARD_WIDTH; c++) {
+    			
+    			System.out.print(matriz[f][c]);
+    			System.out.print(" ");
+    			
+    		}
+    		System.out.println();
+    	}
+    	
+    	
+    	
 
-    private class GameCycle implements ActionListener {
+    	return matriz;
+    	
+    }
+    
+
+    public int getBOARD_WIDTH() {
+		return BOARD_WIDTH;
+	}
+
+	public int getBOARD_HEIGHT() {
+		return BOARD_HEIGHT;
+	}
+	
+	public int getNumLinesRemoved() {
+		return numLinesRemoved;
+	}
+	
+    public String getNombreUsuario() {return this.puntero.getNombreUsuario();}
+    
+    public Timestamp getFechaSave() {
+    	return this.puntero.getFechaSave();
+    }
+    
+    public boolean getTetrisRealizado() {return this.tetris;}
+
+
+	private class GameCycle implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
