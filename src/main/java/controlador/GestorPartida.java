@@ -48,16 +48,27 @@ public class GestorPartida {
 		// Mirar si ya se hizo una save antes de esta partida, si es el caso sobrescribir la anterior
 		
 		if (fecha != null) {
-			SGBD.getInstancia().execSQLVoid("DELETE FROM columna WHERE fechaPartida='"+fecha+"' && nombreUsuario='"+usuario+"'");
-			SGBD.getInstancia().execSQLVoid("UPDATE partida SET fechaPartida='"+fechaAct+"' WHERE fechaPartida='"+fecha+"' && nombreUsuario='"+usuario+"'");
+			SGBD.getInstancia().execSQLVoid("DELETE FROM columna WHERE fechaPartida='"+fecha+"' AND nombreUsuario='"+usuario+"'");
+			SGBD.getInstancia().execSQLVoid("UPDATE partida SET fechaPartida='"+fechaAct+"' WHERE fechaPartida='"+fecha+"' AND nombreUsuario='"+usuario+"'");
 		} else {
 			SGBD.getInstancia().execSQLVoid("INSERT INTO partida VALUES ('"+usuario+"','"+fechaAct+"','"+puntuacion+"',"+nivel+")");
 
 		}
 		
-	
+		// En el caso que se hiciera un tetris en esta partida, mirar si tiene el logro o no para darselo ahora
+		
 		if (pPartida.getTetrisRealizado()) {
-			// CHECK PARA AÑADIR LOGRO AQUI
+			boolean tieneLogro = false;
+			ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM usuariopremio WHERE nombreUsuario = '"+usuario+"' AND nombrePremio = 'Tetris!'");
+			try {
+				tieneLogro = r.next();
+			} catch (Exception e) {}
+			
+			if (!tieneLogro) {
+				SGBD.getInstancia().execSQLVoid("INSERT INTO usuariopremio VALUES ('"+usuario+"','Tetris!','"+fechaAct+"')");
+
+			}
+			
 		}
 	
 
