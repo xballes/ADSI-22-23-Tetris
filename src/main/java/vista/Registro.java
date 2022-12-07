@@ -122,7 +122,7 @@ public class Registro extends JFrame implements Ventana {
 			case 1: PopUp.visibilizar("Error: campos entre 1 y 30 chars", puntero); break;
 			case 2: PopUp.visibilizar("Error: Nombre ya en uso", puntero); break;
 			case 3: PopUp.visibilizar("Error: Email ya en uso", puntero); break;
-
+			case 4: PopUp.visibilizar("Error: Usa alfanuméricos en campos", puntero);
 			
 			}
 		}
