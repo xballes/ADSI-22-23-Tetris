@@ -2,6 +2,7 @@ package com.zetcode;
 
 import com.zetcode.Shape.Tetrominoe;
 
+import vista.GameOver;
 import vista.PausaGuardado;
 
 import javax.swing.JLabel;
@@ -16,9 +17,9 @@ import java.awt.event.KeyEvent;
 import java.sql.Timestamp;
 
 public class Board extends JPanel {
-    private final int BOARD_WIDTH = 10;   // Cuadrados de largo
-    private final int BOARD_HEIGHT = 22;  // Cuadrados de alto
-    private final int PERIOD_INTERVAL = 300;
+    private int BOARD_WIDTH;   // Cuadrados de largo
+    private int BOARD_HEIGHT;  // Cuadrados de alto
+    private int PERIOD_INTERVAL;
     private Timer timer;
     private boolean isFallingFinished = false;
     private boolean isPaused = false;     // Juego en pausa si true, despausa si false
@@ -32,7 +33,7 @@ public class Board extends JPanel {
     
     private Tetris puntero;
     private boolean tetris; // Se hizo un tetris???
-
+    private int nivel;
 
     public Board(Tetris parent) {
         initBoard(parent);
@@ -189,12 +190,15 @@ public class Board extends JPanel {
         curY = BOARD_HEIGHT - 1 + curPiece.minY();
 
         if (!tryMove(curPiece, curX, curY)) {
-
             curPiece.setShape(Tetrominoe.NoShape);
             timer.stop();
 
-            var msg = String.format("Game over. Score: %d", numLinesRemoved);
-            statusbar.setText(msg);
+            
+            this.puntero.dispose();
+            GameOver.visibilizar(this.getNombreUsuario(), this.numLinesRemoved, this.nivel, getFechaSave());
+            
+     //       var msg = String.format("Game over. Score: %d", numLinesRemoved);
+     //       statusbar.setText(msg);
         }
     }
 
@@ -349,6 +353,30 @@ public class Board extends JPanel {
     
     public Timestamp getFechaSave() {
     	return this.puntero.getFechaSave();
+    }
+    
+    
+    public void setDif(int pDif) {
+    	
+    	this.BOARD_HEIGHT = 22;
+    	
+    	
+    	if (pDif == 1) {
+    		this.BOARD_WIDTH = 10;
+    		this.PERIOD_INTERVAL = 300;
+    		
+    	} else if (pDif == 2) {
+    		this.BOARD_WIDTH = 12;
+    		this.PERIOD_INTERVAL = 280;
+
+    	} else {
+    		this.BOARD_WIDTH = 14;
+    		this.PERIOD_INTERVAL = 260;
+
+    	}
+    
+    	this.nivel = pDif;
+    	
     }
     
     public boolean getTetrisRealizado() {return this.tetris;}

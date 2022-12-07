@@ -163,7 +163,7 @@ public class GestorPartida {
     	} */
 	}
 	public int nivelPartida(String pNombreUsuario,String pFecha,String pPuntos){
-		String fechaFormato=transformarFormato(pFecha);
+		String fechaFormato=this.transformarFormato(pFecha);
 		Timestamp fechaCorrecta=Timestamp.valueOf(fechaFormato);
 		String sentenciaSQL = "SELECT nivel FROM partida WHERE(nombreUsuario='"+pNombreUsuario+"' AND puntuacion='"+Integer.parseInt(pPuntos)+"' AND fechaPartida='"+fechaCorrecta+"')";
 		ResultSet r = SGBD.getInstancia().execSQL(sentenciaSQL);
@@ -175,7 +175,16 @@ public class GestorPartida {
 				return resultado;
 			} else {return -1;}
 		} catch (SQLException e) {return -1;}
-	}	
+	}
+	
+	
+	
+	public void borrarPartida(String pUser, Timestamp fecha) {
+		SGBD.getInstancia().execSQLVoid("DELETE FROM partida WHERE nombreUsuario = '"+pUser+"' AND fechaPartida = '"+fecha+"'");
+		
+	}
+	
+
 	
 	private String transformarFormato(String entrada) {
 		
@@ -267,8 +276,6 @@ public class GestorPartida {
 		
 		
 	}
-	
-	
 	
 	private class PartidaTripleta {
 		@SuppressWarnings("unused")

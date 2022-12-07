@@ -30,18 +30,18 @@ public class Tetris extends JFrame {
 
     
     
-    private Tetris(String pUser, Timestamp fechaSave) {
+    private Tetris(String pUser, Timestamp fechaSave, int pNivel) {
     	this.nombreUsuario = pUser;
     	this.fechaDeSave = fechaSave;
-        initUI();
+        initUI(pNivel);
     }
     
-    public static Tetris getInstancia(String pUser, Timestamp fechaSave) {
-    	Tetris.puntero = new Tetris(pUser, fechaSave);
+    public static Tetris getInstancia(String pUser, Timestamp fechaSave, int pNivel) {
+    	Tetris.puntero = new Tetris(pUser, fechaSave, pNivel);
     	return Tetris.puntero;
     }
 
-    private void initUI() {
+    private void initUI(int pNivel) {
     	
     	// Inicializar la ventana de juego
 
@@ -50,12 +50,14 @@ public class Tetris extends JFrame {
 
         var board = new Board(this);
         add(board);
+        board.setDif(pNivel);
         board.start();
 
         setTitle("Tetris");
         setSize(200, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setVisible(true);
 
     }
     

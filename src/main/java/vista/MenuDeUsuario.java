@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import com.zetcode.Tetris;
+
 @SuppressWarnings("serial")
 
 public class MenuDeUsuario extends JFrame {
@@ -117,6 +119,10 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
+			
+			puntero.dispose();
+			Tetris.getInstancia(usuario, null, 1);
+			
 			// LLAMADA A NIVELES
 
 		}

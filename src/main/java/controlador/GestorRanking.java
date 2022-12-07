@@ -141,6 +141,11 @@ public class GestorRanking {
 	}
 	
 	
+	public void publicarPuntuacion(String pUser, int pPuntos, int pNivel) {
+		SGBD.getInstancia().execSQLVoid("INSERT INTO puntuacion(nivel, puntosActuales, usuario) VALUES ("+pNivel+", "+pPuntos+",'"+pUser+"')");
+	}
+	
+	
 	//clases privadas
 	
 	private class Tripleta {

@@ -50,7 +50,7 @@ public class GestorUsuarios {
 			if (r2.next()) {r.close(); r2.close(); return 3;}
 			else {
 				
-				SGBD.getInstancia().execSQLVoid("INSERT INTO USUARIO VALUES('"+pNombre+"', '"+pCont+"', '"+pMail+"', 1, 1, 1)");
+				SGBD.getInstancia().execSQLVoid("INSERT INTO USUARIO VALUES('"+pNombre+"', '"+pCont+"', '"+pMail+"', 1, 1, 1, 0)");
 				r.close(); r2.close();
 				return 0;
 			
@@ -167,6 +167,26 @@ public class GestorUsuarios {
 		
 		return val;
 	}
+	
+	
+	public void sumarVictoriaA(String pUser) {
+		
+		SGBD.getInstancia().execSQLVoid("UPDATE usuario SET victorias = victorias + 1 WHERE nombre = '"+pUser+"'");
+		
+	}
+	
+	
+	public int obtenerNumVictoriasDe(String pUser) {
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT victorias FROM usuario WHERE nombre = '"+pUser+"'");
+		
+		try {
+			r.next();
+			int val = r.getInt("victorias");
+			r.close();
+			return val;
+		} catch (Exception e) {return -1;}
+	}
+	
 	
 	
 	// EXCLUSIVO PARA JUNIT

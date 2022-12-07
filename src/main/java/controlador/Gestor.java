@@ -1,5 +1,7 @@
 package controlador;
 
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import com.zetcode.Board;
@@ -43,6 +45,15 @@ public class Gestor {
 		return GestorUsuarios.getInstancia().borrarUsuario(pNombre);
 	}
 	
+	public void sumarVictoriaA(String pUser) {
+		GestorUsuarios.getInstancia().sumarVictoriaA(pUser);
+	}
+	
+	public int obtenerNumVictoriasDe(String pUser) {
+		return GestorUsuarios.getInstancia().obtenerNumVictoriasDe(pUser);
+
+	}
+	
 	public String obtenerRankingTodosNivelesPublico() {
 		return GestorRanking.getInstancia().obtenerRankingTodosNivelesPublico();
 	}
@@ -59,6 +70,10 @@ public class Gestor {
 		return GestorRanking.getInstancia().obtenerRankingNivelPriv(pNombre, pNivel);
 	}
 	
+	public void publicarPuntuacion(String pUser, int pPuntos, int pNivel) {
+		GestorRanking.getInstancia().publicarPuntuacion(pUser, pPuntos, pNivel);
+	}
+	
 	public void guardarPartida(Board pPartida) {
 		GestorPartida.getInstancia().guardarPartida(pPartida);
 	}
@@ -69,4 +84,17 @@ public class Gestor {
 		return GestorPartida.getInstancia().mostrarPartidas(pNombreUsuario);
 	}
 	
+	public void borrarPartida(String pUser, Timestamp fecha) {
+		GestorPartida.getInstancia().borrarPartida(pUser, fecha);
+	}
+	
+	public boolean tieneElPremio(String pUser, int id) {
+		return GestorPremios.getInstancia().tieneElPremio(pUser, id);
+	}
+	
+	public void darPremio(String pUser, int id, Timestamp pFecha) {
+		GestorPremios.getInstancia().darPremio(pUser, id, pFecha);
+	}
+	
+
 }
