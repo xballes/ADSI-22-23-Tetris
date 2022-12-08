@@ -16,6 +16,7 @@ import java.util.Date;
 import org.mariadb.jdbc.client.result.ResultSetMetaData;
 
 import com.zetcode.Board;
+import com.zetcode.Tetris;
 
 public class GestorPartida {
 
@@ -32,13 +33,13 @@ public class GestorPartida {
 	}
 	
 	public void guardarPartida(Board pPartida) {
-		int[][]matriz=pPartida.calcularMatriz(); 
+		int[][]matriz=pPartida.calcularMatriz();
 		LocalDate now = LocalDate.now();
 		Timestamp fecha=new Timestamp(System.currentTimeMillis());
 		fecha.setNanos(0);
 		int puntuacion=pPartida.getNumLinesRemoved();
 		String nombreUsuario=pPartida.getNombreUsuario();
-		SGBD.getInstancia().execSQLVoid("INSERT INTO partida VALUES ('"+pPartida.getNombreUsuario()+"','"+fecha+"','"+puntuacion+"',1)");
+		SGBD.getInstancia().execSQLVoid("INSERT INTO partida VALUES ('"+pPartida.getNombreUsuario()+"','"+fecha+"','"+puntuacion+"',1)"); //1 es el nivel(temporal)
 		int numcolumnas=pPartida.getBOARD_WIDTH(); //i -> numcolumna
 		int numaltura=pPartida.getBOARD_HEIGHT(); //j-> numaltura
 		int i =0;
@@ -46,7 +47,7 @@ public class GestorPartida {
 		while(i<numcolumnas) {
 			String sentenciaSQL = "INSERT INTO columna VALUES('"+i+"','"+matriz[0][i]+"','"+matriz[1][i]+"','"+matriz[2][i]+"','"+matriz[3][i]+"','"+matriz[4][i]+"','"+matriz[5][i]+"','"+matriz[6][i]+"','"+matriz[7][i]+"','"+matriz[8][i]+"','"+matriz[9][i]+"','"+matriz[10][i]+"','"+matriz[11][i]+"','"+matriz[12][i]+"','"+matriz[13][i]+"','"+matriz[14][i]+"','"+matriz[15][i]+"','"+matriz[16][i]+"','"+matriz[17][i]+"','"+matriz[18][i]+"','"+matriz[19][i]+"','"+matriz[20][i]+"','"+matriz[21][i]+"','"+fecha+"','"+pPartida.getNombreUsuario()+"')";
 			SGBD.getInstancia().execSQLVoid(sentenciaSQL);                                                                                                                                                                                             
-			System.out.println(matriz[0][i]);
+			//System.out.println(matriz[0][i]);
 			i++;	
 		}	
 	}
@@ -180,38 +181,44 @@ public class GestorPartida {
 		}else {
 			numcolumnas=14;
 		}
-		int [][]matriz= new int [numcolumnas][22]; // r.getFetchSize() o 22
+		int [][]matriz= new int [numcolumnas][22]; //22
 		for(int x =0;x!=numcolumnas;x++) { 
-			/*
-			  - - - - - - - - - - - -
-			  1 2 3 4 5 6 7 8 9 10 11 12  ... 22
-			  - - - - - - - - - - - -
-			  7 7 7 0 0 0 0 0 0 0 0 0 .... (numcolumna=0)
-			  0 0 7 0 0 0 0 0 0 0 0 0 .... (numcolumna=1)
-			  .
-			  .
-			  .
-			  .............................(numcolumna=10)
-			 */
 			String sentenciaSQL2 = "SELECT alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22 FROM columna WHERE(nombreUsuario='"+pNombreUsuario+"' AND fechaPartida='"+fechaCorrecta+"' AND numcolumna='"+x+"')"; //Devuelve cada fila de la matriz
 			ResultSet r2 = SGBD.getInstancia().execSQL(sentenciaSQL2);
 		try {
 			if (r2.next()) {
-				for(int j=0;j!=22;j++) {
-				matriz[x][j]=r2.getInt(j);
-				} 
+				for(int j=1;j!=22;j++) {
+					matriz[x][j]=r2.getInt(j);		
+			}
 				r2.close();
 		}
-		} catch (SQLException e) {}	
+	} catch (SQLException e) {}	
 		}
-		for (int f = 0; f != numcolumnas; f++) {
-    		for (int c = 0; c != 22; c++) {
+		/*for (int f = 0; f != numcolumnas; f++) {
+    		for (int c = 1; c != 22; c++) {
     			System.out.print(matriz[f][c]);
     			System.out.print(" ");
     		}
     		System.out.println();
-    	}
+    	}*/
+		Tetris t = new Tetris();
+		t.setVisible(true);
+		Board b = new Board(t, pNombreUsuario);
+		b.volcarMatriz(matriz);
+		b.setVisible(true); 	
 		return matriz;
+		
+		/*
+		  - - - - - - - - - - - -
+		  1 2 3 4 5 6 7 8 9 10 11 12  ... 22
+		  - - - - - - - - - - - -
+		  7 7 7 0 0 0 0 0 0 0 0 0 .... (numcolumna=0)
+		  0 0 7 0 0 0 0 0 0 0 0 0 .... (numcolumna=1)
+		  .
+		  .
+		  .
+		  .............................(numcolumna=10)
+		 */
 	}
 	public int nivelPartida(String pNombreUsuario,String pFecha,String pPuntos){
 		String fechaFormato=transformarFormato(pFecha);

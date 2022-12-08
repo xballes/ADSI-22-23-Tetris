@@ -38,7 +38,7 @@ public class Gestor {
 		return GestorUsuarios.getInstancia().borrarUsuario(pNombre);
 	}
 	public void guardarPartida(Board pPartida) {
-		GestorPartida.getInstancia().guardarPartida(pPartida);
+		 GestorPartida.getInstancia().guardarPartida(pPartida);
 	}
 	public int[][] cargarPartida(String pNombreUsuario,String pFecha,String pPuntos){
 		return GestorPartida.getInstancia().cargarPartida(pNombreUsuario,pFecha,pPuntos);
