@@ -1,6 +1,5 @@
 package controlador;
 
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 

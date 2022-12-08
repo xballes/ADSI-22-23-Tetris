@@ -195,7 +195,7 @@ public class Board extends JPanel {
 
             
             this.puntero.dispose();
-            GameOver.visibilizar(this.getNombreUsuario(), this.numLinesRemoved, this.nivel, getFechaSave());
+            GameOver.visibilizar(this.getNombreUsuario(), this.numLinesRemoved, this.nivel, getFechaSave(), this.tetris);
             
      //       var msg = String.format("Game over. Score: %d", numLinesRemoved);
      //       statusbar.setText(msg);
@@ -265,6 +265,7 @@ public class Board extends JPanel {
             statusbar.setText(String.valueOf(numLinesRemoved));
             isFallingFinished = true;
             curPiece.setShape(Tetrominoe.NoShape);
+            
             
             if (numFullLines == 4) {this.tetris = true;}
             
@@ -367,11 +368,11 @@ public class Board extends JPanel {
     		
     	} else if (pDif == 2) {
     		this.BOARD_WIDTH = 12;
-    		this.PERIOD_INTERVAL = 280;
+    		this.PERIOD_INTERVAL = 230;
 
     	} else {
     		this.BOARD_WIDTH = 14;
-    		this.PERIOD_INTERVAL = 260;
+    		this.PERIOD_INTERVAL = 150;
 
     	}
     

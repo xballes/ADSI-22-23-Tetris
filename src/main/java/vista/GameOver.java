@@ -28,15 +28,15 @@ public class GameOver extends JFrame {
 	private int nivel;
 	private Timestamp fechaSave;
 	private boolean victoria;
+	private boolean tetris;
 	
-	
-	public static  void visibilizar(String pNombreUsuario,int pPuntos, int pNivel, Timestamp fechaSave) {
-		GameOver.puntero = new GameOver(pNombreUsuario,pPuntos, pNivel, fechaSave);		
+	public static  void visibilizar(String pNombreUsuario,int pPuntos, int pNivel, Timestamp fechaSave, boolean pTetris) {
+		GameOver.puntero = new GameOver(pNombreUsuario,pPuntos, pNivel, fechaSave, pTetris);		
 		
 	}
 	
-	public GameOver(String pNombreUsuario, int pPuntos, int pNivel, Timestamp fechaSave) {
-		
+	public GameOver(String pNombreUsuario, int pPuntos, int pNivel, Timestamp fechaSave, boolean pTetris) {
+		this.tetris = pTetris;
 		nombreUsuario = pNombreUsuario;
 		puntos = pPuntos;
 		this.nivel = pNivel;
@@ -53,7 +53,7 @@ public class GameOver extends JFrame {
 		int puntosNecesariosParaVictoria = 0;
 		
 		switch (pNivel) {
-		case 1: puntosNecesariosParaVictoria = 0; break;
+		case 1: puntosNecesariosParaVictoria = 15; break;
 		case 2: puntosNecesariosParaVictoria = 30; break;
 		case 3: puntosNecesariosParaVictoria = 45; break;
 		}
@@ -110,13 +110,13 @@ public class GameOver extends JFrame {
 			// AÑADIR SCORE
 			Gestor.getInstancia().publicarPuntuacion(nombreUsuario, puntos, nivel);
 			
-			// CHECKEAR LOGROS
-			
+			// CHECKEAR LOGROS DE VICTORIAS
+			Timestamp ahora = new Timestamp(System.currentTimeMillis());
+
 			if (victoria) { // Si pierde no se puede obtener un logro por ganar X partidas, en cuyo caso esta rama es omitible
 				
 				Gestor.getInstancia().sumarVictoriaA(nombreUsuario);
 				int numVics = Gestor.getInstancia().obtenerNumVictoriasDe(nombreUsuario);
-				Timestamp ahora = new Timestamp(System.currentTimeMillis());
 				ahora.setNanos(0);
 				
 				
@@ -133,6 +133,13 @@ public class GameOver extends JFrame {
 				
 				
 			}
+			
+			// CHECKEAR LOGRO DE TETRIS
+			
+			if (tetris && !Gestor.getInstancia().tieneElPremio(nombreUsuario, 3)) {
+				Gestor.getInstancia().darPremio(nombreUsuario, 3, ahora);
+			}
+
 			
 			// BORRAR SAVE SI HUBIESE
 			

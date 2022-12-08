@@ -22,6 +22,13 @@ public class GestorRanking {
 	
 	public String obtenerRankingTodosNivelesPublico() {
 		
+		/* Pre: NULL
+		 * Post: String en formato JSON con el Top 10 puntuaciones de todos los tiempos 
+		         identificado por user, nivel y puntuacion
+		  
+		  
+		 */
+		
 		Gson json1 = new Gson();
 		
 		
@@ -56,6 +63,12 @@ public class GestorRanking {
 	
 	
 	public String obtenerRankingNivelPublico(int pNivel) {
+		
+		/* Pre: Nivel 1-3
+		 * Post: String en formato JSON con el Top 10 puntuaciones de ese nivel
+		        identificado por user y puntuacion
+		  
+		 */
 	
 		Gson json2 = new Gson();
 		
@@ -87,9 +100,15 @@ public class GestorRanking {
 		
 	}
 	
-	//metodos para ver ranking privado
 	
 	public String obtenerRankingTodosNivelPersonal(String pNombre) {
+		
+		/* Pre: Nombre de user en BD
+		 * Post: String en formato JSON con el Top 10 puntuaciones de ese user
+		        identificado por nivel y puntuacion
+		  
+		 */
+		
 	
 		Gson json3 = new Gson();
 		
@@ -121,6 +140,13 @@ public class GestorRanking {
 	
 	public ArrayList<Integer> obtenerRankingNivelPriv(String pNombre,int pNivel) {
 		
+		/* Pre: User en BD, Nivel 1-3
+		 * Post: String en formato JSON con el Top 10 puntuaciones de ese nivel por ese user
+		        identificado por puntuacion
+		  
+		 */
+		
+		
 		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT puntosActuales FROM PUNTUACION WHERE nivel="+pNivel+" && usuario='"+pNombre+"'  ORDER BY puntosActuales DESC");
 		
 		ArrayList<Integer> puntuaciones = new ArrayList<Integer>();
@@ -142,14 +168,25 @@ public class GestorRanking {
 	
 	
 	public void publicarPuntuacion(String pUser, int pPuntos, int pNivel) {
+		
+		/* Pre: User en BD, nivel 1-3
+		 * Post: Puntuación insertada en BD
+		  
+		  
+		  
+		 */
+		
+		
 		SGBD.getInstancia().execSQLVoid("INSERT INTO puntuacion(nivel, puntosActuales, usuario) VALUES ("+pNivel+", "+pPuntos+",'"+pUser+"')");
 	}
 	
 	
-	//clases privadas
+	// Tuplas para poder almacenar varios valores a la vez y convertirlos a JSON
+	
+	// @SuppressWarnings --> Los atributos flageados como unused se usan para fabricar el JSON, pero el IDE no es capaz de deducirlo
 	
 	private class Tripleta {
-		@SuppressWarnings("unused")  // Se usan en el JSON impreso, pero el IDE no es capaz de deducirlo
+		@SuppressWarnings("unused")  
 		int punt;
 		@SuppressWarnings("unused")
 		int nivel;

@@ -121,7 +121,7 @@ public class MenuDeUsuario extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			puntero.dispose();
-			Tetris.getInstancia(usuario, null, 1);
+			Tetris.getInstancia(usuario, null, 3);
 			
 			// LLAMADA A NIVELES
 

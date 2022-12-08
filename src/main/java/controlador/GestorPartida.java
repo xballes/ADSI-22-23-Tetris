@@ -25,6 +25,14 @@ public class GestorPartida {
 	}
 	
 	public void guardarPartida(Board pPartida) {
+		
+		/*
+		  
+		  
+		  
+		 */
+		
+		
 		int[][]matriz=pPartida.calcularMatriz(); 
 		
 		Timestamp fecha = pPartida.getFechaSave();
@@ -57,31 +65,20 @@ public class GestorPartida {
 		
 		// En el caso que se hiciera un tetris en esta partida, mirar si tiene el logro o no para darselo ahora
 		
-		if (pPartida.getTetrisRealizado()) {
-			boolean tieneLogro = false;
-			ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM usuariopremio WHERE nombreUsuario = '"+usuario+"' AND nombrePremio = 'Tetris!'");
-			try {
-				tieneLogro = r.next();
-			} catch (Exception e) {}
-			
-			if (!tieneLogro) {
-				SGBD.getInstancia().execSQLVoid("INSERT INTO usuariopremio VALUES ('"+usuario+"','Tetris!','"+fechaAct+"')");
+		if (pPartida.getTetrisRealizado() && !GestorPremios.getInstancia().tieneElPremio(usuario, 3)) {
+			GestorPremios.getInstancia().darPremio(usuario, 3, fechaAct);
 
-			}
-			
 		}
 	
 
 		
 		
-		int numcolumnas=pPartida.getBOARD_WIDTH(); //i -> numcolumna
 		int i =0;
 		
-		while(i<numcolumnas) {
+		while(i<numeroCols) {
 			
 			String sentenciaSQL = "INSERT INTO columna VALUES('"+i+"','"+matriz[0][i]+"','"+matriz[1][i]+"','"+matriz[2][i]+"','"+matriz[3][i]+"','"+matriz[4][i]+"','"+matriz[5][i]+"','"+matriz[6][i]+"','"+matriz[7][i]+"','"+matriz[8][i]+"','"+matriz[9][i]+"','"+matriz[10][i]+"','"+matriz[11][i]+"','"+matriz[12][i]+"','"+matriz[13][i]+"','"+matriz[14][i]+"','"+matriz[15][i]+"','"+matriz[16][i]+"','"+matriz[17][i]+"','"+matriz[18][i]+"','"+matriz[19][i]+"','"+matriz[20][i]+"','"+matriz[21][i]+"','"+fechaAct+"','"+usuario+"')";
 			SGBD.getInstancia().execSQLVoid(sentenciaSQL);                                                                                                                                                                                             
-		//	System.out.println(matriz[0][i]);
 			i++;	
 		}	
 	}

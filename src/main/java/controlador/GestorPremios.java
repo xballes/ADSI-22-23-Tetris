@@ -25,6 +25,15 @@ public class GestorPremios {
 	}
 	
 	public boolean tieneElPremio(String pUser, int id) {
+		
+		/* Pre: id = [0, 3], identifica el tipo de premio que se busca en el array de la clase
+		 *      User en BD
+		 * Post: True -> El premio lo tiene el user | False -> no lo tiene
+		  
+		  
+		  
+		 */
+		
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM usuariopremio WHERE nombreUsuario = '"+pUser+"' AND nombrePremio = '"+this.premiosDisponibles[id]+"'");
 		boolean tiene = false;
 		
@@ -37,6 +46,13 @@ public class GestorPremios {
 	
 	
 	public void darPremio(String pUser, int id, Timestamp pFecha) {
+		
+		/* Pre:  id = [0, 3], identifica el tipo de premio que se busca en el array de la clase
+		         User en BD.     pFecha NO NULL.  El usuario no posee el premio identificado
+		   Post: Se ha insertado la relación Premio-Usuario      
+		  
+		  
+		 */
 		
 		SGBD.getInstancia().execSQLVoid("INSERT INTO usuariopremio VALUES('"+pUser+"','"+this.premiosDisponibles[id]+"', '"+pFecha+"')");
 	}
