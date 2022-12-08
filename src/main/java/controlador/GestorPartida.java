@@ -24,24 +24,26 @@ public class GestorPartida {
 			return GestorPartida.puntero;
 	}
 	
-	public void guardarPartida(Board pPartida) {
+	public void guardarPartida(int[][] matriz, String usuario, int numCols, Timestamp fecha, int puntuacion, boolean tetris) {
 		
-		/*
+		/* Pre: matriz --> Matriz de ints 22x(10,12,14. dificultad respectiva) con valores 0-7 representando que hay en cada celda
+		 *      usuario --> nombre del usuario jugando, está en BD
+		 *      fecha --> Fecha del ultimo guardado de la partida cargada, NULL si se quiere guardar nueva partida. Si existe, sus nanos seran 0.
+		 *      puntu --> Puntuacion obtenida hasta ahota
+		 *      tetris --> ¿Performó al menos un tetris durante el tiempo que ha estado jugando desde que cargo/inicio partida?
 		  
 		  
 		  
 		 */
 		
 		
-		int[][]matriz=pPartida.calcularMatriz(); 
 		
-		Timestamp fecha = pPartida.getFechaSave();
 		Timestamp fechaAct = new Timestamp(System.currentTimeMillis());
-		String usuario = pPartida.getNombreUsuario();
 		int nivel = 0;
-		int numeroCols = pPartida.getBOARD_WIDTH();
 		
-		switch (numeroCols) {
+		// Calcular el nivel, deducible por número de columnas de la matriz (más columnas --> más dificil)
+		
+		switch (numCols) {
 		case 10: nivel = 1; break;
 		case 12: nivel = 2; break;
 		case 14: nivel = 3; break;
@@ -49,23 +51,22 @@ public class GestorPartida {
 		
 		
 		
-		fechaAct.setNanos(0);
+		fechaAct.setNanos(0); // Para encontrar la partida despues con un posible SELECT en el futuro, los nanos siempre dejarlas a 0
 		
-		int puntuacion=pPartida.getNumLinesRemoved();
 		
 		// Mirar si ya se hizo una save antes de esta partida, si es el caso sobrescribir la anterior
 		
 		if (fecha != null) {
-			SGBD.getInstancia().execSQLVoid("DELETE FROM columna WHERE fechaPartida='"+fecha+"' AND nombreUsuario='"+usuario+"'");
-			SGBD.getInstancia().execSQLVoid("UPDATE partida SET fechaPartida='"+fechaAct+"' WHERE fechaPartida='"+fecha+"' AND nombreUsuario='"+usuario+"'");
+			SGBD.getInstancia().execSQLVoid("DELETE FROM columna WHERE fechaPartida='"+fecha+"' AND nombreUsuario='"+usuario+"'"); // Borrar la matriz anterior
+			SGBD.getInstancia().execSQLVoid("UPDATE partida SET fechaPartida='"+fechaAct+"' WHERE fechaPartida='"+fecha+"' AND nombreUsuario='"+usuario+"'"); // Actualizar la fecha de ultimo guardado
 		} else {
-			SGBD.getInstancia().execSQLVoid("INSERT INTO partida VALUES ('"+usuario+"','"+fechaAct+"','"+puntuacion+"',"+nivel+")");
+			SGBD.getInstancia().execSQLVoid("INSERT INTO partida VALUES ('"+usuario+"','"+fechaAct+"','"+puntuacion+"',"+nivel+")"); // Crear la save porque no existia
 
 		}
 		
-		// En el caso que se hiciera un tetris en esta partida, mirar si tiene el logro o no para darselo ahora
+		// En el caso que se hiciera un tetris en esta partida, mirar si tiene el logro o no para darselo ahora, ya que las saves no almacenan este valor
 		
-		if (pPartida.getTetrisRealizado() && !GestorPremios.getInstancia().tieneElPremio(usuario, 3)) {
+		if (tetris && !GestorPremios.getInstancia().tieneElPremio(usuario, 3)) {
 			GestorPremios.getInstancia().darPremio(usuario, 3, fechaAct);
 
 		}
@@ -73,9 +74,11 @@ public class GestorPartida {
 
 		
 		
-		int i =0;
+		int i = 0;
 		
-		while(i<numeroCols) {
+		// Guardar el estado de la matriz en BD, cada relacion "columna" es una columna del juego original. Todas se relacionan con la save creada
+		
+		while(i  <numCols) {
 			
 			String sentenciaSQL = "INSERT INTO columna VALUES('"+i+"','"+matriz[0][i]+"','"+matriz[1][i]+"','"+matriz[2][i]+"','"+matriz[3][i]+"','"+matriz[4][i]+"','"+matriz[5][i]+"','"+matriz[6][i]+"','"+matriz[7][i]+"','"+matriz[8][i]+"','"+matriz[9][i]+"','"+matriz[10][i]+"','"+matriz[11][i]+"','"+matriz[12][i]+"','"+matriz[13][i]+"','"+matriz[14][i]+"','"+matriz[15][i]+"','"+matriz[16][i]+"','"+matriz[17][i]+"','"+matriz[18][i]+"','"+matriz[19][i]+"','"+matriz[20][i]+"','"+matriz[21][i]+"','"+fechaAct+"','"+usuario+"')";
 			SGBD.getInstancia().execSQLVoid(sentenciaSQL);                                                                                                                                                                                             
@@ -84,6 +87,16 @@ public class GestorPartida {
 	}
 	
 	public String mostrarPartidas(String pNombreUsuario) {
+		
+		/* Pre: Usuario en BD
+		 * Post: String en formato JSON con la información de las partidas sin acabar del jugador, esta es:
+		        puntuacion de la partida guardada, nivel de esta y la fecha de ultimo guardado
+		  
+		  
+		  
+		 */
+		
+		
 		Gson json1 = new Gson();
 		String sentenciaSQL = "SELECT * FROM partida WHERE(nombreUsuario='"+pNombreUsuario+"')";
 		ResultSet r = SGBD.getInstancia().execSQL(sentenciaSQL);
@@ -109,21 +122,28 @@ public class GestorPartida {
 	}
 
 	
-	public int[][] cargarPartida(String pNombreUsuario, String pFecha, String pPuntos){
-		String fechaFormato=transformarFormato(pFecha);
+	public int[][] cargarPartida(String pNombreUsuario, String pFecha, int pNivel){
 		
-		Timestamp fechaCorrecta=Timestamp.valueOf(fechaFormato);
+		// Pre: User y fecha apuntan a una save en BD. pNivel es el valor del nivel de esa save
+		// Post: Se ha devuelto la matriz de ints para poder cargarla en Board
 		
-		int resultado=nivelPartida(pNombreUsuario,pFecha,pPuntos);
-		int numcolumnas;
-		if(resultado==1) {
-			numcolumnas=10;
-		}else if(resultado==2) {
-			numcolumnas=12;
+		
+		String fechaFormato=transformarFormato(pFecha); // Timestamp no puede ser generado por el formato de la String que tiene el JSON, hay que convertirlo al formato que acepta
+		
+		Timestamp fechaCorrecta=Timestamp.valueOf(fechaFormato); // Crear el timestamp
+		
+		int numcolumnas; // Deducir el numero de columnas basado en el nivel
+		if(pNivel == 1) {
+			numcolumnas = 10;
+		}else if(pNivel == 2) {
+			numcolumnas = 12;
 		}else {
-			numcolumnas=14;
+			numcolumnas = 14;
 		}
 		int [][]matriz= new int [numcolumnas][22]; // r.getFetchSize() o 22
+		
+		// Obtener la matriz de BD
+		
 		for(int x =0;x!=numcolumnas;x++) { 
 			/*
 			  - - - - - - - - - - - -
@@ -142,37 +162,18 @@ public class GestorPartida {
 				if (r2.next()) {
 					for(int j=0;j!=22;j++) {matriz[x][j]=r2.getInt(j);}			
 				
-					r2.close();
 				}
+				r2.close();
+
 			} catch (SQLException e) {}	
 		}
 		
+		
 		return matriz;
 
-		/*
-		for (int f = 0; f != numcolumnas; f++) {
-			
-    		for (int c = 0; c != 22; c++) {
-    			System.out.print(matriz[f][c]);
-    			System.out.print(" ");
-    		}
-    		System.out.println();
-    	} */
+
 	}
-	public int nivelPartida(String pNombreUsuario,String pFecha,String pPuntos){
-		String fechaFormato=this.transformarFormato(pFecha);
-		Timestamp fechaCorrecta=Timestamp.valueOf(fechaFormato);
-		String sentenciaSQL = "SELECT nivel FROM partida WHERE(nombreUsuario='"+pNombreUsuario+"' AND puntuacion='"+Integer.parseInt(pPuntos)+"' AND fechaPartida='"+fechaCorrecta+"')";
-		ResultSet r = SGBD.getInstancia().execSQL(sentenciaSQL);
-		int resultado;
-		try {
-			if (r.next()) {
-				resultado = r.getInt(1);
-				r.close();
-				return resultado;
-			} else {return -1;}
-		} catch (SQLException e) {return -1;}
-	}
+
 	
 	
 	
@@ -187,6 +188,9 @@ public class GestorPartida {
 		
 		// Pre: MMM DD, YYYY, HH:MM:SS (A/P)M
 		// Post: YYY-MM-DD HH:MM:SS.000000
+		
+		
+		// El método sirve para que basado en el formato de fecha dado por JSON se pueda generar despues en un objeto Timestamp
 
 		String año = "";
 		String mes = "";
@@ -273,6 +277,10 @@ public class GestorPartida {
 		
 		
 	}
+	
+	// Tuplas para poder almacenar varios valores a la vez y convertirlos a JSON
+	
+	// @SuppressWarnings --> Los atributos flageados como unused se usan para fabricar el JSON, pero el IDE no es capaz de deducirlo
 	
 	private class PartidaTripleta {
 		@SuppressWarnings("unused")

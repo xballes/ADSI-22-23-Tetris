@@ -14,13 +14,16 @@ import com.zetcode.Tetris;
 
 public class MenuDeUsuario extends JFrame {
 	
+	// Menu que se abre tras iniciar sesión correctamente, el acceso a la mayoria de los c.u. se hacen desde aqui
+	
+	
 	private static MenuDeUsuario puntero;
 	private JPanel contenido;
 	private JLabel titulo;
 
 	
 	private JPanel filas;
-	private JButton[] botones; // Registrar, Iniciar Sesion, Recupero cont, Ranking
+	private JButton[] botones; 
 	
 	
 	
@@ -121,7 +124,7 @@ public class MenuDeUsuario extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			puntero.dispose();
-			Tetris.getInstancia(usuario, null, 3);
+			Tetris.getInstancia(usuario, null, 3, null);
 			
 			// LLAMADA A NIVELES
 

@@ -18,6 +18,10 @@ public class SGBD {
 	}
 	
 	public ResultSet execSQL(String pStr) {
+		
+		// Pre: String no null, contiene una consulta SELECT
+		// Post: El objeto ResultadoSQL correspondiente, en Java se llama ResultSet
+		
 		try {
 			Connection conexion = DriverManager.getConnection("jdbc:mariadb://localhost:3306/adsi", "root", "");
 			PreparedStatement ps = conexion.prepareStatement(pStr);
@@ -32,6 +36,10 @@ public class SGBD {
 	}
 	
 	public void execSQLVoid(String pStr) {
+		
+		// Pre: String no null, contiene una consulta que NO es SELECT
+		// Post: El objeto ResultadoSQL correspondiente, en Java se llama ResultSet
+		
 		try {
 			Connection conexion = DriverManager.getConnection("jdbc:mariadb://localhost:3306/adsi", "root", "");
 			PreparedStatement ps = conexion.prepareStatement(pStr);

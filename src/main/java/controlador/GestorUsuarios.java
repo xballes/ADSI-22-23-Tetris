@@ -16,6 +16,12 @@ public class GestorUsuarios {
 	}
 	
 	public boolean verificarUsuario(String pNombre, String pCont) {
+		
+		/* Pre: Strings no null
+		 * Post: True si user con esa pass existe en BD, false si no
+		  
+		  
+		 */
 
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE nombre='"+pNombre+"' && contraseña = '"+pCont+"'");
 		boolean val;
@@ -30,8 +36,9 @@ public class GestorUsuarios {
 	
 	public int registrar(String pNombre, String pCont, String pMail) {
 		
-		// Pre: null
+		// Pre: strings no null
 		// Post: 0 si correcto, 1 si demasiado largos o corto, 2 si username ya existente, 3 si mail ya existente, 4 si caracteres invalidos
+	
 		if (!this.alfanumerico(pNombre) || !this.alfanumerico(pCont) || !this.mailvValido(pMail)) {
 			return 4;
 		}
@@ -105,6 +112,7 @@ public class GestorUsuarios {
 	
 	public boolean borrarUsuario(String pNombre) {
 		
+		// Pre: String no null
 		// Post: True si se borró alguien, false si no. Nota: El usuario administrador tiene inmunidad al borrado
 		
 		if (pNombre.toLowerCase().contentEquals("administrador")) {return false;}
@@ -133,6 +141,10 @@ public class GestorUsuarios {
 	
 	
 	private boolean alfanumerico(String pS) {
+		
+		// Pre: String no null
+		// Post: return true <---> pS contiene caracteres alfanumericos incluyendo espacio y no está compuesta por solo espacios
+		
 		boolean val = true;
 		boolean soloEspacios = true;
 		int i = 0;
@@ -154,6 +166,10 @@ public class GestorUsuarios {
 	}
 	
 	private boolean mailvValido(String pS) {
+		
+		// Pre: String no null
+		// Post: return true <---> pS contiene caracteres alfanumericos incluyendo @ y .
+		
 		boolean val = true;
 		int i = 0;
 		String s = pS.toLowerCase();
@@ -171,12 +187,20 @@ public class GestorUsuarios {
 	
 	public void sumarVictoriaA(String pUser) {
 		
+		// Pre: User en BD (único)
+		// Post: al user en BD -->  victoriasDeUser = victoriasDeUser + 1
+		
 		SGBD.getInstancia().execSQLVoid("UPDATE usuario SET victorias = victorias + 1 WHERE nombre = '"+pUser+"'");
 		
 	}
 	
 	
 	public int obtenerNumVictoriasDe(String pUser) {
+		
+		
+		// Pre: User en BD (único)
+		// Post: Num de victorias del user
+		
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT victorias FROM usuario WHERE nombre = '"+pUser+"'");
 		
 		try {

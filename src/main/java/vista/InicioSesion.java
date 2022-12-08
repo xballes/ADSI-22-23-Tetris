@@ -14,6 +14,10 @@ import controlador.Gestor;
 
 public class InicioSesion extends JFrame implements Ventana {
 	
+	
+	// Pantalla que se abre a un no registrado para poder poner sus credenciales y acceder como registrado
+
+	
 	private static InicioSesion puntero;
 	private JPanel contenido;
 	private JPanel filas;

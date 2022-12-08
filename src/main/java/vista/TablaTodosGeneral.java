@@ -19,6 +19,10 @@ import java.awt.event.ActionListener;
 
 public class TablaTodosGeneral extends JFrame {
 
+	
+	// Muestra la tabla del top 10 puntuaciones, sin restricciones
+
+	
 	private JPanel contentPane;
 	private static TablaTodosGeneral puntero;
 	private String nombreUsuario;

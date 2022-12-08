@@ -34,6 +34,9 @@ public class Board extends JPanel {
     private Tetris puntero;
     private boolean tetris; // Se hizo un tetris???
     private int nivel;
+    
+    
+    private Color[] colorPiezas;
 
     public Board(Tetris parent) {
         initBoard(parent);
@@ -272,16 +275,14 @@ public class Board extends JPanel {
             
         }
     }
+    
+    
 
     private void drawSquare(Graphics g, int x, int y, Tetrominoe shape) {
 
-        Color colors[] = {new Color(0, 0, 0), new Color(204, 102, 102),
-                new Color(102, 204, 102), new Color(102, 102, 204),
-                new Color(204, 204, 102), new Color(204, 102, 204),
-                new Color(102, 204, 204), new Color(218, 170, 0)
-        };
 
-        var color = colors[shape.ordinal()];
+
+        var color = this.colorPiezas[shape.ordinal()];
 
         g.setColor(color);
         g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
@@ -380,9 +381,54 @@ public class Board extends JPanel {
     	
     }
     
+    public void setColores (int pFondo, int pPieza) {
+    	
+    	// Default del programa: 0,0
+    	
+    	// Color de pieza
+    	
+    	this.colorPiezas = new Color[8];
+    	this.colorPiezas[0] = new Color(0,0,0);
+    	
+    	switch (pPieza) {
+    	case 0:
+    	this.colorPiezas[1] = new Color(204, 102, 102);
+    	this.colorPiezas[2] = new Color(102, 204, 102);
+    	this.colorPiezas[3] = new Color(102, 102, 204);
+    	this.colorPiezas[4] = new Color(204, 204, 102);
+    	this.colorPiezas[5] = new Color(204, 102, 204);
+    	this.colorPiezas[6] = new Color(102, 204, 204);
+    	this.colorPiezas[7] = new Color(218, 170, 0);
+    	break;
+    	
+    	case 1: 
+    		// PONER COLORES QUE QUIERAS AQUI 
+    	break;	
+    
+    
+ 
+    	}
+    	
+    	
+    	// Color de fondo
+    	
+    	switch (pFondo) {
+    	case 0: break;  // Nada, transparente
+    	case 1: super.setBackground(Color.red); break;
+    	// los colores que quieras... aqui
+    	}
+    	
+    	
+    	
+    	
+    }
+    
+    
     public boolean getTetrisRealizado() {return this.tetris;}
 
 
+    public void forzarCerrado() {this.timer.stop(); this.puntero.dispose();}
+    
 	private class GameCycle implements ActionListener {
 
         @Override

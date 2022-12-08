@@ -1,11 +1,10 @@
 package vista;
-import controlador.*;
 
 
 public class Main {
 	
 	
-	// EJECUTAR EL PROGRAMA DESDE AQUÍ, HACE LA LLAMADA AL MENU DE INICIO DE SESIÓN
+	// Teoricamente no interfaz, solo hace la llamada a la primera interfaz
 	
 	public static void main (String args[]) {
 		

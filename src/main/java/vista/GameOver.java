@@ -21,6 +21,11 @@ import javax.swing.JButton;
 
 public class GameOver extends JFrame {
 
+	
+	// Pantalla que se abre al usuario al acabar una partida de Tetris, muestra si gano o no y su puntuación final,
+	// entre otras cosas
+
+	
 	private JPanel contentPane;
 	private String nombreUsuario;
 	private static GameOver puntero;
@@ -97,6 +102,7 @@ public class GameOver extends JFrame {
 		
 		contentPane.add(panel_3, BorderLayout.CENTER);
 		
+		// APAGAR MUSICA AQUI
 		
 		super.setResizable(false);
 		super.setVisible(true);

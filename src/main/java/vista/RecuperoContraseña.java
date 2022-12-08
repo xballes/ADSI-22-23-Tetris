@@ -14,6 +14,8 @@ import controlador.Gestor;
 
 public class RecuperoContraseña extends JFrame implements Ventana {
 	
+	// Pantalla que permite introducir el email para recuperar la contraseña
+	
 	private static RecuperoContraseña puntero;
 	private JPanel contenido;
 	private JPanel filas;

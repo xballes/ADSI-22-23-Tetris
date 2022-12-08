@@ -17,6 +17,10 @@ import java.awt.Font;
 
 public class MenuRankingPublico extends JFrame {
 
+	
+	// Pantalla que se abre cuando un usuario decide mirar el ranking global (registrado o no)
+	// Contiene las opciones para ver las mejores puntuaciones filtradas o no por un nivel concreto
+	
 	private JPanel contentPane;
 	private static MenuRankingPublico puntero;
 	private String nombreUsuario;

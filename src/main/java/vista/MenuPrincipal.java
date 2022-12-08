@@ -12,6 +12,9 @@ import javax.swing.*;
 
 public class MenuPrincipal extends JFrame {
 	
+	
+	// Pantalla que se abre al iniciar el programa
+	
 	private static MenuPrincipal puntero;
 	private JPanel contenido;
 	private JLabel titulo;

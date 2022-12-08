@@ -14,6 +14,8 @@ import controlador.Gestor;
 
 public class Registro extends JFrame implements Ventana {
 	
+	// Pantalla que permite introducir los datos de un nuevo usuario para darlo de alta
+	
 	private static Registro puntero;
 	private JPanel contenido;
 	private JPanel filas;

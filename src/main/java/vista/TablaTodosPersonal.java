@@ -18,6 +18,9 @@ import controlador.GestorRanking;
 
 public class TablaTodosPersonal extends JFrame {
 
+	// Muestra la tabla del top 10 puntuaciones, filtrando por un usuario concreto
+
+	
 	private JPanel contentPane;
 	private static TablaTodosPersonal puntero;
 	private String nombreUsuario;
@@ -33,7 +36,7 @@ public class TablaTodosPersonal extends JFrame {
 		nombreUsuario = pNombreUsuario;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 400, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(50, 50));

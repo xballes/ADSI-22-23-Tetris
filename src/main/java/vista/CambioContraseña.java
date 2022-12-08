@@ -14,6 +14,9 @@ import controlador.Gestor;
 
 public class CambioContraseña extends JFrame implements Ventana {
 	
+	// Pantalla que se abre para un usuario registrado para que meta su nueva contraseña
+	  
+	
 	private static CambioContraseña puntero;
 	private JPanel contenido;
 	private JPanel filas;

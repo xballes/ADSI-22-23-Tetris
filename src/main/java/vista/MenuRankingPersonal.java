@@ -16,6 +16,11 @@ import javax.swing.border.EmptyBorder;
 
 public class MenuRankingPersonal extends JFrame {
 
+	
+	// Pantalla que se abre cuando un usuario decide mirar su ranking personal desde su menu de usuario
+	// Contiene las opciones para ver sus mejores puntuaciones filtradas o no por un nivel concreto
+
+	
 	private JPanel contentPane;
 	private String nombreUsuario;
 	private static MenuRankingPersonal puntero;

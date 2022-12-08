@@ -15,11 +15,13 @@ import controlador.Gestor;
 
 public class PartidasGuardadas extends JFrame implements Ventana {
 	
+	// Pantalla que se abre cuando un usuario decide cargar una partida
+	// Muestra todos los saves que tiene, y le da la opcion de elegir uno de ellos para jugar.
+	
 	private static PartidasGuardadas puntero;
 	private JPanel contenido;
 	private JPanel filas;
 	private JLabel titulo;
-	private JTextField campo;
 	private JPanel par;
 	private JPanel par2;
 	private JButton[] botones;
@@ -67,7 +69,6 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 		this.filas.setLayout(new GridLayout(1, 1, 0 ,70));
 		
 		
-		this.campo = new JTextField();
 		this.par2 = new JPanel();
 		this.par2.setLayout(new GridLayout(1,1,50,0));
 		this.filas.add(this.par2);
@@ -178,7 +179,7 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 	private class Accion2 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			int id=(((Boton)e.getSource()).id);
-			Gestor.getInstancia().cargarPartida(usuario, fechas[id], puntos[id]);
+			Gestor.getInstancia().cargarPartida(usuario, fechas[id], Integer.parseInt(niveles[id]));
 			
 		}
 	}

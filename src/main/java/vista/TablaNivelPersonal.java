@@ -20,10 +20,12 @@ import controlador.GestorRanking;
 
 public class TablaNivelPersonal extends JFrame {
 
+	// Muestra la tabla del top 10 puntuaciones, filtrando por un nivel y usuario concreto
+
+	
 	private JPanel contentPane;
 	private static TablaNivelPersonal puntero;
 	private String nombreUsuario;
-	private int nivel;
 	private ArrayList<Integer> res;
 	
 	public static  void visibilizar(String pNombreUsuario, int pNivel) {	
@@ -33,19 +35,18 @@ public class TablaNivelPersonal extends JFrame {
 	private TablaNivelPersonal(String pNombreUsuario, int pNivel) {
 		
 		nombreUsuario = pNombreUsuario;
-		nivel = pNivel;
 		
 		res = new ArrayList<Integer>();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 400, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(50, 50));
 		setContentPane(contentPane);
 		
 		
-		JLabel lblNewLabel = new JLabel("Menu de nivel" + " " + nivel + " y del usuario: " + nombreUsuario);
+		JLabel lblNewLabel = new JLabel("Menu de nivel" + " " + pNivel + " y del usuario: " + nombreUsuario);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
@@ -55,7 +56,7 @@ public class TablaNivelPersonal extends JFrame {
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 		
 		
-		res = GestorRanking.getInstancia().obtenerRankingNivelPriv(nombreUsuario,nivel);
+		res = GestorRanking.getInstancia().obtenerRankingNivelPriv(nombreUsuario,pNivel);
 		
 	
 		

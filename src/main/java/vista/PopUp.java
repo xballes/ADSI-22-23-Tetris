@@ -13,6 +13,9 @@ import javax.swing.*;
 public class PopUp extends JFrame {
 	
 	
+	// Muestra el feedback como "se elimino el usuario" o "inicio de sesion incorrecto". 
+	// Solo permite pulsar volver, que redirige a la interfaz desde la que se llamo a esta
+	
 	private static PopUp puntero;
 	private JPanel contenido;
 	private JPanel filas;

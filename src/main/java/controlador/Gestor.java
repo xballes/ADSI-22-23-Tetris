@@ -73,11 +73,11 @@ public class Gestor {
 		GestorRanking.getInstancia().publicarPuntuacion(pUser, pPuntos, pNivel);
 	}
 	
-	public void guardarPartida(Board pPartida) {
-		GestorPartida.getInstancia().guardarPartida(pPartida);
+	public void guardarPartida(int[][] matriz, String usuario, int numCols, Timestamp fecha, int puntuacion, boolean tetris) {
+		GestorPartida.getInstancia().guardarPartida(matriz, usuario, numCols, fecha, puntuacion, tetris);
 	}
-	public int[][] cargarPartida(String pNombreUsuario,String pFecha,String pPuntos){
-		return GestorPartida.getInstancia().cargarPartida(pNombreUsuario,pFecha,pPuntos);
+	public int[][] cargarPartida(String pNombreUsuario,String pFecha, int pNivel){
+		return GestorPartida.getInstancia().cargarPartida(pNombreUsuario,pFecha, pNivel);
 	}
 	public String mostrarPartidas(String pNombreUsuario) {
 		return GestorPartida.getInstancia().mostrarPartidas(pNombreUsuario);

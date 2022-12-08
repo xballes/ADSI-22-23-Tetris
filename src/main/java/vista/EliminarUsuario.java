@@ -14,6 +14,10 @@ import controlador.Gestor;
 
 public class EliminarUsuario extends JFrame implements Ventana {
 	
+	
+	// Pantalla que se abre al Admin para poner el usuario que desea borrar
+
+	
 	private static EliminarUsuario puntero;
 	private JPanel contenido;
 	private JPanel filas;
