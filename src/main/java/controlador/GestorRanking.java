@@ -180,6 +180,11 @@ public class GestorRanking {
 		SGBD.getInstancia().execSQLVoid("INSERT INTO puntuacion(nivel, puntosActuales, usuario) VALUES ("+pNivel+", "+pPuntos+",'"+pUser+"')");
 	}
 	
+	//Metodo exclusivo para las pruebas JUnit
+	
+	public void borrarRankings() {
+		SGBD.getInstancia().execSQLVoid("DELETE FROM PUNTUACION");
+	}
 	
 	// Tuplas para poder almacenar varios valores a la vez y convertirlos a JSON
 	
