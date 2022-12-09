@@ -338,14 +338,13 @@ public class Board extends JPanel {
         }*/
     	for (int alt = BOARD_HEIGHT-1; alt != -1; alt--) {
     		for (int col = 0; col != BOARD_WIDTH; col++) {
-    			System.out.println(matriz[col][alt]);
-    			System.out.print(" ");
+    			//System.out.println(matriz[col][alt]);
+    			//System.out.print(" ");
     			Tetrominoe p;
     			int val2=matriz[col][alt];
     			if(val2==0) {
     				p = Tetrominoe.NoShape;
     				board[(alt*BOARD_WIDTH)+col]=p;
-    				
     			}
     			else if(val2==1) {
     				p = Tetrominoe.ZShape;
@@ -376,7 +375,7 @@ public class Board extends JPanel {
     				
     			}	
     		}
-    		System.out.println();
+    		//System.out.println();
     	}
     	/*for (int x = 0; x != BOARD_WIDTH; x++) {
     		for (int y = 1; y != BOARD_HEIGHT; y++) {
@@ -400,8 +399,11 @@ public class Board extends JPanel {
 	public int getNumLinesRemoved() {
 		return numLinesRemoved;
 	}
-	
-	
+
+	public void setNumLinesRemoved(int numLinesRemoved) {
+		this.numLinesRemoved = numLinesRemoved;
+	}
+
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}

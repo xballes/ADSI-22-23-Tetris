@@ -202,10 +202,12 @@ public class GestorPartida {
     		System.out.println();
     	}*/
 		Tetris t = new Tetris();
-		t.setVisible(true);
 		Board b = new Board(t, pNombreUsuario);
 		b.volcarMatriz(matriz);
-		b.setVisible(true); 	
+		b.setNumLinesRemoved(Integer.parseInt(pPuntos));
+		b.setVisible(true);
+		t.setVisible(true);
+		//falta por poner los puntos de la partida...
 		return matriz;
 		
 		/*
