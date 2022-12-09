@@ -29,7 +29,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Elsab/OneDrive/Escritorio/adsi/ADSI-22-23-Tetris/lib/mariadb-java-client-3.0.8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Elsab/OneDrive/Escritorio/adsi/ADSI-22-23-Tetris/lib/gson-2.2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/mikel/git/ProyADSI/ADSI-22-23-Tetris/lib/gson-2.2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/mikel/git/ProyADSI/ADSI-22-23-Tetris/lib/mariadb-java-client-3.0.8.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
