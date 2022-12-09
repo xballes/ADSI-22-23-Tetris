@@ -95,7 +95,7 @@ public class Gestor {
 		GestorPremios.getInstancia().darPremio(pUser, id, pFecha);
 	}
 	
-	//personalizar 
+	//personalizar PRUEBA
 	
 	public void cambiarColor(String pNombre, int idColor ) {
 		GestorColores.getInstancia().cambiarColor(pNombre, idColor);
