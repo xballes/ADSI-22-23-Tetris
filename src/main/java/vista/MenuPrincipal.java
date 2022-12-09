@@ -53,8 +53,8 @@ public class MenuPrincipal extends JFrame {
 			String val = null;
 			switch (i) {
 			case 0: val = "Registrarse"; break;
-			case 1: val = "Iniciar Sesión"; break;	
-			case 2: val = "Recuperar Contraseña"; break;	
+			case 1: val = "Iniciar SesiÃ±n"; break;	
+			case 2: val = "Recuperar ContraseÃ±a"; break;	
 			case 3: val = "Ver Ranking General"; break;	
 
 			}
@@ -106,7 +106,7 @@ public class MenuPrincipal extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			RecuperoContraseña.visibilizar();
+			RecuperoContraseÃ±a.visibilizar();
 		}
 		
 		

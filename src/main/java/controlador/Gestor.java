@@ -30,8 +30,8 @@ public class Gestor {
 	}
 	
 	
-	public String obtContraseña(String pMail) {
-		return GestorUsuarios.getInstancia().obtContraseña(pMail);
+	public String obtContraseÃ±a(String pMail) {
+		return GestorUsuarios.getInstancia().obtContraseÃ±a(pMail);
 	}
 	
 	
@@ -93,6 +93,20 @@ public class Gestor {
 	
 	public void darPremio(String pUser, int id, Timestamp pFecha) {
 		GestorPremios.getInstancia().darPremio(pUser, id, pFecha);
+	}
+	
+	//personalizar 
+	
+	public void cambiarColor(String pNombre, int idColor ) {
+		GestorColores.getInstancia().cambiarColor(pNombre, idColor);
+	}
+	
+	public void editarLadrillos(String pNombre, int idSetColores ) {
+		GestorLadrillos.getInstancia().editarLadrillos(pNombre, idSetColores);
+	}
+	
+	public void cambiarSonido(String pNombre, int idSonido ) {
+		GestorSonido.getInstancia().cambiarSonido(pNombre, idSonido);
 	}
 	
 

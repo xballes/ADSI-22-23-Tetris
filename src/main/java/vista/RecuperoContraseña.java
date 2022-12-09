@@ -12,11 +12,11 @@ import controlador.Gestor;
 
 @SuppressWarnings("serial")
 
-public class RecuperoContraseña extends JFrame implements Ventana {
+public class RecuperoContraseÃ±a extends JFrame implements Ventana {
 	
-	// Pantalla que permite introducir el email para recuperar la contraseña
+	// Pantalla que permite introducir el email para recuperar la contraseÃ±a
 	
-	private static RecuperoContraseña puntero;
+	private static RecuperoContraseÃ±a puntero;
 	private JPanel contenido;
 	private JPanel filas;
 	private JLabel titulo;
@@ -33,15 +33,15 @@ public class RecuperoContraseña extends JFrame implements Ventana {
 	
 	@Override
 	public void redirigir() {
-		RecuperoContraseña.visibilizar();
+		RecuperoContraseÃ±a.visibilizar();
 	}
 	
 	public static void visibilizar() {
-		RecuperoContraseña.puntero = new RecuperoContraseña();
+		RecuperoContraseÃ±a.puntero = new RecuperoContraseÃ±a();
 		
 	}
 	
-	private RecuperoContraseña () {
+	private RecuperoContraseÃ±a () {
 		// Crear panel principal
 		
 		this.contenido = new JPanel();
@@ -50,7 +50,7 @@ public class RecuperoContraseña extends JFrame implements Ventana {
 		
 		// Crear titulo
 		
-		this.titulo = new JLabel("Recupero Contraseña", SwingConstants.CENTER);
+		this.titulo = new JLabel("Recupero ContraseÃ±a", SwingConstants.CENTER);
 		this.titulo.setFont(new Font(Font.SANS_SERIF, 1, 30));
 		this.contenido.add(this.titulo, BorderLayout.NORTH);
 		
@@ -84,7 +84,7 @@ public class RecuperoContraseña extends JFrame implements Ventana {
 		for (int i = 0; i != 2; i++) {
 			String val = null;
 			switch (i) {
-			case 0: val = "Recuperar Contraseña"; break;
+			case 0: val = "Recuperar ContraseÃ±a"; break;
 			case 1: val = "Volver"; break;	
 			}
 			
@@ -112,14 +112,14 @@ public class RecuperoContraseña extends JFrame implements Ventana {
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			String cont = Gestor.getInstancia().obtContraseña(campo.getText());
+			String cont = Gestor.getInstancia().obtContraseÃ±a(campo.getText());
 			puntero.dispose();
 			
 			if (cont == null) {
 				PopUp.visibilizar("Error: Email incorrecto", puntero);
 				
 			} else {
-				PopUp.visibilizar("¡Éxito! Tu contraseña es: "+cont, puntero);
+				PopUp.visibilizar("Exito! Tu contraseÃ±a es: "+cont, puntero);
 
 				
 			}

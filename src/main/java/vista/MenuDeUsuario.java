@@ -14,7 +14,7 @@ import com.zetcode.Tetris;
 
 public class MenuDeUsuario extends JFrame {
 	
-	// Menu que se abre tras iniciar sesión correctamente, el acceso a la mayoria de los c.u. se hacen desde aqui
+	// Menu que se abre tras iniciar sesiÃ±n correctamente, el acceso a la mayoria de los c.u. se hacen desde aqui
 	
 	
 	private static MenuDeUsuario puntero;
@@ -84,8 +84,8 @@ public class MenuDeUsuario extends JFrame {
 			case 3: val = "Ver Ranking General"; break;	
 			case 4: val = "Ver Ranking Personal"; break;	
 			case 5: val = "Ver Premios Obtenidos"; break;	
-			case 6: val = "Cambiar Contraseña"; break;	
-			case 7: val = "Cerrar Sesión"; break;	
+			case 6: val = "Cambiar ContraseÃ±a"; break;	
+			case 7: val = "Cerrar SesiÃ±n"; break;	
 			case 8: val = "Admin: Eliminar Usuarios"; break;	
 
 			}
@@ -197,7 +197,7 @@ public class MenuDeUsuario extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			CambioContraseña.visibilizar(usuario);
+			CambioContraseÃ±a.visibilizar(usuario);
 		}
 		
 		

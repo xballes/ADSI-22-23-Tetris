@@ -23,7 +23,7 @@ public class GestorUsuarios {
 		  
 		 */
 
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE nombre='"+pNombre+"' && contraseña = '"+pCont+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE nombre='"+pNombre+"' && contraseÃ±a = '"+pCont+"'");
 		boolean val;
 		try {
 			val = r.next();
@@ -73,12 +73,12 @@ public class GestorUsuarios {
 	}
 	
 	
-	public String obtContraseña(String pMail) {
+	public String obtContraseÃ±a(String pMail) {
 		
 		// Pre: No hay dos mails repetidos en BD
-		// Post: Si coinicide, la string con la contraseña, else, null
+		// Post: Si coinicide, la string con la contraseÃ±a, else, null
 		
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseña FROM Usuario WHERE email='"+pMail+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseÃ±a FROM Usuario WHERE email='"+pMail+"'");
 		try {
 			if (r.next()) {
 				String res = r.getString(1);
@@ -97,14 +97,14 @@ public class GestorUsuarios {
 	
 	public boolean cambiarCont(String pNombre, String pCont) {
 		
-		// Pre: pNombre es único en BD y está
-		// Post: Se cambia la contraseña si se encuentra el user y se returneo true. 
-		//       Return true si contraseña nueva alfanumérica y tiene 1-30 chars
+		// Pre: pNombre es Ã±nico en BD y estÃ±
+		// Post: Se cambia la contraseÃ±a si se encuentra el user y se returneo true. 
+		//       Return true si contraseÃ±a nueva alfanumÃ±rica y tiene 1-30 chars
 		
 		if (pCont.length() > 30 || pCont.length() == 0) {return false;}
 		else if (!this.alfanumerico(pCont)) {return false;}
 		else {
-			SGBD.getInstancia().execSQLVoid("UPDATE Usuario SET contraseña = '"+pCont+"' WHERE nombre = '"+pNombre+"'");
+			SGBD.getInstancia().execSQLVoid("UPDATE Usuario SET contraseÃ±a = '"+pCont+"' WHERE nombre = '"+pNombre+"'");
 			return true;
 		}
 		
@@ -113,7 +113,7 @@ public class GestorUsuarios {
 	public boolean borrarUsuario(String pNombre) {
 		
 		// Pre: String no null
-		// Post: True si se borró alguien, false si no. Nota: El usuario administrador tiene inmunidad al borrado
+		// Post: True si se borrÃ± alguien, false si no. Nota: El usuario administrador tiene inmunidad al borrado
 		
 		if (pNombre.toLowerCase().contentEquals("administrador")) {return false;}
 		else if (pNombre.length() == 0) {return false;}
@@ -143,7 +143,7 @@ public class GestorUsuarios {
 	private boolean alfanumerico(String pS) {
 		
 		// Pre: String no null
-		// Post: return true <---> pS contiene caracteres alfanumericos incluyendo espacio y no está compuesta por solo espacios
+		// Post: return true <---> pS contiene caracteres alfanumericos incluyendo espacio y no estÃ± compuesta por solo espacios
 		
 		boolean val = true;
 		boolean soloEspacios = true;
@@ -154,7 +154,7 @@ public class GestorUsuarios {
 		
 		while (i != s.length() && val) {
 			char c =  s.charAt(i);
-			val = (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == 'á' || c == 'é' || c == 'í' || c == 'ó' || c == 'ú' | c == ' ';
+			val = (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == 'Ã±' || c == 'Ã±' || c == 'Ã±' || c == 'Ã±' || c == 'Ã±' | c == ' ';
 			
 			if (c != ' ' && soloEspacios) {soloEspacios = false;}
 			
@@ -176,7 +176,7 @@ public class GestorUsuarios {
 		
 		while (i != s.length() && val) {
 			char c =  s.charAt(i);
-			val = (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == 'á' || c == 'é' || c == 'í' || c == 'ó' || c == 'ú' || c == '@' || c == '.'; 
+			val = (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == 'Ã±' || c == 'Ã±' || c == 'Ã±' || c == 'Ã±' || c == 'Ã±' || c == '@' || c == '.'; 
 			i++;
 		}
 		
@@ -187,7 +187,7 @@ public class GestorUsuarios {
 	
 	public void sumarVictoriaA(String pUser) {
 		
-		// Pre: User en BD (único)
+		// Pre: User en BD (Ã±nico)
 		// Post: al user en BD -->  victoriasDeUser = victoriasDeUser + 1
 		
 		SGBD.getInstancia().execSQLVoid("UPDATE usuario SET victorias = victorias + 1 WHERE nombre = '"+pUser+"'");
@@ -198,7 +198,7 @@ public class GestorUsuarios {
 	public int obtenerNumVictoriasDe(String pUser) {
 		
 		
-		// Pre: User en BD (único)
+		// Pre: User en BD (Ã±nico)
 		// Post: Num de victorias del user
 		
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT victorias FROM usuario WHERE nombre = '"+pUser+"'");
@@ -237,10 +237,10 @@ public class GestorUsuarios {
 		
 	}
 	
-	public String obtContraseñaDe(String pUser) {
+	public String obtContraseÃ±aDe(String pUser) {
 		
 		
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseña FROM Usuario WHERE nombre = '"+pUser+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseÃ±a FROM Usuario WHERE nombre = '"+pUser+"'");
 		
 		try {
 			String res = null;

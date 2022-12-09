@@ -27,10 +27,10 @@ public class GestorPartida {
 	public void guardarPartida(int[][] matriz, String usuario, int numCols, Timestamp fecha, int puntuacion, boolean tetris) {
 		
 		/* Pre: matriz --> Matriz de ints 22x(10,12,14. dificultad respectiva) con valores 0-7 representando que hay en cada celda
-		 *      usuario --> nombre del usuario jugando, est· en BD
+		 *      usuario --> nombre del usuario jugando, est√± en BD
 		 *      fecha --> Fecha del ultimo guardado de la partida cargada, NULL si se quiere guardar nueva partida. Si existe, sus nanos seran 0.
 		 *      puntu --> Puntuacion obtenida hasta ahota
-		 *      tetris --> øPerformÛ al menos un tetris durante el tiempo que ha estado jugando desde que cargo/inicio partida?
+		 *      tetris --> √±Perform√± al menos un tetris durante el tiempo que ha estado jugando desde que cargo/inicio partida?
 		  
 		  
 		  
@@ -41,7 +41,7 @@ public class GestorPartida {
 		Timestamp fechaAct = new Timestamp(System.currentTimeMillis());
 		int nivel = 0;
 		
-		// Calcular el nivel, deducible por n˙mero de columnas de la matriz (m·s columnas --> m·s dificil)
+		// Calcular el nivel, deducible por n√±mero de columnas de la matriz (m√±s columnas --> m√±s dificil)
 		
 		switch (numCols) {
 		case 10: nivel = 1; break;
@@ -89,7 +89,7 @@ public class GestorPartida {
 	public String mostrarPartidas(String pNombreUsuario) {
 		
 		/* Pre: Usuario en BD
-		 * Post: String en formato JSON con la informaciÛn de las partidas sin acabar del jugador, esta es:
+		 * Post: String en formato JSON con la informaci√±n de las partidas sin acabar del jugador, esta es:
 		        puntuacion de la partida guardada, nivel de esta y la fecha de ultimo guardado
 		  
 		  
@@ -190,9 +190,9 @@ public class GestorPartida {
 		// Post: YYY-MM-DD HH:MM:SS.000000
 		
 		
-		// El mÈtodo sirve para que basado en el formato de fecha dado por JSON se pueda generar despues en un objeto Timestamp
+		// El m√±todo sirve para que basado en el formato de fecha dado por JSON se pueda generar despues en un objeto Timestamp
 
-		String aÒo = "";
+		String a√±o = "";
 		String mes = "";
 		String dia = "";
 		String momento = "";
@@ -231,7 +231,7 @@ public class GestorPartida {
 		i = i+2;
 		
 		while (entrada.charAt(i) != ',') {
-			aÒo = aÒo + entrada.charAt(i);
+			a√±o = a√±o + entrada.charAt(i);
 			i++;
 		}
 		i++;
@@ -273,7 +273,7 @@ public class GestorPartida {
 			momento = "00" + momento.substring(2, momento.length());
 			}
 		
-		return aÒo+"-"+mes+"-"+dia+" "+momento+".000000";
+		return a√±o+"-"+mes+"-"+dia+" "+momento+".000000";
 		
 		
 	}

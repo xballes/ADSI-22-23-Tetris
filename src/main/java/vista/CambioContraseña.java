@@ -12,12 +12,12 @@ import controlador.Gestor;
 
 @SuppressWarnings("serial")
 
-public class CambioContraseña extends JFrame implements Ventana {
+public class CambioContraseÃ±a extends JFrame implements Ventana {
 	
-	// Pantalla que se abre para un usuario registrado para que meta su nueva contraseña
+	// Pantalla que se abre para un usuario registrado para que meta su nueva contraseÃ±a
 	  
 	
-	private static CambioContraseña puntero;
+	private static CambioContraseÃ±a puntero;
 	private JPanel contenido;
 	private JPanel filas;
 	private JLabel titulo;
@@ -38,17 +38,17 @@ public class CambioContraseña extends JFrame implements Ventana {
 	
 	@Override
 	public void redirigir() {
-		CambioContraseña.visibilizar(this.usuario);
+		CambioContraseÃ±a.visibilizar(this.usuario);
 		
 	}
 	
 	
 	public static void visibilizar(String pUser) {
-		CambioContraseña.puntero = new CambioContraseña(pUser);
+		CambioContraseÃ±a.puntero = new CambioContraseÃ±a(pUser);
 		
 	}
 	
-	private CambioContraseña (String pUser) {
+	private CambioContraseÃ±a (String pUser) {
 		
 		this.usuario = pUser;
 		// Crear panel principal
@@ -59,7 +59,7 @@ public class CambioContraseña extends JFrame implements Ventana {
 		
 		// Crear titulo
 		
-		this.titulo = new JLabel("Cambio Contraseña", SwingConstants.CENTER);
+		this.titulo = new JLabel("Cambio ContraseÃ±a", SwingConstants.CENTER);
 		this.titulo.setFont(new Font(Font.SANS_SERIF, 1, 30));
 		this.contenido.add(this.titulo, BorderLayout.NORTH);
 		
@@ -76,7 +76,7 @@ public class CambioContraseña extends JFrame implements Ventana {
 			
 
 			
-		this.par2.add(new JLabel("Contraseña Nueva"));
+		this.par2.add(new JLabel("ContraseÃ±a Nueva"));
 		this.par2.add(this.campo);
 			
 			
@@ -93,7 +93,7 @@ public class CambioContraseña extends JFrame implements Ventana {
 		for (int i = 0; i != 2; i++) {
 			String val = null;
 			switch (i) {
-			case 0: val = "Cambiar Contraseña"; break;
+			case 0: val = "Cambiar ContraseÃ±a"; break;
 			case 1: val = "Volver"; break;	
 			}
 			
@@ -126,10 +126,10 @@ public class CambioContraseña extends JFrame implements Ventana {
 			puntero.dispose();
 
 			if (Gestor.getInstancia().cambiarCont(usuario, campo.getText())) {
-				PopUp.visibilizar("Se ha cambiado la contraseña", puntero);
+				PopUp.visibilizar("Se ha cambiado la contraseÃ±a", puntero);
 				
 			} else {
-				PopUp.visibilizar("Acorta la contraseña para poder cambiarla", puntero);
+				PopUp.visibilizar("Acorta la contraseÃ±a para poder cambiarla", puntero);
 
 			}
 			
