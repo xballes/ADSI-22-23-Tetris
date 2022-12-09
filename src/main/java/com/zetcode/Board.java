@@ -92,7 +92,7 @@ public class Board extends JPanel {
     }
 
     private void doDrawing(Graphics g) {
-
+    
         var size = getSize();
         int boardTop = (int) size.getHeight() - BOARD_HEIGHT * squareHeight();
 
@@ -103,7 +103,6 @@ public class Board extends JPanel {
                 Tetrominoe shape = shapeAt(j, BOARD_HEIGHT - i - 1);
 
                 if (shape != Tetrominoe.NoShape) {
-
                     drawSquare(g, j * squareWidth(),
                             boardTop + i * squareHeight(), shape);
                 }

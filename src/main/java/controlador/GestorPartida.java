@@ -205,8 +205,6 @@ public class GestorPartida {
 		Board b = new Board(t, pNombreUsuario);
 		b.volcarMatriz(matriz);
 		b.setNumLinesRemoved(Integer.parseInt(pPuntos));
-		b.setVisible(true);
-		t.setVisible(true);
 		//falta por poner los puntos de la partida...
 		return matriz;
 		
