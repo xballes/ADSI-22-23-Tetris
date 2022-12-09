@@ -94,6 +94,9 @@ public class Gestor {
 	public void darPremio(String pUser, int id, Timestamp pFecha) {
 		GestorPremios.getInstancia().darPremio(pUser, id, pFecha);
 	}
+	public String mapearFecha(String fecha) {
+		return GestorPartida.getInstancia().transformarFormato(fecha);
+	}
 	
 
 }

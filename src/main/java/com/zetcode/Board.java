@@ -72,10 +72,10 @@ public class Board extends JPanel {
 
         curPiece = new Shape();
         board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
-
+        if(this.puntero.getFechaSave()==null) { // si no hay ninguna partida guardada
         clearBoard();
+        }
         newPiece();
-
         timer = new Timer(PERIOD_INTERVAL, new GameCycle());
         timer.start();
     }
@@ -458,6 +458,72 @@ public class Board extends JPanel {
 
             oneLineDown();
         }
+    }
+    
+
+    public void volcarMatriz(int[][]matrizOrigen){
+    	int[][] matriz=new int[BOARD_WIDTH][BOARD_HEIGHT];
+    	board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
+    	for (int f=0;f!=BOARD_WIDTH; f++) {
+    		for (int c = 1; c != BOARD_HEIGHT; c++) {
+    	        matriz[f][c] = matrizOrigen[f][c];
+    			
+    		}
+    	}
+    	/*private Tetrominoe shapeAt(int x, int y) {
+
+            return board[(y * BOARD_WIDTH) + x];
+        }*/
+    	for (int alt = BOARD_HEIGHT-1; alt != -1; alt--) {
+    		for (int col = 0; col != BOARD_WIDTH; col++) {
+    			//System.out.println(matriz[col][alt]);
+    			//System.out.print(" ");
+    			Tetrominoe p;
+    			int val2=matriz[col][alt];
+    			if(val2==0) {
+    				p = Tetrominoe.NoShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==1) {
+    				p = Tetrominoe.ZShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==2) {
+    				p = Tetrominoe.SShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==3) {
+    				p = Tetrominoe.LineShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==4) {
+    				p = Tetrominoe.TShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==5) {
+    				p = Tetrominoe.SquareShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==6) {
+    				p = Tetrominoe.LShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}else {
+    				p=Tetrominoe.MirroredLShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    				
+    			}	
+    		}
+    		//System.out.println();
+    	}
+    	/*for (int x = 0; x != BOARD_WIDTH; x++) {
+    		for (int y = 1; y != BOARD_HEIGHT; y++) {
+    			System.out.print(matriz[x][y]);
+    			System.out.print(" ");
+    			
+    		}
+    		System.out.println();
+    	}*/
+    	
     }
 
     class TAdapter extends KeyAdapter {

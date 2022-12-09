@@ -5,9 +5,12 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import com.zetcode.Tetris;
 
 import controlador.Gestor;
 
@@ -173,6 +176,7 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
 			MenuDeUsuario.visibilizar(usuario);
+			
 			}	
 	}	
 	
@@ -180,6 +184,8 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 		public void actionPerformed(ActionEvent e) {
 			int id=(((Boton)e.getSource()).id);
 			Gestor.getInstancia().cargarPartida(usuario, fechas[id], Integer.parseInt(niveles[id]));
+			puntero.dispose();
+			Tetris.getInstancia(usuario,Timestamp.valueOf(Gestor.getInstancia().mapearFecha(fechas[id])),Integer.parseInt(niveles[id]),Gestor.getInstancia().cargarPartida(usuario, fechas[id], Integer.parseInt(niveles[id])));
 			
 		}
 	}

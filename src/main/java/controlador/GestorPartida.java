@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 
 import com.zetcode.Board;
+import com.zetcode.Tetris;
 
 public class GestorPartida {
 
@@ -133,6 +134,7 @@ public class GestorPartida {
 		Timestamp fechaCorrecta=Timestamp.valueOf(fechaFormato); // Crear el timestamp
 		
 		int numcolumnas; // Deducir el numero de columnas basado en el nivel
+		int nivel;
 		if(pNivel == 1) {
 			numcolumnas = 10;
 		}else if(pNivel == 2) {
@@ -167,7 +169,13 @@ public class GestorPartida {
 
 			} catch (SQLException e) {}	
 		}
-		
+		if(numcolumnas==10) {
+			nivel=1;
+		}else if(numcolumnas==12){
+			nivel=2;
+		}else {
+			nivel=3;
+		}
 		
 		return matriz;
 
@@ -184,7 +192,7 @@ public class GestorPartida {
 	
 
 	
-	private String transformarFormato(String entrada) {
+	public String transformarFormato(String entrada) {
 		
 		// Pre: MMM DD, YYYY, HH:MM:SS (A/P)M
 		// Post: YYY-MM-DD HH:MM:SS.000000

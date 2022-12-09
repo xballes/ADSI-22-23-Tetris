@@ -57,7 +57,7 @@ public class Tetris extends JFrame {
         // Cargar matriz de juego
         
         if (pMatriz != null) {
-        	// CARGAR MATRIZ DE PARTIDA AQUI	
+        	board.volcarMatriz(pMatriz);
         }
         
         // Cargar colores
