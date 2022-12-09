@@ -25,7 +25,7 @@ public class Tetris extends JFrame {
 	private Timestamp fechaDeSave;
 	
 	
-    private JLabel statusbar; // Puntuación
+    private JLabel statusbar; // Puntuaciï¿½n
 
     
     
@@ -35,7 +35,7 @@ public class Tetris extends JFrame {
     	
     	this.nombreUsuario = pUser;
     	this.fechaDeSave = fechaSave;
-        initUI(pNivel, pMatriz);
+        initUI(pNivel, pMatriz, pUser);
     }
     
     public static Tetris getInstancia(String pUser, Timestamp fechaSave, int pNivel, int[][] pMatriz) {
@@ -43,7 +43,7 @@ public class Tetris extends JFrame {
     	return Tetris.puntero;
     }
 
-    private void initUI(int pNivel, int[][] pMatriz) {
+    private void initUI(int pNivel, int[][] pMatriz, String pUser) {
     	
     	// Inicializar la ventana de juego
 
@@ -62,7 +62,7 @@ public class Tetris extends JFrame {
         
         // Cargar colores
         
-        int setFondo = 0; // LLAMADAS AL GESTOR --> GESTORPERSONALIAZCION --> SGBD PARA OBTENER LOS VALORES CORRESPONDIENTES
+        int setFondo = 0; // LLAMADAS AL GESTOR --> GESTOR COLORES Y LADRILLOS Y MUSICA --> SGBD PARA OBTENER LOS VALORES CORRESPONDIENTES
         int setPieza = 0;
         int setMusica = 0;
         

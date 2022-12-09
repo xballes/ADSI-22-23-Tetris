@@ -18,7 +18,7 @@ public class GestorLadrillos {
 	
 	public void editarLadrillos(String pNombre, int idSetColores ) {
 		
-		ResultSet resul = SGBD.getInstancia().execSQL("UPDATE  Usuario SET setLadrillo="+idSetColores+" WHERE usuario='"+pNombre+"'");
+		SGBD.getInstancia().execSQLVoid("UPDATE  Usuario SET setLadrillo="+idSetColores+" WHERE usuario='"+pNombre+"'");
 		
 		
 	}
