@@ -156,7 +156,8 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion3 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A PERSONALIZAR
+			puntero.dispose();
+			Personalizar.visibilizar(usuario);
 		}
 		
 		
