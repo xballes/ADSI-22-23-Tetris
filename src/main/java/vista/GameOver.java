@@ -41,6 +41,9 @@ public class GameOver extends JFrame {
 	}
 	
 	public GameOver(String pNombreUsuario, int pPuntos, int pNivel, Timestamp fechaSave, boolean pTetris) {
+		
+
+		
 		this.tetris = pTetris;
 		nombreUsuario = pNombreUsuario;
 		puntos = pPuntos;
@@ -102,10 +105,12 @@ public class GameOver extends JFrame {
 		
 		contentPane.add(panel_3, BorderLayout.CENTER);
 		
-		// APAGAR MUSICA AQUI
 		
 		super.setResizable(false);
 		super.setVisible(true);
+		
+		Gestor.getInstancia().acabarMusica(true);
+
 	}
 	
 	

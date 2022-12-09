@@ -2,6 +2,7 @@ package com.zetcode;
 
 import com.zetcode.Shape.Tetrominoe;
 
+import controlador.Gestor;
 import vista.GameOver;
 import vista.PausaGuardado;
 
@@ -71,9 +72,10 @@ public class Board extends JPanel {
     void start() {
 
         curPiece = new Shape();
-        board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
+      
         if(this.puntero.getFechaSave()==null) { // si no hay ninguna partida guardada
-        clearBoard();
+        	board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
+        	clearBoard();
         }
         newPiece();
         timer = new Timer(PERIOD_INTERVAL, new GameCycle());
@@ -218,7 +220,6 @@ public class Board extends JPanel {
             }
 
             if (shapeAt(x, y) != Tetrominoe.NoShape) {
-
                 return false;
             }
         }
@@ -270,8 +271,11 @@ public class Board extends JPanel {
             curPiece.setShape(Tetrominoe.NoShape);
             
             
-            if (numFullLines == 4) {this.tetris = true;}
-            
+            if (numFullLines == 4) {this.tetris = true; Gestor.getInstancia().sonarTetris();}
+            else {
+            	Gestor.getInstancia().sonarLineaLimpia();
+            	
+            }
             
         }
     }
@@ -319,18 +323,7 @@ public class Board extends JPanel {
     			
     		}
     	}
-    	
-    	for (int f = 0; f != BOARD_HEIGHT; f++) {
-    		
-    		for (int c = 0; c != BOARD_WIDTH; c++) {
-    			
-    			System.out.print(matriz[f][c]);
-    			System.out.print(" ");
-    			
-    		}
-    		System.out.println();
-    	}
-    	
+
     	
     	
 
@@ -338,6 +331,7 @@ public class Board extends JPanel {
     	
     }
     
+
 
     public int getBOARD_WIDTH() {
 		return BOARD_WIDTH;
@@ -423,6 +417,108 @@ public class Board extends JPanel {
     	
     }
     
+    public void volcarMatriz(int[][]matrizOrigen){
+    	
+
+    	/*private Tetrominoe shapeAt(int x, int y) {
+
+            return board[(y * BOARD_WIDTH) + x];
+        }*/
+    	
+    	this.board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
+    	int numCols = matrizOrigen[0].length;
+    	
+    	for (int i = 0; i != matrizOrigen.length*matrizOrigen[0].length; i++) {
+			Tetrominoe p;
+
+    		
+    		int val = matrizOrigen[i/numCols][i%numCols];
+    		
+    		if(val==0) {
+				p = Tetrominoe.NoShape;
+			}
+			else if(val==1) {
+				p = Tetrominoe.ZShape;
+			}
+			else if(val==2) {
+				p = Tetrominoe.SShape;
+			}
+			else if(val==3) {
+				p = Tetrominoe.LineShape;
+			}
+			else if(val==4) {
+				p = Tetrominoe.TShape;
+			}
+			else if(val==5) {
+				p = Tetrominoe.SquareShape;
+			}
+			else if(val==6) {
+				p = Tetrominoe.LShape;
+			}else {
+				p=Tetrominoe.MirroredLShape;
+				
+			}	
+    		
+    		
+    		this.board[i] = p;
+    	}
+    	
+    	
+    	/*
+    	
+    	for (int alt = BOARD_HEIGHT-1; alt != -1; alt--) {
+    		
+    		for (int col = 0; col != BOARD_WIDTH; col++) {
+    			
+
+    			Tetrominoe p;
+    			int val2=matriz[col][alt];
+    			if(val2==0) {
+    				p = Tetrominoe.NoShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==1) {
+    				p = Tetrominoe.ZShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==2) {
+    				p = Tetrominoe.SShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==3) {
+    				p = Tetrominoe.LineShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==4) {
+    				p = Tetrominoe.TShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==5) {
+    				p = Tetrominoe.SquareShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}
+    			else if(val2==6) {
+    				p = Tetrominoe.LShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    			}else {
+    				p=Tetrominoe.MirroredLShape;
+    				board[(alt*BOARD_WIDTH)+col]=p;
+    				
+    			}	
+    		}
+    		//System.out.println();
+    	} */
+    	/*for (int x = 0; x != BOARD_WIDTH; x++) {
+    		for (int y = 1; y != BOARD_HEIGHT; y++) {
+    			System.out.print(matriz[x][y]);
+    			System.out.print(" ");
+    			
+    		}
+    		System.out.println();
+    	}*/
+    	
+    }
+    
     
     public boolean getTetrisRealizado() {return this.tetris;}
 
@@ -461,70 +557,7 @@ public class Board extends JPanel {
     }
     
 
-    public void volcarMatriz(int[][]matrizOrigen){
-    	int[][] matriz=new int[BOARD_WIDTH][BOARD_HEIGHT];
-    	board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
-    	for (int f=0;f!=BOARD_WIDTH; f++) {
-    		for (int c = 1; c != BOARD_HEIGHT; c++) {
-    	        matriz[f][c] = matrizOrigen[f][c];
-    			
-    		}
-    	}
-    	/*private Tetrominoe shapeAt(int x, int y) {
 
-            return board[(y * BOARD_WIDTH) + x];
-        }*/
-    	for (int alt = BOARD_HEIGHT-1; alt != -1; alt--) {
-    		for (int col = 0; col != BOARD_WIDTH; col++) {
-    			//System.out.println(matriz[col][alt]);
-    			//System.out.print(" ");
-    			Tetrominoe p;
-    			int val2=matriz[col][alt];
-    			if(val2==0) {
-    				p = Tetrominoe.NoShape;
-    				board[(alt*BOARD_WIDTH)+col]=p;
-    			}
-    			else if(val2==1) {
-    				p = Tetrominoe.ZShape;
-    				board[(alt*BOARD_WIDTH)+col]=p;
-    			}
-    			else if(val2==2) {
-    				p = Tetrominoe.SShape;
-    				board[(alt*BOARD_WIDTH)+col]=p;
-    			}
-    			else if(val2==3) {
-    				p = Tetrominoe.LineShape;
-    				board[(alt*BOARD_WIDTH)+col]=p;
-    			}
-    			else if(val2==4) {
-    				p = Tetrominoe.TShape;
-    				board[(alt*BOARD_WIDTH)+col]=p;
-    			}
-    			else if(val2==5) {
-    				p = Tetrominoe.SquareShape;
-    				board[(alt*BOARD_WIDTH)+col]=p;
-    			}
-    			else if(val2==6) {
-    				p = Tetrominoe.LShape;
-    				board[(alt*BOARD_WIDTH)+col]=p;
-    			}else {
-    				p=Tetrominoe.MirroredLShape;
-    				board[(alt*BOARD_WIDTH)+col]=p;
-    				
-    			}	
-    		}
-    		//System.out.println();
-    	}
-    	/*for (int x = 0; x != BOARD_WIDTH; x++) {
-    		for (int y = 1; y != BOARD_HEIGHT; y++) {
-    			System.out.print(matriz[x][y]);
-    			System.out.print(" ");
-    			
-    		}
-    		System.out.println();
-    	}*/
-    	
-    }
 
     class TAdapter extends KeyAdapter {
 

@@ -79,6 +79,9 @@ public class PausaGuardado extends JFrame {
 		this.setResizable(false);
 		this.setVisible(true);
 		
+		// Pausar musica
+		Gestor.getInstancia().pausaMusica();
+		
 		
 	}
 	
@@ -89,6 +92,7 @@ public class PausaGuardado extends JFrame {
 			puntero.dispose();
 			Gestor.getInstancia().guardarPartida(board.calcularMatriz(), board.getNombreUsuario(), board.getBOARD_WIDTH(), board.getFechaSave(), board.getNumLinesRemoved(), board.getTetrisRealizado());
 			board.forzarCerrado();
+			Gestor.getInstancia().acabarMusica(false);
 			MenuDeUsuario.visibilizar(board.getNombreUsuario());
 		}
 		
@@ -99,9 +103,7 @@ public class PausaGuardado extends JFrame {
 
 		public void actionPerformed(ActionEvent e) { //Botón volver
 			puntero.dispose();
-			
-			// APAGAR MUSICA AQUI
-			
+			Gestor.getInstancia().despausaMusica();
 			board.despausar();
 			
 			

@@ -122,9 +122,8 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			
 			puntero.dispose();
-			Tetris.getInstancia(usuario, null, 3, null);
+			BotonNiveles.visibilizar(usuario);
 			
 			// LLAMADA A NIVELES
 
@@ -136,18 +135,9 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion2 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			//Comprobar saves...
 			puntero.dispose();
-			//Gestor.getInstancia().mostrarPartidas(usuario);
 			PartidasGuardadas.visibilizar(usuario);
-			//boolean Resultado=Gestor.getInstancia().cargarPartida(usuario);		
-			//if(Resultado!=false) {
-				//PopUp.visibilizar("La partida se ha cargado correctamente", puntero);	
-			//}
-			//else {
-				//PopUp.visibilizar("La partida no se ha cargado correctamente", puntero);
-				
-			//}
+
 		}
 		
 		
@@ -156,7 +146,8 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion3 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A PERSONALIZAR
+			puntero.dispose();
+			Personalizar.visibilizar(usuario);
 		}
 		
 		

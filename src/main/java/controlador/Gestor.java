@@ -98,5 +98,30 @@ public class Gestor {
 		return GestorPartida.getInstancia().transformarFormato(fecha);
 	}
 	
+	public void cambiarColor(String pNombre, int idColor ) {
+		GestorColores.getInstancia().cambiarColor(pNombre, idColor);
+	}
+	
+	public void editarLadrillos(String pNombre, int idSetColores ) {
+		GestorLadrillos.getInstancia().editarLadrillos(pNombre, idSetColores);
+	}
+	
+	public void cambiarSonido(String pNombre, int idSonido ) {
+		GestorSonido.getInstancia().cambiarSonido(pNombre, idSonido);
+	}
+	
+	
+	
+	public void tocarMusica(int pId) {GestorSonido.getInstancia().tocarMusica(pId);}
+	
+	public void acabarMusica(boolean pGameOver) {GestorSonido.getInstancia().acabarMusica(pGameOver);}
+	
+	public void pausaMusica() {GestorSonido.getInstancia().pausa();}
 
+	public void despausaMusica() {GestorSonido.getInstancia().despausa();}
+	
+	public void sonarLineaLimpia() {GestorSonido.getInstancia().sonarLineaLimpia();}
+	
+	public void sonarTetris() {GestorSonido.getInstancia().sonarTetris();}
+	
 }

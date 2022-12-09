@@ -23,7 +23,7 @@ public class GestorUsuarios {
 		  
 		 */
 
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE nombre='"+pNombre+"' && contraseña = '"+pCont+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM usuario WHERE nombre='"+pNombre+"' && contraseña = '"+pCont+"'");
 		boolean val;
 		try {
 			val = r.next();
@@ -46,18 +46,18 @@ public class GestorUsuarios {
 		if (pNombre.length() > 30 || pCont.length() > 30 || pMail.length() > 30) {return 1;}
 		if (pNombre.length() == 0 || pCont.length() == 0 || pMail.length() == 0) {return 1;}
 
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE nombre='"+pNombre+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM usuario WHERE nombre='"+pNombre+"'");
 		try {
 			 if (r.next()) {r.close(); return 2;}
 			 
 			
 				 
-			ResultSet r2 = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE email='"+pMail+"'");
+			ResultSet r2 = SGBD.getInstancia().execSQL("SELECT * FROM usuario WHERE email='"+pMail+"'");
 
 			if (r2.next()) {r.close(); r2.close(); return 3;}
 			else {
 				
-				SGBD.getInstancia().execSQLVoid("INSERT INTO USUARIO VALUES('"+pNombre+"', '"+pCont+"', '"+pMail+"', 1, 1, 1, 0)");
+				SGBD.getInstancia().execSQLVoid("INSERT INTO usuario VALUES('"+pNombre+"', '"+pCont+"', '"+pMail+"', 0, 0, 0, 0)");
 				r.close(); r2.close();
 				return 0;
 			
@@ -78,7 +78,7 @@ public class GestorUsuarios {
 		// Pre: No hay dos mails repetidos en BD
 		// Post: Si coinicide, la string con la contraseña, else, null
 		
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseña FROM Usuario WHERE email='"+pMail+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseña FROM usuario WHERE email='"+pMail+"'");
 		try {
 			if (r.next()) {
 				String res = r.getString(1);
@@ -104,7 +104,7 @@ public class GestorUsuarios {
 		if (pCont.length() > 30 || pCont.length() == 0) {return false;}
 		else if (!this.alfanumerico(pCont)) {return false;}
 		else {
-			SGBD.getInstancia().execSQLVoid("UPDATE Usuario SET contraseña = '"+pCont+"' WHERE nombre = '"+pNombre+"'");
+			SGBD.getInstancia().execSQLVoid("UPDATE usuario SET contraseña = '"+pCont+"' WHERE nombre = '"+pNombre+"'");
 			return true;
 		}
 		
@@ -119,7 +119,7 @@ public class GestorUsuarios {
 		else if (pNombre.length() == 0) {return false;}
 		else {
 			
-			ResultSet r = SGBD.getInstancia().execSQL("SELECT nombre FROM Usuario WHERE nombre = '"+pNombre+"'");
+			ResultSet r = SGBD.getInstancia().execSQL("SELECT nombre FROM usuario WHERE nombre = '"+pNombre+"'");
 			boolean enc;
 			try {
 				enc = r.next();
@@ -129,7 +129,7 @@ public class GestorUsuarios {
 			}
 			
 			if (enc) {
-				SGBD.getInstancia().execSQLVoid("DELETE FROM Usuario WHERE nombre = '"+pNombre+"'");
+				SGBD.getInstancia().execSQLVoid("DELETE FROM usuario WHERE nombre = '"+pNombre+"'");
 			} 
 			
 			return enc;
@@ -219,7 +219,7 @@ public class GestorUsuarios {
 		
 		int i = 0;
 		
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT nombre FROM Usuario WHERE nombre = '"+pUser+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT nombre FROM usuario WHERE nombre = '"+pUser+"'");
 		
 		try {
 			while (r.next()) {i++;}
@@ -232,15 +232,15 @@ public class GestorUsuarios {
 	
 	public void borrarTodosLosUsers() {
 		
-		SGBD.getInstancia().execSQLVoid("DELETE FROM USUARIO");
-		this.registrar("Administrador", "123456", "email");
+		SGBD.getInstancia().execSQLVoid("DELETE FROM usuario");
+		this.registrar("administrador", "123456", "email");
 		
 	}
 	
 	public String obtContraseñaDe(String pUser) {
 		
 		
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseña FROM Usuario WHERE nombre = '"+pUser+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseña FROM usuario WHERE nombre = '"+pUser+"'");
 		
 		try {
 			String res = null;

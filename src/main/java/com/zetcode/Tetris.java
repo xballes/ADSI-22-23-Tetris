@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import controlador.Gestor;
+
 /*
 Java Tetris game clone
 Author: Jan Bodnar
@@ -63,14 +65,14 @@ public class Tetris extends JFrame {
         // Cargar colores
         
         int setFondo = 0; // LLAMADAS AL GESTOR --> GESTORPERSONALIAZCION --> SGBD PARA OBTENER LOS VALORES CORRESPONDIENTES
-        int setPieza = 0;
+        int setPieza = 0; // usar atributo nombreUsuario para localizar la persona
         int setMusica = 0;
         
         board.setColores(setFondo, setPieza);
         
         // Cargar musica
         
-        // LLAMADA AL GESTOR --> GESTORAUDIO --> REPRODUCTOR (EMPEZAR A ESCUCHAR LA MUSICA)
+        Gestor.getInstancia().tocarMusica(setMusica);
         
         board.start();
 

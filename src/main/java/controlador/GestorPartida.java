@@ -134,7 +134,6 @@ public class GestorPartida {
 		Timestamp fechaCorrecta=Timestamp.valueOf(fechaFormato); // Crear el timestamp
 		
 		int numcolumnas; // Deducir el numero de columnas basado en el nivel
-		int nivel;
 		if(pNivel == 1) {
 			numcolumnas = 10;
 		}else if(pNivel == 2) {
@@ -142,7 +141,7 @@ public class GestorPartida {
 		}else {
 			numcolumnas = 14;
 		}
-		int [][]matriz= new int [numcolumnas][22]; // r.getFetchSize() o 22
+		int [][]matriz= new int [22][numcolumnas]; // r.getFetchSize() o 22
 		
 		// Obtener la matriz de BD
 		
@@ -158,24 +157,18 @@ public class GestorPartida {
 			  .
 			  .............................(numcolumna=10)
 			 */
-			String sentenciaSQL2 = "SELECT alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22 FROM columna WHERE(nombreUsuario='"+pNombreUsuario+"' AND fechaPartida='"+fechaCorrecta+"' AND numcolumna='"+x+"')"; //Devuelve cada fila de la matriz
+			String sentenciaSQL2 = "SELECT alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22 FROM columna WHERE(nombreUsuario='"+pNombreUsuario+"' AND fechaPartida='"+fechaCorrecta+"' AND numColumna='"+x+"')"; //Devuelve cada fila de la matriz
 			ResultSet r2 = SGBD.getInstancia().execSQL(sentenciaSQL2);
 			try {
 				if (r2.next()) {
-					for(int j=0;j!=22;j++) {matriz[x][j]=r2.getInt(j);}			
+					for(int j=0;j!=22;j++) {matriz[j][x]=r2.getInt(j+1);}			
 				
 				}
 				r2.close();
 
 			} catch (SQLException e) {}	
 		}
-		if(numcolumnas==10) {
-			nivel=1;
-		}else if(numcolumnas==12){
-			nivel=2;
-		}else {
-			nivel=3;
-		}
+
 		
 		return matriz;
 
