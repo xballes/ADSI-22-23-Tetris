@@ -35,11 +35,15 @@ public class GestorRankingTest {
 		
 	
 		//Caso 1
-		
-		this.gestor.obtenerRankingTodosNivelesPublico()
-		
-		
+	
+	
+	String json1 =	this.gestor.obtenerRankingTodosNivelesPublico();
+	assertTrue(this.obtenerDatos(json1).length != 0);
+		//saber si es de un usuario?
+	
 	}
+	
+	
 	
 	private String[][] obtenerDatos(String json1) {
 		
@@ -49,10 +53,7 @@ public class GestorRankingTest {
 		String[] nivel = new String [array.length-1];
 		String[] nombre = new String [array.length-1];
 		String[][] resultado = new String[3][array.length-1];
-		resultado[0] = puntos;
-		resultado[1] = nivel;
-		resultado[2] = nombre
-				;
+				
 
 
 		
@@ -97,6 +98,12 @@ public class GestorRankingTest {
 			
 			nombre[i]=aux;
 		}
+		
+		resultado[0] = puntos;
+		resultado[1] = nivel;
+		resultado[2] = nombre;
+		
+		return resultado;
 		
 	}
 
