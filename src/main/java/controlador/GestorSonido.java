@@ -1,5 +1,7 @@
 package controlador;
 
+import java.sql.ResultSet;
+
 import modelo.Reproductor;
 
 public class GestorSonido {
@@ -23,9 +25,27 @@ public class GestorSonido {
 	
 	public void cambiarSonido(String pNombre, int idSonido ) {
 		
-		SGBD.getInstancia().execSQLVoid("UPDATE usuario SET setSonido="+idSonido+" WHERE usuario='"+pNombre+"'");
+		SGBD.getInstancia().execSQLVoid("UPDATE usuario SET setSonido="+idSonido+" WHERE nombre='"+pNombre+"'");
 		
 		
+	}
+	
+	
+	public int obtenerSonido(String pNombre) {
+		
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT setSonido FROM usuario WHERE nombre='"+pNombre+"'");
+		int res = -1;
+		
+		
+		try {
+			r.next();
+			res = r.getInt("setSonido");
+			r.close();
+			
+			
+		} catch (Exception e) {}
+		
+		return res;
 	}
 	
 	

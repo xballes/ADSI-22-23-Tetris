@@ -47,9 +47,11 @@ public class Personalizar extends JFrame {
 		panel.setLayout(new GridLayout(4, 1, 10, 10));
 		
 		JButton btnNewButton = new JButton("Editar Color");
+		btnNewButton.addActionListener(new Accion1());
 		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Editar Ladrillos");
+		btnNewButton_1.addActionListener(new Accion2());
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Cambiar Sonido");
@@ -70,4 +72,31 @@ public class Personalizar extends JFrame {
 			MenuDeUsuario.visibilizar(nombreUsuario);
 		}
 	}
+	
+	private class Accion3 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			MenuDeUsuario.visibilizar(nombreUsuario);
+		}
+	}
+	
+	private class Accion2 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			EditarLadrillos.visibilizar(nombreUsuario);
+		}
+	}
+	
+	private class Accion1 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			EditarColor.visibilizar(nombreUsuario);
+		}
+	}
+	
+	
+	
 }

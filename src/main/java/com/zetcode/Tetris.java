@@ -64,9 +64,9 @@ public class Tetris extends JFrame {
         
         // Cargar colores
         
-        int setFondo = 0; // LLAMADAS AL GESTOR --> GESTORPERSONALIAZCION --> SGBD PARA OBTENER LOS VALORES CORRESPONDIENTES
-        int setPieza = 0; // usar atributo nombreUsuario para localizar la persona
-        int setMusica = 0;
+        int setFondo = Gestor.getInstancia().obtenerColor(nombreUsuario); // LLAMADAS AL GESTOR --> GESTORPERSONALIAZCION --> SGBD PARA OBTENER LOS VALORES CORRESPONDIENTES
+        int setPieza = Gestor.getInstancia().obtenerSet(nombreUsuario); // usar atributo nombreUsuario para localizar la persona
+        int setMusica = Gestor.getInstancia().obtenerSonido(nombreUsuario);
         
         board.setColores(setFondo, setPieza);
         

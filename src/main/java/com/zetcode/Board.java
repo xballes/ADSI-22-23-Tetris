@@ -408,7 +408,11 @@ public class Board extends JPanel {
     	
     	switch (pFondo) {
     	case 0: break;  // Nada, transparente
-    	case 1: super.setBackground(Color.red); break;
+    	case 1: super.setBackground(Color.green); break;
+    	case 2: super.setBackground(Color.yellow); break;
+    	case 3: super.setBackground(Color.pink); break;
+
+
     	// los colores que quieras... aqui
     	}
     	

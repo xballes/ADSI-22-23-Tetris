@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,22 +8,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import com.zetcode.Tetris;
-
 @SuppressWarnings("serial")
 
-public class MenuDeUsuario extends JFrame {
+public class DetallesPremio extends JFrame {
 	
-	// Menu que se abre tras iniciar sesión correctamente, el acceso a la mayoria de los c.u. se hacen desde aqui
-	
-	
-	private static MenuDeUsuario puntero;
+	private static DetallesPremio puntero;
 	private JPanel contenido;
 	private JLabel titulo;
 
 	
 	private JPanel filas;
-	private JButton[] botones; 
+	private JButton[] botones; // Registrar, Iniciar Sesion, Recupero cont, Ranking
 	
 	
 	
@@ -39,12 +33,12 @@ public class MenuDeUsuario extends JFrame {
 
 	
 	public static void visibilizar(String pUser) {
-		MenuDeUsuario.puntero = new MenuDeUsuario(pUser);
+		DetallesPremio.puntero = new DetallesPremio(pUser);
 		
 		
 	}
 	
-	private MenuDeUsuario (String pUser) {
+	private DetallesPremio (String pUser) {
 		
 		this.usuario = pUser.toLowerCase();
 		
@@ -57,8 +51,6 @@ public class MenuDeUsuario extends JFrame {
 		// Crear titulo
 		
 		this.titulo = new JLabel("Bienvenido "+this.usuario, SwingConstants.CENTER);
-		
-		
 		this.titulo.setFont(new Font(Font.SANS_SERIF, 1, 30));
 		this.contenido.add(this.titulo, BorderLayout.NORTH);
 		
@@ -87,8 +79,8 @@ public class MenuDeUsuario extends JFrame {
 			case 3: val = "Ver Ranking General"; break;	
 			case 4: val = "Ver Ranking Personal"; break;	
 			case 5: val = "Ver Premios Obtenidos"; break;	
-			case 6: val = "Cambiar Contraseña"; break;	
-			case 7: val = "Cerrar Sesión"; break;	
+			case 6: val = "Cambiar Contraseï¿½a"; break;	
+			case 7: val = "Cerrar Sesiï¿½n"; break;	
 			case 8: val = "Admin: Eliminar Usuarios"; break;	
 
 			}
@@ -125,9 +117,6 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			BotonNiveles.visibilizar(usuario);
-			
 			// LLAMADA A NIVELES
 
 		}
@@ -138,9 +127,7 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion2 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			PartidasGuardadas.visibilizar(usuario);
-
+			// LLAMADA A CARGAR PARTIDA (EL QUE SE ENCARGA DE GUARDAR PARTIDA ES EL QUE IMPLEMENTA ESTO)
 		}
 		
 		
@@ -149,8 +136,7 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion3 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			Personalizar.visibilizar(usuario);
+			// LLAMADA A PERSONALIZAR
 		}
 		
 		
@@ -161,7 +147,6 @@ public class MenuDeUsuario extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
 			MenuRankingPublico.visibilizar(usuario);
-			
 		}
 		
 		
@@ -170,9 +155,7 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion5 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			MenuRankingPersonal.visibilizar(usuario);
-			
+			// VER RANKING PERSONAL
 		}
 		
 		
@@ -191,7 +174,7 @@ public class MenuDeUsuario extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			CambioContraseña.visibilizar(usuario);
+			CambioContraseÃ±a.visibilizar(usuario);
 		}
 		
 		
@@ -223,4 +206,3 @@ public class MenuDeUsuario extends JFrame {
 }
 	
 	
-

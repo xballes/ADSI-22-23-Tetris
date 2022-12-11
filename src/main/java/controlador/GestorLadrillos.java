@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.ResultSet;
 
 public class GestorLadrillos {
 	private static GestorLadrillos puntero;
@@ -17,9 +18,27 @@ public class GestorLadrillos {
 	
 	public void editarLadrillos(String pNombre, int idSetColores ) {
 		
-		SGBD.getInstancia().execSQLVoid("UPDATE  usuario SET setLadrillo="+idSetColores+" WHERE usuario='"+pNombre+"'");
+		SGBD.getInstancia().execSQLVoid("UPDATE  usuario SET setLadrillo="+idSetColores+" WHERE nombre='"+pNombre+"'");
 		
 		
+	}
+	
+	
+	public int obtenerSet(String pNombre) {
+		
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT setLadrillo FROM usuario WHERE nombre='"+pNombre+"'");
+		int res = -1;
+		
+		
+		try {
+			r.next();
+			res = r.getInt("setLadrillo");
+			r.close();
+			
+			
+		} catch (Exception e) {}
+		
+		return res;
 	}
 
 }

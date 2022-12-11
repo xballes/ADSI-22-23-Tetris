@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -110,6 +111,17 @@ public class Gestor {
 		GestorSonido.getInstancia().cambiarSonido(pNombre, idSonido);
 	}
 	
+	public int obtenerColor(String pNombre) {
+		return GestorColores.getInstancia().obtenerColor(pNombre);
+	}
+	
+	public int obtenerSet(String pNombre) {
+		return GestorLadrillos.getInstancia().obtenerSet(pNombre);
+	}
+	
+	public int obtenerSonido(String pNombre) {
+		return GestorSonido.getInstancia().obtenerSonido(pNombre);
+	}
 	
 	
 	public void tocarMusica(int pId) {GestorSonido.getInstancia().tocarMusica(pId);}

@@ -1,6 +1,5 @@
 package vista;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -48,7 +47,7 @@ public class EditarColor extends JFrame implements Ventana {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(new BorderLayout(15, 15));
 		
 		JLabel lblNewLabel = new JLabel("Editar Color");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -57,6 +56,7 @@ public class EditarColor extends JFrame implements Ventana {
 		
 		JButton btnNewButton = new JButton("Guardar Cambios");
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
+		btnNewButton.addActionListener(new Accion5());
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -68,15 +68,24 @@ public class EditarColor extends JFrame implements Ventana {
 		panel.add(lblNewLabel_2);
 		
 		
-	/*	JButton lblNewLabel_3 = new JLabel();
+		JButton lblNewLabel_3 = new JButton();
+		lblNewLabel_3.setBackground(Color.green);
+		lblNewLabel_3.addActionListener(new Accion2());
 		panel.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel();
+		
+		JButton lblNewLabel_4 = new JButton();
+		lblNewLabel_4.setBackground(Color.yellow);
+		lblNewLabel_4.addActionListener(new Accion3());
 		panel.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_1 = new JLabel(); 
-		panel.add(lblNewLabel_1); */
+		JButton lblNewLabel_1 = new JButton();
+		lblNewLabel_1.setBackground(Color.pink);
+		lblNewLabel_1.addActionListener(new Accion4());
+		panel.add(lblNewLabel_1);
 		
+		this.contentPane.add(new JPanel(), BorderLayout.WEST);
+		this.contentPane.add(new JPanel(), BorderLayout.EAST);
 		super.setResizable(false);
 		super.setVisible(true);
 		
@@ -91,6 +100,40 @@ public class EditarColor extends JFrame implements Ventana {
 		}
 	}
 
+	private class Accion2 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			Gestor.getInstancia().cambiarColor(usuario, 1);
+			puntero.dispose();
+			PopUp.visibilizar("Se ha adjudicado el color verde", puntero);
+		}
+	}
+
+	private class Accion3 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			Gestor.getInstancia().cambiarColor(usuario, 2);
+			puntero.dispose();
+			PopUp.visibilizar("Se ha adjudicado el color amarillo", puntero);
+		}
+	}
+
+	private class Accion4 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			Gestor.getInstancia().cambiarColor(usuario, 3);
+			puntero.dispose();
+			PopUp.visibilizar("Se ha adjudicado el color rosa", puntero);
+		}
+	}
+
+	private class Accion5 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			Personalizar.visibilizar(usuario);
+		}
+	}
 
 
 }
