@@ -27,8 +27,8 @@ public class Gestor {
 	}
 	
 	
-	public String obtContraseña(String pMail) {
-		return GestorUsuarios.getInstancia().obtContraseña(pMail);
+	public String obtContraseï¿½a(String pMail) {
+		return GestorUsuarios.getInstancia().obtContraseï¿½a(pMail);
 	}
 	
 	
@@ -43,6 +43,10 @@ public class Gestor {
 	
 	public String obtenerRankingTodosNivelesPublico() {
 		return GestorRanking.getInstancia().obtenerRankingTodosNivelesPublico();
+	}
+	
+	public String obtenerPremios(String pNombre) {
+		return GestorUsuarios.getInstancia().obtenerPremios(pNombre);
 	}
 	
 	

@@ -17,7 +17,7 @@ public class GestorUsuarios {
 	
 	public boolean verificarUsuario(String pNombre, String pCont) {
 
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE nombre='"+pNombre+"' && contraseña = '"+pCont+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM Usuario WHERE nombre='"+pNombre+"' && contraseï¿½a = '"+pCont+"'");
 		boolean val;
 		try {
 			val = r.next();
@@ -64,9 +64,9 @@ public class GestorUsuarios {
 	}
 	
 	
-	public String obtContraseña(String pMail) {
+	public String obtContraseï¿½a(String pMail) {
 		
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseña FROM Usuario WHERE email='"+pMail+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseï¿½a FROM Usuario WHERE email='"+pMail+"'");
 		try {
 			if (r.next()) {
 				String res = r.getString(1);
@@ -86,7 +86,7 @@ public class GestorUsuarios {
 	public boolean cambiarCont(String pNombre, String pCont) {
 		if (pCont.length() > 30) {return false;}
 		else {
-			SGBD.getInstancia().execSQLVoid("UPDATE Usuario SET contraseña = '"+pCont+"' WHERE nombre = '"+pNombre+"'");
+			SGBD.getInstancia().execSQLVoid("UPDATE Usuario SET contraseï¿½a = '"+pCont+"' WHERE nombre = '"+pNombre+"'");
 			return true;
 		}
 		
@@ -113,6 +113,23 @@ public class GestorUsuarios {
 			
 			
 		}
+		
+	public String obtenerPremios(String pNombre)
+	{
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT Premio.nombre FROM Usuario WHERE Premio.NombreUsuario = '"+pNombre+"'");
+		try
+		{
+			while(r.next())
+			{
+				r.getString("nombre");
+			}
+			r.close();
+		}
+		catch (SQLException e)
+		{
+			return null;
+		}
+		
 		
 	}
 	
