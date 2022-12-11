@@ -278,6 +278,12 @@ public class GestorPartida {
 		
 		
 	}
+	//-----------------------------------------------------------------
+	public void resetearBD() { //METODO DE USO EXCLUSIVO PARA JUNITS!
+		String sentencia = "DELETE FROM partida";
+		SGBD.getInstancia().execSQLVoid(sentencia);
+	}
+	//-----------------------------------------------------------------
 	
 	// Tuplas para poder almacenar varios valores a la vez y convertirlos a JSON
 	
