@@ -10,19 +10,22 @@ import org.junit.Before;
 import org.junit.Test;
 
 import controlador.GestorRanking;
+import controlador.GestorUsuarios;
 
 public class GestorRankingTest {
 
 	private GestorRanking gestor;
+	private GestorUsuarios gestor1;
 	
 	public GestorRankingTest() {
 		this.gestor = GestorRanking.getInstancia();
+		this.gestor1 = GestorUsuarios.getInstancia();
 	}
 	
 	@Before
 	public void setUp() throws Exception {
 		this.gestor.borrarRankings();
-		
+		this.gestor1.borrarTodosLosUsers();
 	}
 
 	@After
@@ -34,6 +37,11 @@ public class GestorRankingTest {
 	@Test
 	public void testObtenerRankingTodosNivelesPublico() {
 	
+	//Creación de usuarios para las pruebas:
+		
+		this.gestor1.registrar("Per1", "Hola1", "gg");
+		this.gestor1.registrar("Per2", "Hola2", "gg1");
+		
 	//Caso 1: Nunca se ha completado una partida (Tabla vacía)
 		
 		String json1 =	this.gestor.obtenerRankingTodosNivelesPublico();
@@ -43,7 +51,7 @@ public class GestorRankingTest {
 		assertTrue(matriz[1].length==0); //no hay niveles
 		assertTrue(matriz[2].length==0); // no hay usuarios
 	
-	//Caso 2: Se ha completado una partida (Tabla tiene una fila)
+	//Caso 2: Se ha completado una partida (La tabla tiene una fila)
 		
 		this.gestor.publicarPuntuacion("Per1", 5, 1);
 		String json2 =	this.gestor.obtenerRankingTodosNivelesPublico();
@@ -82,6 +90,12 @@ public class GestorRankingTest {
 	//Caso de uso: Ver ranking general por nivel
 	@Test
 	public void testObtenerRankingNivelPublico() {
+		
+		//Creación de usuarios para las pruebas:
+		
+		this.gestor1.registrar("Per1", "Hola1", "gg");
+		this.gestor1.registrar("Per2", "Hola2", "gg1");
+	
 		
 		//Caso 1: No hay puntuaciones en ningun nivel
 		String json2 =	this.gestor.obtenerRankingNivelPublico(1);
@@ -128,12 +142,8 @@ public class GestorRankingTest {
 		
 		this.gestor.publicarPuntuacion("Per1", 100, 3);
 		this.gestor.publicarPuntuacion("Per2", 50, 3);
-		//String json9 =	this.gestor.obtenerRankingNivelPublico(1);
-		//String json10 =	this.gestor.obtenerRankingNivelPublico(2);
 		String json11 =	this.gestor.obtenerRankingNivelPublico(3);
 		String json12 = this.gestor.obtenerRankingTodosNivelesPublico();
-		//String[][] mat7 = this.obtenerDatosNivel(json9);
-		//String[][] mat8 = this.obtenerDatosNivel(json10);
 		String[][] mat9 = this.obtenerDatosNivel(json11);
 		String[][] mat10 = this.obtenerDatos(json12);
 		
@@ -158,6 +168,11 @@ public class GestorRankingTest {
 	//Caso de uso: Ver ranking personal absoluto
 	@Test
 	public void testObtenerRankingTodosNivelPersonal() {
+		
+		//Creación de usuarios para las pruebas:
+		
+		this.gestor1.registrar("Per1", "Hola1", "gg");
+		this.gestor1.registrar("Per2", "Hola2", "gg1");
 		
 		//Caso 1: No hay puntuaciones ni en global ni en personal
 
@@ -191,18 +206,62 @@ public class GestorRankingTest {
 		assertTrue(matriz3[2][0].contentEquals("Per2"));
 		
 		
-		//Caso 4:
+		//Caso 4: Hay varias entradas en el global y una es de un usuario concreto (Per1)
+		
+		this.gestor.publicarPuntuacion("Per1", 20, 1);
+		
+		String json5 =	this.gestor.obtenerRankingTodosNivelesPublico();
+		String[][] matriz4 = this.obtenerDatos(json5);
+		
+		assertTrue(matriz4[2][1].contentEquals("Per1")); //esta en el ranking global
+		
+		String json6 = this.gestor.obtenerRankingTodosNivelPersonal("Per1");
+		String[][] matriz5 = this.obtenerDatosPriv(json6);
+		
+		assertTrue(matriz5[0][0].contentEquals("20")); //tiene una entrada en su ranking personal
+		
+		//Caso 5: Hay varias entradas en el global y ninguna de un usuario concreto (Per3)
+		
+		this.gestor1.registrar("Per3", "Hola", "hh");
+		
+		String json7 = this.gestor.obtenerRankingTodosNivelPersonal("Per3");
+		String[][] matriz6 = this.obtenerDatosPriv(json7);
+		
+		//No hay puntuaciones para ningun nivel de la Per3
+		
+		assertTrue(matriz6[0].length==0);  
+		assertTrue(matriz6[1].length==0);  
+		
+		//Caso 6: Hay varias entradas en el global y varias son de un usuario concreto (Per1)
+		
+		this.gestor.publicarPuntuacion("Per1", 80, 2);
+		
+		String json9 =	this.gestor.obtenerRankingTodosNivelesPublico();
+		String[][] matriz7 = this.obtenerDatos(json9);
+		
+		assertTrue(matriz7[2][1].contentEquals("Per1"));
+		assertTrue(matriz7[2][2].contentEquals("Per1"));
 		
 		
+		String json10 = this.gestor.obtenerRankingTodosNivelPersonal("Per1");
+		String[][] matriz8 = this.obtenerDatosPriv(json10);
+		
+		assertTrue(matriz8[0][0].contentEquals("80"));
+		assertTrue(matriz8[0][1].contentEquals("20"));
 		
 	}
 	
 	
 	//Caso de uso: Ver ranking personal por nivel
 	@Test
-	public void testObtenerRankingNivelPriv() {
+	public void testObtenerRankingNivelPersonal() {
 		
-		//Caso 1: No hay entradas ni en el global ni en el personal (en ningun nivel)
+		//Creación de usuarios para las pruebas:
+		
+		this.gestor1.registrar("Per1", "Hola1", "gg");
+		this.gestor1.registrar("Per2", "Hola2", "gg1");
+		
+		//Caso 1: No hay entradas ni en el global ni en el personal (en ningún nivel)
 		String json1 =	this.gestor.obtenerRankingTodosNivelesPublico();
 		String[][] matriz = this.obtenerDatos(json1);
 	
@@ -214,6 +273,7 @@ public class GestorRankingTest {
 		ArrayList<Integer> res1 = this.gestor.obtenerRankingNivelPriv("Per1", 2);
 		ArrayList<Integer> res2 = this.gestor.obtenerRankingNivelPriv("Per1", 3);
 		
+		//No hay puntuaciones en ningún nivel
 		assertTrue(res.size()==0);
 		assertTrue(res1.size()==0);
 		assertTrue(res2.size()==0);
