@@ -56,6 +56,7 @@ public class Personalizar extends JFrame {
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Cambiar Sonido");
+		btnNewButton_2.addActionListener(new Accion3());
 		panel.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Salir");
@@ -78,7 +79,7 @@ public class Personalizar extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			MenuDeUsuario.visibilizar(nombreUsuario);
+			CambiarSonido.visibilizar(nombreUsuario);
 		}
 	}
 	
