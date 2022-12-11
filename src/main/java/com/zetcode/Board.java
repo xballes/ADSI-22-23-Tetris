@@ -43,8 +43,13 @@ public class Board extends JPanel {
         initBoard(parent);
         this.tetris = false;
     }
+    
+    public Board() { //USO EXCLUSIVO JUNITS!
+		super();
+		this.tetris = false;
+	}
 
-    private void initBoard(Tetris parent) {
+	private void initBoard(Tetris parent) {
 
         setFocusable(true); // Dar focus para poder meter inputs sin tener que pinchar en la ventana
         statusbar = parent.getStatusBar(); // Pointer al label de los puntos de la clase Tetris
