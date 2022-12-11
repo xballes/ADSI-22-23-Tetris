@@ -32,7 +32,7 @@ public class GestorRanking {
 		Gson json1 = new Gson();
 		
 		
-		ResultSet resul = SGBD.getInstancia().execSQL("SELECT usuario, nivel, puntosActuales FROM puntuacion ORDER BY puntosActuales DESC");
+		ResultSet resul = SGBD.getInstancia().execSQL("SELECT usuario, nivel, puntosActuales FROM PUNTUACION ORDER BY puntosActuales DESC");
 		
 		ArrayList<Tripleta> objeto = new ArrayList<Tripleta>();
 		
@@ -75,7 +75,7 @@ public class GestorRanking {
 		int niv = pNivel;
 		
 		
-		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT usuario, puntosActuales FROM puntuacion WHERE nivel = "+niv+"  ORDER BY puntosActuales DESC");
+		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT usuario, puntosActuales FROM PUNTUACION  WHERE nivel = "+niv+"  ORDER BY puntosActuales DESC");
 		
 		ArrayList<DuplaNivel> obj = new ArrayList<DuplaNivel>();
 		
@@ -112,7 +112,7 @@ public class GestorRanking {
 	
 		Gson json3 = new Gson();
 		
-		ResultSet resulTodos = SGBD.getInstancia().execSQL("SELECT nivel, puntosActuales FROM puntuacion WHERE usuario='"+pNombre+"' ORDER BY puntosActuales DESC");
+		ResultSet resulTodos = SGBD.getInstancia().execSQL("SELECT nivel, puntosActuales FROM PUNTUACION WHERE usuario='"+pNombre+"' ORDER BY puntosActuales DESC");
 		
 		ArrayList<DuplaTodos> objetos = new ArrayList<DuplaTodos>();
 		
@@ -147,7 +147,7 @@ public class GestorRanking {
 		 */
 		
 		
-		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT puntosActuales FROM puntuacion WHERE nivel="+pNivel+" && usuario='"+pNombre+"'  ORDER BY puntosActuales DESC");
+		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT puntosActuales FROM PUNTUACION WHERE nivel="+pNivel+" && usuario='"+pNombre+"'  ORDER BY puntosActuales DESC");
 		
 		ArrayList<Integer> puntuaciones = new ArrayList<Integer>();
 		
@@ -180,6 +180,11 @@ public class GestorRanking {
 		SGBD.getInstancia().execSQLVoid("INSERT INTO puntuacion(nivel, puntosActuales, usuario) VALUES ("+pNivel+", "+pPuntos+",'"+pUser+"')");
 	}
 	
+	//Metodo exclusivo para las pruebas JUnit
+	
+	public void borrarRankings() {
+		SGBD.getInstancia().execSQLVoid("DELETE FROM PUNTUACION");
+	}
 	
 	// Tuplas para poder almacenar varios valores a la vez y convertirlos a JSON
 	

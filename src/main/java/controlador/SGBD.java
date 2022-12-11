@@ -29,7 +29,7 @@ public class SGBD {
 			conexion.close();
 			return r;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Error al conectar con BD. Asegúrate que Apache y MariaDB estén activados en XAMPP y hayas importado el .sql en la BD 'adsi'");
 			return null;
 		}
 		
@@ -46,7 +46,7 @@ public class SGBD {
 			ps.executeQuery();
 			conexion.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Error al conectar con BD. Asegúrate que Apache y MariaDB estén activados en XAMPP y hayas importado el .sql en la BD 'adsi'");
 		}
 		
 	}
