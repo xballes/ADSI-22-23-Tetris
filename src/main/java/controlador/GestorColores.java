@@ -18,7 +18,7 @@ public class GestorColores {
 	
 	public void cambiarColor(String pNombre, int idColor ) {
 		
-		SGBD.getInstancia().execSQLVoid("UPDATE  Usuario SET setColor="+idColor+" WHERE usuario='"+pNombre+"'");
+		SGBD.getInstancia().execSQLVoid("UPDATE  Usuario SET setColor="+idColor+" WHERE nombre='"+pNombre+"'");
 		
 		
 	}
