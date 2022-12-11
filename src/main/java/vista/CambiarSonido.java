@@ -81,8 +81,8 @@ public class CambiarSonido extends JFrame implements Ventana {
 		panel.add(boton);
 		
 		
-		contentPane.add(panel, BorderLayout.EAST);
-		contentPane.add(panel, BorderLayout.WEST);
+		contentPane.add(new JPanel(), BorderLayout.EAST);
+		contentPane.add(new JPanel(), BorderLayout.WEST);
 
 		super.setResizable(false);
 		super.setVisible(true);
