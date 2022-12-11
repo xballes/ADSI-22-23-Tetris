@@ -30,12 +30,12 @@ public class Personalizar extends JFrame {
 		nombreUsuario = pNombre;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(new BorderLayout(20, 20));
 		
 		JLabel lblNewLabel = new JLabel("Menu de personalización");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -55,11 +55,17 @@ public class Personalizar extends JFrame {
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Cambiar Sonido");
+		btnNewButton_2.addActionListener(new Accion3());
 		panel.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Salir");
 		btnNewButton_3.addActionListener(new Accion4());
 		panel.add(btnNewButton_3);
+		
+		contentPane.add(new JPanel(), BorderLayout.WEST);
+		contentPane.add(new JPanel(), BorderLayout.EAST);
+		contentPane.add(new JPanel(), BorderLayout.SOUTH);
+
 		
 		super.setResizable(false);
 		super.setVisible(true);
@@ -77,7 +83,7 @@ public class Personalizar extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			MenuDeUsuario.visibilizar(nombreUsuario);
+			CambiarSonido.visibilizar(nombreUsuario);
 		}
 	}
 	
