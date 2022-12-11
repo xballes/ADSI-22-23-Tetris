@@ -68,14 +68,22 @@ public class EditarColor extends JFrame implements Ventana {
 		panel.add(lblNewLabel_2);
 		
 		
-		JButton lblNewLabel_3 = new JLabel();
+		JButton lblNewLabel_3 = new JButton();
+		lblNewLabel_3.setBackground(Color.green);
+		lblNewLabel_3.addActionListener(new Accion2());
 		panel.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel();
+		
+		JButton lblNewLabel_4 = new JButton();
+		lblNewLabel_4.setBackground(Color.yellow);
+		lblNewLabel_4.addActionListener(new Accion3());
 		panel.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_1 = new JLabel();
+		JButton lblNewLabel_1 = new JButton();
+		lblNewLabel_1.setBackground(Color.pink);
+		lblNewLabel_1.addActionListener(new Accion4());
 		panel.add(lblNewLabel_1);
+		
 		
 		super.setResizable(false);
 		super.setVisible(true);
@@ -91,6 +99,32 @@ public class EditarColor extends JFrame implements Ventana {
 		}
 	}
 
+	private class Accion2 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			Gestor.getInstancia().cambiarColor(usuario, 0);// que numero le meto como parametro ???
+			puntero.dispose();
+			PopUp.visibilizar("Se ha adjudicado el color verde", puntero);
+		}
+	}
+
+	private class Accion3 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			Gestor.getInstancia().cambiarColor(usuario, 0);// que numero le meto como parametro ???
+			puntero.dispose();
+			PopUp.visibilizar("Se ha adjudicado el color amarillo", puntero);
+		}
+	}
+
+	private class Accion4 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			Gestor.getInstancia().cambiarColor(usuario, 0);// que numero le meto como parametro ???
+			puntero.dispose();
+			PopUp.visibilizar("Se ha adjudicado el color rosa", puntero);
+		}
+	}
 
 
 }
