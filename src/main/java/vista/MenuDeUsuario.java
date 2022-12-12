@@ -79,8 +79,8 @@ public class MenuDeUsuario extends JFrame {
 			case 3: val = "Ver Ranking General"; break;	
 			case 4: val = "Ver Ranking Personal"; break;	
 			case 5: val = "Ver Premios Obtenidos"; break;	
-			case 6: val = "Cambiar Contraseña"; break;	
-			case 7: val = "Cerrar Sesión"; break;	
+			case 6: val = "Cambiar Contraseï¿½a"; break;	
+			case 7: val = "Cerrar Sesiï¿½n"; break;	
 			case 8: val = "Admin: Eliminar Usuarios"; break;	
 
 			}
@@ -164,7 +164,8 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion6 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// VER PREMIOS OBTENIDOS
+			puntero.dispose();
+			ConsultarPremios.visibilizar(usuario);
 		}
 		
 		
@@ -174,7 +175,7 @@ public class MenuDeUsuario extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			CambioContraseña.visibilizar(usuario);
+			CambioContraseï¿½a.visibilizar(usuario);
 		}
 		
 		

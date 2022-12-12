@@ -8,40 +8,40 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import controlador.Gestor;
+
 @SuppressWarnings("serial")
 
-public class ConsultarPremios extends JFrame {
+public class ConsultarPremios extends JFrame
+{
 	
 	private static ConsultarPremios puntero;
 	private JPanel contenido;
-	private JLabel titulo;
-
-	
 	private JPanel filas;
-	private JButton[] botones; // Registrar, Iniciar Sesion, Recupero cont, Ranking
+	private JLabel titulo;
+	
+	private JPanel[] pares;
+	private JTextField[] campos;
 	
 	
+	private JPanel par;
+	private JButton boton;
 	
-	// Variables internas de IU
-	
-	
-	private String usuario; 
-	
-	
-	
-
+	private String usuario;
 
 	
-	public static void visibilizar(String pUser) {
-		ConsultarPremios.puntero = new ConsultarPremios(pUser);
-		
+	
+	public void redirigir() {
+		ConsultarPremios.visibilizar();
 		
 	}
 	
-	private ConsultarPremios (String pUser) {
+	public static void visibilizar() {
+		ConsultarPremios.puntero = new ConsultarPremios();
 		
-		this.usuario = pUser.toLowerCase();
-		
+	}
+	
+	private ConsultarPremios () {
 		// Crear panel principal
 		
 		this.contenido = new JPanel();
@@ -50,63 +50,61 @@ public class ConsultarPremios extends JFrame {
 		
 		// Crear titulo
 		
-		this.titulo = new JLabel("Bienvenido "+this.usuario, SwingConstants.CENTER);
+		this.titulo = new JLabel("PREMIOS", SwingConstants.CENTER);
 		this.titulo.setFont(new Font(Font.SANS_SERIF, 1, 30));
 		this.contenido.add(this.titulo, BorderLayout.NORTH);
 		
 		// Crear estructura para botones
 		
 		this.filas = new JPanel();
+		this.filas.setLayout(new GridLayout(3, 1, 0 ,70));
 		
-		int filas;
+		this.pares = new JPanel[3];
+		this.campos = new JTextField[3];
 		
-		if (this.usuario.contentEquals("administrador")) {
-			filas = 9;
-		} else {
-			filas = 8;
-		}
-		
-		
-		this.filas.setLayout(new GridLayout(filas,1,5,5));
-		this.botones = new JButton[filas];
-		
-		for (int i = 0; i != filas; i++) {
+		for (int i = 0; i !=2; i++) {
+			this.campos[i] = new JTextField();
+			this.pares[i] = new JPanel();
+			this.pares[i].setLayout(new GridLayout(2,2,50,0));
+
+			
 			String val = null;
 			switch (i) {
-			case 0: val = "Partida Nueva"; break;
-			case 1: val = "Cargar Partida"; break;	
-			case 2: val = "Personalizar"; break;	
-			case 3: val = "Ver Ranking General"; break;	
-			case 4: val = "Ver Ranking Personal"; break;	
-			case 5: val = "Ver Premios Obtenidos"; break;	
-			case 6: val = "Cambiar Contrase�a"; break;	
-			case 7: val = "Cerrar Sesi�n"; break;	
-			case 8: val = "Admin: Eliminar Usuarios"; break;	
-
+			case 0: val = "Nombre"; break;
+			case 1: val = "Detalles"; break;
+	
 			}
 			
-			this.botones[i] = new JButton(val);
-			this.filas.add(this.botones[i]);
+			this.pares[i].add(new JLabel(val));
+			this.pares[i].add(this.campos[i]);
+			
+			
+			for (int j = 0; j != 2; j++) {this.pares[i].add(new JPanel());}
+
+
+			this.filas.add(this.pares[i]);
+
 		}
-		this.botones[0].addActionListener(new Accion1());
-		this.botones[1].addActionListener(new Accion2());
-		this.botones[2].addActionListener(new Accion3());
-		this.botones[3].addActionListener(new Accion4());
-		this.botones[4].addActionListener(new Accion5());
-		this.botones[5].addActionListener(new Accion6());
-		this.botones[6].addActionListener(new Accion7());
-		this.botones[7].addActionListener(new Accion8());
-		if (filas == 9) {this.botones[8].addActionListener(new Accion9());}
 		
+		this.par = new JPanel();
+		this.par.setLayout(new GridLayout(1,2,10,10));
+		this.boton = new JButton();
+		
+		String val = null;
+		val = "Volver";
+		this.boton = new JButton(val);
+		this.par.add(this.boton);
+		
+		this.boton.addActionListener(new Accion1());
 
-
+		this.filas.add(this.par);
 		
 		this.contenido.add(this.filas, BorderLayout.CENTER);
-		this.contenido.add(new JPanel(), BorderLayout.WEST);
 		this.contenido.add(new JPanel(), BorderLayout.SOUTH);
 		this.contenido.add(new JPanel(), BorderLayout.EAST);
+		this.contenido.add(new JPanel(), BorderLayout.WEST);
 
-		super.setBounds(500, 50, 700, 900);
+		super.setBounds(100, 100, 700, 600);
 		this.setResizable(false);
 		this.setVisible(true);
 		
@@ -116,92 +114,25 @@ public class ConsultarPremios extends JFrame {
 	
 	private class Accion1 implements ActionListener {
 
-		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A NIVELES
-
+		public void actionPerformed(ActionEvent e)
+		{
+			puntero.dispose();
+			MenuDeUsuario.visibilizar(usuario);
+			
 		}
-		
 		
 		
 	}
 	private class Accion2 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A CARGAR PARTIDA (EL QUE SE ENCARGA DE GUARDAR PARTIDA ES EL QUE IMPLEMENTA ESTO)
+			//MOstrar ventana de detalles premio
 		}
 		
 		
 	}
+
 	
-	private class Accion3 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A PERSONALIZAR
-		}
-		
-		
-	}
-	
-	private class Accion4 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			MenuRankingPublico.visibilizar(usuario);
-		}
-		
-		
-	}
-	
-	private class Accion5 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			// VER RANKING PERSONAL
-		}
-		
-		
-	}
-	
-	private class Accion6 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			// VER PREMIOS OBTENIDOS
-		}
-		
-		
-	}
-	
-	private class Accion7 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			CambioContrase�a.visibilizar(usuario);
-		}
-		
-		
-	}
-	
-	private class Accion8 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			MenuPrincipal.visibilizar();		
-			
-		}
-		
-		
-	}
-	
-	private class Accion9 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			EliminarUsuario.visibilizar();
-		}
-		
-		
-	}
-
-
 	
 }
 	
