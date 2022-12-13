@@ -12,10 +12,10 @@ import controlador.Gestor;
 
 @SuppressWarnings("serial")
 
-public class ConsultarPremios extends JFrame
+public class DetallesPremio extends JFrame
 {
 	
-	private static ConsultarPremios puntero;
+	private static DetallesPremio puntero;
 	private JPanel contenido;
 	private JLabel titulo;
 	
@@ -28,16 +28,16 @@ public class ConsultarPremios extends JFrame
 	
 	
 	public void redirigir() {
-		ConsultarPremios.visibilizar();
+		DetallesPremio.visibilizar();
 		
 	}
 	
 	public static void visibilizar(String pNombre) {
-		ConsultarPremios.puntero = new ConsultarPremios(pNombre);
+		DetallesPremio.puntero = new DetallesPremio(pNombre);
 		
 	}
 	
-	private ConsultarPremios (String pNombre) {
+	private DetallesPremio (String pNombre) {
 		// Crear panel principal
 		
 		this.contenido = new JPanel();
@@ -46,7 +46,7 @@ public class ConsultarPremios extends JFrame
 		
 		// Crear titulo
 		
-		this.titulo = new JLabel("PREMIOS", SwingConstants.CENTER);
+		this.titulo = new JLabel("premio", SwingConstants.CENTER);
 		titulo.setBounds(0, 0, 700, 36);
 		this.titulo.setFont(new Font(Font.SANS_SERIF, 1, 30));
 		this.contenido.add(this.titulo);
@@ -69,17 +69,17 @@ public class ConsultarPremios extends JFrame
 		
 		//Crear etiquetas y botones para cada premio
 		
-		JLabel premio = new JLabel("New label");
-		premio.setBounds(70, 118, 70, 15);
-		contenido.add(premio);
-		
-		JButton detalles = new JButton("New button");
-		detalles.setBounds(336, 113, 117, 25);
-		contenido.add(detalles);
+		JLabel fecha = new JLabel("New label");
+		fecha.setBounds(70, 118, 70, 15);
+		contenido.add(fecha);
 		
 		JButton botonVolver = new JButton("Volver");
 		botonVolver.setBounds(518, 460, 117, 25);
 		contenido.add(botonVolver);
+		
+		JLabel descr = new JLabel("New label");
+		descr.setBounds(70, 191, 70, 15);
+		contenido.add(descr);
 
 		super.setBounds(100, 100, 700, 600);
 		this.setResizable(false);
