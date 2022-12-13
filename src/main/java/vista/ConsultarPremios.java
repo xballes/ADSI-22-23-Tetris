@@ -17,14 +17,10 @@ public class ConsultarPremios extends JFrame
 	
 	private static ConsultarPremios puntero;
 	private JPanel contenido;
-	private JPanel filas;
 	private JLabel titulo;
 	
 	private JPanel[] pares;
 	private JTextField[] campos;
-	
-	
-	private JPanel par;
 	private JButton boton;
 	
 	private String usuario;
@@ -36,73 +32,52 @@ public class ConsultarPremios extends JFrame
 		
 	}
 	
-	public static void visibilizar() {
-		ConsultarPremios.puntero = new ConsultarPremios();
+	public static void visibilizar(String pNombre) {
+		ConsultarPremios.puntero = new ConsultarPremios(pNombre);
 		
 	}
 	
-	private ConsultarPremios () {
+	private ConsultarPremios (String pNombre) {
 		// Crear panel principal
 		
 		this.contenido = new JPanel();
 		super.setContentPane(this.contenido);
-		this.contenido.setLayout(new BorderLayout(50,50));
+		contenido.setLayout(null);
 		
 		// Crear titulo
 		
 		this.titulo = new JLabel("PREMIOS", SwingConstants.CENTER);
+		titulo.setBounds(0, 0, 700, 36);
 		this.titulo.setFont(new Font(Font.SANS_SERIF, 1, 30));
-		this.contenido.add(this.titulo, BorderLayout.NORTH);
+		this.contenido.add(this.titulo);
 		
-		// Crear estructura para botones
+		//Crear contenido 
 		
-		this.filas = new JPanel();
-		this.filas.setLayout(new GridLayout(3, 1, 0 ,70));
+		//Obtener premios del usuario
+		String premios = Gestor.getInstancia().obtenerPremios(pNombre);
 		
-		this.pares = new JPanel[3];
-		this.campos = new JTextField[3];
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 553, 700, 10);
+		this.contenido.add(panel);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(690, 86, 10, 417);
+		this.contenido.add(panel_1);
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 86, 10, 417);
+		this.contenido.add(panel_2);
 		
-		for (int i = 0; i !=2; i++) {
-			this.campos[i] = new JTextField();
-			this.pares[i] = new JPanel();
-			this.pares[i].setLayout(new GridLayout(2,2,50,0));
-
-			
-			String val = null;
-			switch (i) {
-			case 0: val = "Nombre"; break;
-			case 1: val = "Detalles"; break;
-	
-			}
-			
-			this.pares[i].add(new JLabel(val));
-			this.pares[i].add(this.campos[i]);
-			
-			
-			for (int j = 0; j != 2; j++) {this.pares[i].add(new JPanel());}
-
-
-			this.filas.add(this.pares[i]);
-
-		}
+		//Crear etiquetas y botones para cada premio
+		JLabel premio = new JLabel("New label");
+		premio.setBounds(70, 118, 70, 15);
+		contenido.add(premio);
 		
-		this.par = new JPanel();
-		this.par.setLayout(new GridLayout(1,2,10,10));
-		this.boton = new JButton();
+		JButton detalles = new JButton("New button");
+		detalles.setBounds(336, 113, 117, 25);
+		contenido.add(detalles);
 		
-		String val = null;
-		val = "Volver";
-		this.boton = new JButton(val);
-		this.par.add(this.boton);
-		
-		this.boton.addActionListener(new Accion1());
-
-		this.filas.add(this.par);
-		
-		this.contenido.add(this.filas, BorderLayout.CENTER);
-		this.contenido.add(new JPanel(), BorderLayout.SOUTH);
-		this.contenido.add(new JPanel(), BorderLayout.EAST);
-		this.contenido.add(new JPanel(), BorderLayout.WEST);
+		JButton botonVolver = new JButton("Volver");
+		botonVolver.setBounds(518, 460, 117, 25);
+		contenido.add(botonVolver);
 
 		super.setBounds(100, 100, 700, 600);
 		this.setResizable(false);
@@ -110,30 +85,15 @@ public class ConsultarPremios extends JFrame
 		
 		
 	}
-	
-	
-	private class Accion1 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e)
-		{
-			puntero.dispose();
-			MenuDeUsuario.visibilizar(usuario);
-			
-		}
-		
-		
-	}
 	private class Accion2 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			//MOstrar ventana de detalles premio
+			puntero.dispose();
+			DetallesPremio.visibilizar(usuario);
 		}
 		
 		
 	}
-
-	
-	
 }
 	
 	
