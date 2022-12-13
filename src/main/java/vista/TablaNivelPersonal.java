@@ -67,7 +67,7 @@ public class TablaNivelPersonal extends JFrame {
 		} else {
 			JPanel panel = new JPanel();
 			contentPane.add(panel, BorderLayout.CENTER);
-			panel.setLayout(new GridLayout(res.size()+1, 3, 0, 0));
+			panel.setLayout(new GridLayout(11, 1, 0, 0));
 			JLabel lab = new JLabel("Puntuación",SwingConstants.CENTER);
 			lab.setBorder(BorderFactory.createLineBorder(Color.black));
 			panel.add(lab);
@@ -77,6 +77,14 @@ public class TablaNivelPersonal extends JFrame {
 				lab = new JLabel(Integer.toString(res.get(i)),SwingConstants.CENTER);
 				lab.setBorder(BorderFactory.createLineBorder(Color.black));
 				panel.add(lab);
+			}
+			
+			
+			for (int i=res.size(); i != 10; i++) {
+				lab = new JLabel("-", SwingConstants.CENTER);
+				lab.setBorder(BorderFactory.createLineBorder(Color.black));
+				panel.add(lab);
+				
 			}
 		}
 

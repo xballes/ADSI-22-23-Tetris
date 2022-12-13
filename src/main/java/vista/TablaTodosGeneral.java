@@ -116,7 +116,7 @@ public class TablaTodosGeneral extends JFrame {
 			
 			JPanel panel = new JPanel();
 			contentPane.add(panel, BorderLayout.CENTER);
-			panel.setLayout(new GridLayout(puntos.length+1, 3, 0, 0));
+			panel.setLayout(new GridLayout(11, 3, 0, 0));
 			JLabel lab = new JLabel("Puntuación",SwingConstants.CENTER);
 			lab.setBorder(BorderFactory.createLineBorder(Color.black));
 			panel.add(lab);
@@ -136,7 +136,21 @@ public class TablaTodosGeneral extends JFrame {
 				panel.add(lab);	
 				lab = new JLabel(nombre[i],SwingConstants.CENTER);
 				lab.setBorder(BorderFactory.createLineBorder(Color.black));
-				panel.add(lab);	}
+				panel.add(lab);	
+				
+			}
+			
+			for (int i = puntos.length; i != 10; i++) {
+				lab = new JLabel("-",SwingConstants.CENTER);
+				lab.setBorder(BorderFactory.createLineBorder(Color.black));
+				panel.add(lab);
+				lab = new JLabel("-",SwingConstants.CENTER);
+				lab.setBorder(BorderFactory.createLineBorder(Color.black));
+				panel.add(lab);	
+				lab = new JLabel("-",SwingConstants.CENTER);
+				lab.setBorder(BorderFactory.createLineBorder(Color.black));
+				panel.add(lab);	
+			}
 		}
 		
 		
