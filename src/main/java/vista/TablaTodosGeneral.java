@@ -1,7 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
-
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +12,8 @@ import controlador.GestorRanking;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -37,7 +39,7 @@ public class TablaTodosGeneral extends JFrame {
 		nombreUsuario = pNombreUsuario;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 500);
+		setBounds(100, 100, 500, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(50, 50));
@@ -61,67 +63,88 @@ public class TablaTodosGeneral extends JFrame {
 		String[] nivel = new String [array.length-1];
 		String[] nombre = new String [array.length-1];
 		
-		for (int i = 0; i != array.length-1; i++) {
-			int ind = 0;
-			
-			while(array[i].charAt(ind)!=':') {
+		
+		if (puntos.length == 0) {
+			contentPane.add(new JLabel("No hay rankings", SwingConstants.CENTER), BorderLayout.CENTER);
+
+		} else {
+			for (int i = 0; i != array.length-1; i++) {
+				int ind = 0;
+				
+				while(array[i].charAt(ind)!=':') {
+					ind++;
+				}
+				String aux = "";
 				ind++;
-			}
-			String aux = "";
-			ind++;
-			
-			while(array[i].charAt(ind)!=',') {
-				aux = aux + array[i].charAt(ind);
+				
+				while(array[i].charAt(ind)!=',') {
+					aux = aux + array[i].charAt(ind);
+					ind++;
+				}
+				
+				puntos[i] =aux;
+				
+				while(array[i].charAt(ind)!=':') {
+					ind++;
+				}
+				
 				ind++;
-			}
-			
-			puntos[i] =aux;
-			
-			while(array[i].charAt(ind)!=':') {
+				
+				nivel[i] = array[i].charAt(ind)+"";
+				
+
+				while(array[i].charAt(ind)!=':') {
+					ind++;
+				}
+				
 				ind++;
+				ind++;
+				
+				aux = "";
+				
+				while(array[i].charAt(ind)!='"') {
+					aux = aux + array[i].charAt(ind);
+					ind++;
+				}
+				
+				nombre[i]=aux;
 			}
 			
-			ind++;
 			
-			nivel[i] = array[i].charAt(ind)+"";
 			
 
-			while(array[i].charAt(ind)!=':') {
-				ind++;
-			}
 			
-			ind++;
-			ind++;
-			
-			aux = "";
-			
-			while(array[i].charAt(ind)!='"') {
-				aux = aux + array[i].charAt(ind);
-				ind++;
-			}
-			
-			nombre[i]=aux;
+			JPanel panel = new JPanel();
+			contentPane.add(panel, BorderLayout.CENTER);
+			panel.setLayout(new GridLayout(puntos.length+1, 3, 0, 0));
+			JLabel lab = new JLabel("Puntuación",SwingConstants.CENTER);
+			lab.setBorder(BorderFactory.createLineBorder(Color.black));
+			panel.add(lab);
+			lab = new JLabel("Nivel",SwingConstants.CENTER);
+			lab.setBorder(BorderFactory.createLineBorder(Color.black));
+			panel.add(lab);
+			lab = new JLabel("Nombre",SwingConstants.CENTER);
+			lab.setBorder(BorderFactory.createLineBorder(Color.black));
+			panel.add(lab);
+
+			for(int i=0; i < puntos.length; i++) {
+				lab = new JLabel(puntos[i],SwingConstants.CENTER);
+				lab.setBorder(BorderFactory.createLineBorder(Color.black));
+				panel.add(lab);
+				lab = new JLabel(nivel[i],SwingConstants.CENTER);
+				lab.setBorder(BorderFactory.createLineBorder(Color.black));
+				panel.add(lab);	
+				lab = new JLabel(nombre[i],SwingConstants.CENTER);
+				lab.setBorder(BorderFactory.createLineBorder(Color.black));
+				panel.add(lab);	}
 		}
 		
 		
-		
-		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(puntos.length+1, 3, 10, 10));
-		
-		panel.add(new JLabel("Puntuación"));
-		panel.add(new JLabel("Nivel"));
-		panel.add(new JLabel("Nombre"));
-		
-		for(int i=0; i < puntos.length; i++) {
-			panel.add(new JLabel(puntos[i]));
-			panel.add(new JLabel(nivel[i]));
-			panel.add(new JLabel(nombre[i]));
-		}
+
 		
 		contentPane.add(new JPanel(), BorderLayout.WEST);
-		
+		contentPane.add(new JPanel(), BorderLayout.EAST);
+
 		super.setResizable(false);
 		super.setVisible(true);
 	}

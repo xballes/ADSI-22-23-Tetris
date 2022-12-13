@@ -114,7 +114,7 @@ public class MenuDeUsuario extends JFrame {
 		this.contenido.add(new JPanel(), BorderLayout.SOUTH);
 		this.contenido.add(new JPanel(), BorderLayout.EAST);
 
-		super.setBounds(500, 50, 700, 900);
+		super.setBounds(100, 100, 700, 900);
 		this.setResizable(false);
 		this.setVisible(true);
 		

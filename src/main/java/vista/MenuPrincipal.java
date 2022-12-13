@@ -1,6 +1,6 @@
 package vista;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout;import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -74,6 +74,7 @@ public class MenuPrincipal extends JFrame {
 		this.contenido.add(new JPanel(), BorderLayout.SOUTH);
 		this.contenido.add(new JPanel(), BorderLayout.EAST);
 
+		
 		super.setBounds(100, 100, 700, 600);
 		this.setResizable(false);
 		this.setVisible(true);

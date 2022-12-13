@@ -65,7 +65,7 @@ public class PopUp extends JFrame {
 		this.contenido.add(new JPanel(), BorderLayout.WEST);
 		this.contenido.add(new JPanel(), BorderLayout.NORTH);
 
-		super.setBounds(500, 100, 700, 500);
+		super.setBounds(100, 100, 700, 500);
 		this.setResizable(false);
 		this.setVisible(true);
 		

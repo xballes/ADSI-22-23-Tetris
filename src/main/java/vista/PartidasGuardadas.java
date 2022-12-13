@@ -100,7 +100,7 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 		this.contenido.add(botonVolver,BorderLayout.SOUTH);
 		this.contenido.add(new JPanel(), BorderLayout.EAST);
 		this.contenido.add(new JPanel(), BorderLayout.WEST);
-		super.setBounds(200, 100, 700, 500);
+		super.setBounds(100, 100, 700, 500);
 		this.setResizable(false);
 		this.setVisible(true);
 		String partidas=Gestor.getInstancia().mostrarPartidas(usuario);
@@ -165,10 +165,8 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 			botonesPartida[z]=new Boton(z,"Cargar Partida "+(z+1));
 			panel.add(botonesPartida[z]);
 			botonesPartida[z].addActionListener(new Accion2());
-			//botones[z].addActionListener(new ActionListener()) 
 			
 		}
-		System.out.println(partidas);
 		this.contenido.add(panel, BorderLayout.CENTER);
 	}
 	

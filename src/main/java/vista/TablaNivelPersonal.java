@@ -1,12 +1,14 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,7 +41,7 @@ public class TablaNivelPersonal extends JFrame {
 		res = new ArrayList<Integer>();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 500);
+		setBounds(100, 100, 500, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(50, 50));
@@ -59,20 +61,26 @@ public class TablaNivelPersonal extends JFrame {
 		res = GestorRanking.getInstancia().obtenerRankingNivelPriv(nombreUsuario,pNivel);
 		
 	
-		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(res.size()+1, 2, 10, 10));
-		
-		panel.add(new JLabel("Puntuación"));
-		
-		for(int i=0; i < res.size(); i++) {
-			
-			String aux = "";
-			String rs =  res.get(i) + aux;
-			panel.add(new JLabel(rs));
-			
+		if (res.size() == 0) {
+			contentPane.add(new JLabel("No hay rankings", SwingConstants.CENTER), BorderLayout.CENTER);
+
+		} else {
+			JPanel panel = new JPanel();
+			contentPane.add(panel, BorderLayout.CENTER);
+			panel.setLayout(new GridLayout(res.size()+1, 3, 0, 0));
+			JLabel lab = new JLabel("Puntuación",SwingConstants.CENTER);
+			lab.setBorder(BorderFactory.createLineBorder(Color.black));
+			panel.add(lab);
+
+
+			for(int i=0; i < res.size(); i++) {
+				lab = new JLabel(Integer.toString(res.get(i)),SwingConstants.CENTER);
+				lab.setBorder(BorderFactory.createLineBorder(Color.black));
+				panel.add(lab);
+			}
 		}
+
+
 		
 		contentPane.add(new JPanel(), BorderLayout.WEST);
 		contentPane.add(new JPanel(), BorderLayout.EAST);

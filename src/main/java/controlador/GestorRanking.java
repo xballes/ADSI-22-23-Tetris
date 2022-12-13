@@ -54,8 +54,7 @@ public class GestorRanking {
 	
 		String res = json1.toJson(objeto);
 		
-		System.out.println(objeto.size());
-		System.out.println(res);
+
 		
 		return res;
 		
