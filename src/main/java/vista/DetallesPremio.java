@@ -40,6 +40,7 @@ public class DetallesPremio extends JFrame
 	private DetallesPremio (String pNombre) {
 		// Crear panel principal
 		
+		
 		this.contenido = new JPanel();
 		super.setContentPane(this.contenido);
 		contenido.setLayout(null);

@@ -15,6 +15,7 @@ import controlador.Gestor;
 public class ConsultarPremios extends JFrame
 {
 	
+	
 	private static ConsultarPremios puntero;
 	private JPanel contenido;
 	private JLabel titulo;
