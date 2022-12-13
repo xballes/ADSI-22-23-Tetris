@@ -45,8 +45,14 @@ public class Gestor {
 		return GestorRanking.getInstancia().obtenerRankingTodosNivelesPublico();
 	}
 	
-	public String obtenerPremios(String pNombre) {
+	public String obtenerPremios(String pNombre)
+	{
 		return GestorUsuarios.getInstancia().obtenerPremios(pNombre);
+	}
+	
+	public String obtenerDetallesPremio(String pNombre)
+	{
+		return GestorPremios.getInstancia().obtenerDetalles(pNombre);
 	}
 	
 	
