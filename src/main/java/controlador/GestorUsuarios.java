@@ -110,18 +110,21 @@ public class GestorUsuarios {
 			} 
 			
 			return enc;
-			
+		}
 			
 		}
 		
 	public String obtenerPremios(String pNombre)
 	{
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT Premio.nombre FROM Usuario WHERE Premio.NombreUsuario = '"+pNombre+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT nombrePremio FROM usuariopremio WHERE nombreUsuario = '"+pNombre+"'");
 		try
 		{
-			while(r.next())
+			if(r.next())
 			{
-				r.getString("nombre");
+				while(r.next())
+				{
+					r.getString("nombre");
+				}
 			}
 			r.close();
 		}
