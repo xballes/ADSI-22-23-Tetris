@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import controlador.Gestor;
+import vista.MenuDeUsuario.Accion1;
 
 @SuppressWarnings("serial")
 
@@ -22,14 +23,14 @@ public class ConsultarPremios extends JFrame
 	
 	private JPanel[] pares;
 	private JTextField[] campos;
-	private JButton boton;
+	private JButton botonVolver;
 	
 	private String usuario;
 
 	
 	
 	public void redirigir() {
-		ConsultarPremios.visibilizar();
+		ConsultarPremios.visibilizar(usuario);
 		
 	}
 	
@@ -86,15 +87,25 @@ public class ConsultarPremios extends JFrame
 		this.setResizable(false);
 		this.setVisible(true);
 		
+		//Añadir actionlisteners a cada boton
+		this.botonVolver.addActionListener(new Accion1());
 		
 	}
-	private class Accion2 implements ActionListener {
+	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
 			DetallesPremio.visibilizar(usuario);
-		}
+		}	
 		
+	}
+	
+	private class Accion2 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e, String pNombrePremio) {
+			puntero.dispose();
+			DetallesPremio.visibilizar(pNombrePremio);
+		}	
 		
 	}
 }
