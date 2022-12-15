@@ -25,7 +25,7 @@ public class GestorSonido {
 	
 	public void cambiarSonido(String pNombre, int idSonido ) {
 		
-		SGBD.getInstancia().execSQLVoid("UPDATE usuario SET setSonido="+idSonido+" WHERE nombre='"+pNombre+"'");
+		SGBD.getInstancia().execSQLVoid("UPDATE USUARIO SET SETSONIDO="+idSonido+" WHERE NOMBRE='"+pNombre+"'");
 		
 		
 	}
@@ -33,13 +33,13 @@ public class GestorSonido {
 	
 	public int obtenerSonido(String pNombre) {
 		
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT setSonido FROM usuario WHERE nombre='"+pNombre+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT SETSONIDO FROM USUARIO WHERE NOMBRE='"+pNombre+"'");
 		int res = -1;
 		
 		
 		try {
 			r.next();
-			res = r.getInt("setSonido");
+			res = r.getInt("SETSONIDO");
 			r.close();
 			
 			

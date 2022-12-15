@@ -60,7 +60,6 @@ public class TablaNivelGeneral extends JFrame {
 		String[] puntos = new String [array.length-1];
 		String[] nombre = new String [array.length-1];
 		
-		System.out.print(puntos.length);
 		
 		if (puntos.length == 0) {
 			contentPane.add(new JLabel("No hay rankings", SwingConstants.CENTER), BorderLayout.CENTER);

@@ -58,10 +58,10 @@ public class GestorPartida {
 		// Mirar si ya se hizo una save antes de esta partida, si es el caso sobrescribir la anterior
 		
 		if (fecha != null) {
-			SGBD.getInstancia().execSQLVoid("DELETE FROM columna WHERE fechaPartida='"+fecha+"' AND nombreUsuario='"+usuario+"'"); // Borrar la matriz anterior
-			SGBD.getInstancia().execSQLVoid("UPDATE partida SET fechaPartida='"+fechaAct+"' WHERE fechaPartida='"+fecha+"' AND nombreUsuario='"+usuario+"'"); // Actualizar la fecha de ultimo guardado
+			SGBD.getInstancia().execSQLVoid("DELETE FROM COLUMNA WHERE FECHAPARTIDA='"+fecha+"' AND NOMBREUSUARIO='"+usuario+"'"); // Borrar la matriz anterior
+			SGBD.getInstancia().execSQLVoid("UPDATE PARTIDA SET FECHAPARTIDA='"+fechaAct+"' WHERE FECHAPARTIDA='"+fecha+"' AND NOMBREUSUARIO='"+usuario+"'"); // Actualizar la fecha de ultimo guardado
 		} else {
-			SGBD.getInstancia().execSQLVoid("INSERT INTO partida VALUES ('"+usuario+"','"+fechaAct+"','"+puntuacion+"',"+nivel+")"); // Crear la save porque no existia
+			SGBD.getInstancia().execSQLVoid("INSERT INTO PARTIDA VALUES ('"+usuario+"','"+fechaAct+"','"+puntuacion+"',"+nivel+")"); // Crear la save porque no existia
 
 		}
 		
@@ -81,7 +81,7 @@ public class GestorPartida {
 		
 		while(i  <numCols) {
 			
-			String sentenciaSQL = "INSERT INTO columna VALUES('"+i+"','"+matriz[0][i]+"','"+matriz[1][i]+"','"+matriz[2][i]+"','"+matriz[3][i]+"','"+matriz[4][i]+"','"+matriz[5][i]+"','"+matriz[6][i]+"','"+matriz[7][i]+"','"+matriz[8][i]+"','"+matriz[9][i]+"','"+matriz[10][i]+"','"+matriz[11][i]+"','"+matriz[12][i]+"','"+matriz[13][i]+"','"+matriz[14][i]+"','"+matriz[15][i]+"','"+matriz[16][i]+"','"+matriz[17][i]+"','"+matriz[18][i]+"','"+matriz[19][i]+"','"+matriz[20][i]+"','"+matriz[21][i]+"','"+fechaAct+"','"+usuario+"')";
+			String sentenciaSQL = "INSERT INTO COLUMNA VALUES('"+i+"','"+matriz[0][i]+"','"+matriz[1][i]+"','"+matriz[2][i]+"','"+matriz[3][i]+"','"+matriz[4][i]+"','"+matriz[5][i]+"','"+matriz[6][i]+"','"+matriz[7][i]+"','"+matriz[8][i]+"','"+matriz[9][i]+"','"+matriz[10][i]+"','"+matriz[11][i]+"','"+matriz[12][i]+"','"+matriz[13][i]+"','"+matriz[14][i]+"','"+matriz[15][i]+"','"+matriz[16][i]+"','"+matriz[17][i]+"','"+matriz[18][i]+"','"+matriz[19][i]+"','"+matriz[20][i]+"','"+matriz[21][i]+"','"+fechaAct+"','"+usuario+"')";
 			SGBD.getInstancia().execSQLVoid(sentenciaSQL);                                                                                                                                                                                             
 			i++;	
 		}	
@@ -99,16 +99,16 @@ public class GestorPartida {
 		
 		
 		Gson json1 = new Gson();
-		String sentenciaSQL = "SELECT * FROM partida WHERE(nombreUsuario='"+pNombreUsuario+"')";
+		String sentenciaSQL = "SELECT * FROM PARTIDA WHERE(NOMBREUSUARIO='"+pNombreUsuario+"')";
 		ResultSet r = SGBD.getInstancia().execSQL(sentenciaSQL);
 		boolean val;
 		ArrayList<PartidaTripleta> tripleta = new ArrayList<PartidaTripleta>();
 		try {
 			val=r.next();
 			while(val) {
-				int puntuacion=r.getInt("puntuacion");
-				int nivel=r.getInt("nivel");
-				Timestamp fecha=r.getTimestamp("fechaPartida");
+				int puntuacion=r.getInt("PUNTUACION");
+				int nivel=r.getInt("NIVEL");
+				Timestamp fecha=r.getTimestamp("FECHAPARTIDA");
 				PartidaTripleta partida=new PartidaTripleta(puntuacion,nivel,fecha);
 				tripleta.add(partida);
 				val=r.next();
@@ -157,7 +157,7 @@ public class GestorPartida {
 			  .
 			  .............................(numcolumna=10)
 			 */
-			String sentenciaSQL2 = "SELECT alt1,alt2,alt3,alt4,alt5,alt6,alt7,alt8,alt9,alt10,alt11,alt12,alt13,alt14,alt15,alt16,alt17,alt18,alt19,alt20,alt21,alt22 FROM columna WHERE(nombreUsuario='"+pNombreUsuario+"' AND fechaPartida='"+fechaCorrecta+"' AND numColumna='"+x+"')"; //Devuelve cada fila de la matriz
+			String sentenciaSQL2 = "SELECT ALT1,ALT2,ALT3,ALT4,ALT5,ALT6,ALT7,ALT8,ALT9,ALT10,ALT11,ALT12,ALT13,ALT14,ALT15,ALT16,ALT17,ALT18,ALT19,ALT20,ALT21,ALT22 FROM COLUMNA WHERE(NOMBREUSUARIO='"+pNombreUsuario+"' AND FECHAPARTIDA='"+fechaCorrecta+"' AND NUMCOLUMNA='"+x+"')"; //Devuelve cada fila de la matriz
 			ResultSet r2 = SGBD.getInstancia().execSQL(sentenciaSQL2);
 			try {
 				if (r2.next()) {
@@ -179,7 +179,7 @@ public class GestorPartida {
 	
 	
 	public void borrarPartida(String pUser, Timestamp fecha) {
-		SGBD.getInstancia().execSQLVoid("DELETE FROM partida WHERE nombreUsuario = '"+pUser+"' AND fechaPartida = '"+fecha+"'");
+		SGBD.getInstancia().execSQLVoid("DELETE FROM PARTIDA WHERE NOMBREUSUARIO = '"+pUser+"' AND FECHAPARTIDA = '"+fecha+"'");
 		
 	}
 	
@@ -280,7 +280,7 @@ public class GestorPartida {
 	}
 	//-----------------------------------------------------------------
 	public void resetearBD() { //METODO DE USO EXCLUSIVO PARA JUNITS!
-		String sentencia = "DELETE FROM partida";
+		String sentencia = "DELETE FROM PARTIDA";
 		SGBD.getInstancia().execSQLVoid(sentencia);
 	}
 	//-----------------------------------------------------------------

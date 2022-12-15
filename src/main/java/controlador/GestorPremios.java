@@ -34,7 +34,7 @@ public class GestorPremios {
 		  
 		 */
 		
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM usuariopremio WHERE nombreUsuario = '"+pUser+"' AND nombrePremio = '"+this.premiosDisponibles[id]+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM USUARIOPREMIO WHERE NOMBREUSUARIO = '"+pUser+"' AND NOMBREPREMIO = '"+this.premiosDisponibles[id]+"'");
 		boolean tiene = false;
 		
 		try {
@@ -54,7 +54,7 @@ public class GestorPremios {
 		  
 		 */
 		
-		SGBD.getInstancia().execSQLVoid("INSERT INTO usuariopremio VALUES('"+pUser+"','"+this.premiosDisponibles[id]+"', '"+pFecha+"')");
+		SGBD.getInstancia().execSQLVoid("INSERT INTO USUARIOPREMIO VALUES('"+pUser+"','"+this.premiosDisponibles[id]+"', '"+pFecha+"')");
 	}
 	
 	
