@@ -27,8 +27,8 @@ public class Gestor {
 	}
 	
 	
-	public String obtContrase�a(String pMail) {
-		return GestorUsuarios.getInstancia().obtContrase�a(pMail);
+	public String obtContraseña(String pMail) {
+		return GestorUsuarios.getInstancia().obtContraseña(pMail);
 	}
 	
 	
@@ -50,9 +50,9 @@ public class Gestor {
 		return GestorUsuarios.getInstancia().obtenerPremios(pNombre);
 	}
 	
-	public String obtenerDetallesPremio(String pNombre)
+	public String obtenerDetallesPremio(String pNombre, String pPremio)
 	{
-		return GestorPremios.getInstancia().obtenerDetalles(pNombre);
+		return GestorPremios.getInstancia().obtenerDetalles(pNombre, pPremio);
 	}
 	
 	

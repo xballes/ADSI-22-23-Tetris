@@ -5,12 +5,12 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.*;
 
 import controlador.Gestor;
 import controlador.SGBD;
-import vista.MenuDeUsuario.Accion1;
 
 @SuppressWarnings("serial")
 
@@ -20,28 +20,26 @@ public class DetallesPremio extends JFrame
 	private static DetallesPremio puntero;
 	private JPanel contenido;
 	private JLabel titulo;
-	
-	private JPanel[] pares;
-	private JTextField[] campos;
 	private JButton botonVolver;
 	
 	private String usuario;
 
 	
 	
-	public void redirigir() {
-		DetallesPremio.visibilizar();
+	public void redirigir(String pNombre, String pPremio) {
+		DetallesPremio.visibilizar(pNombre, pPremio);
 		
 	}
 	
-	public static void visibilizar(String pNombre) {
-		DetallesPremio.puntero = new DetallesPremio(pNombre);
+	public static void visibilizar(String pNombreUsu, String pPremio) {
+		DetallesPremio.puntero = new DetallesPremio(pNombreUsu, pPremio);
 		
 	}
 	
-	private DetallesPremio (String pNombre) {
+	private DetallesPremio (String pNombreUsu, String pPremio) {
+		
+		usuario = pNombreUsu;
 		// Crear panel principal
-		
 		
 		this.contenido = new JPanel();
 		super.setContentPane(this.contenido);
@@ -49,16 +47,13 @@ public class DetallesPremio extends JFrame
 		
 		// Crear titulo
 		
-		this.titulo = new JLabel(pNombre, SwingConstants.CENTER);
+		this.titulo = new JLabel(pPremio, SwingConstants.CENTER);
 		titulo.setBounds(0, 0, 700, 36);
 		this.titulo.setFont(new Font(Font.SANS_SERIF, 1, 30));
 		this.contenido.add(this.titulo);
 		
 		//Crear contenido 
 		
-		//Obtener premios del usuario
-		
-		String premios = Gestor.getInstancia().obtenerPremios(pNombre);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 553, 700, 10);
@@ -70,24 +65,52 @@ public class DetallesPremio extends JFrame
 		panel_2.setBounds(0, 86, 10, 417);
 		this.contenido.add(panel_2);
 		
-		//Crear etiquetas con fecha y descripcion
+		//Obtener detalles del premio
 		
-		//Obtener fecha y descripcion
+		String detalles = Gestor.getInstancia().obtenerDetallesPremio(pNombreUsu, pPremio);
 		
-		String resul = Gestor.getInstancia().obtenerDetallesPremio(pNombre);
+		String[] array = detalles.split("{");
+		String desc = " ";
+		String fech = " ";
 		
-		String[] array = resul.split("}");
-		String[] puntos = new String [array.length-1];
-		String[] nivel = new String [array.length-1];
-		String[] nombre = new String [array.length-1];
-		
-		JLabel fecha = new JLabel("New label");
-		fecha.setBounds(70, 118, 70, 15);
-		contenido.add(fecha);
-		
-		JLabel descr = new JLabel("New label");
-		descr.setBounds(70, 191, 70, 15);
+		for (int i = 0; i != array.length; i++) {
+			int ind = 0;
+			
+			while(array[i].charAt(ind)!=':') {
+				ind++;
+			}
+			String aux = "";
+			ind++;
+			
+			while(array[i].charAt(ind)!=',') {
+				aux = aux + array[i].charAt(ind);
+				ind++;
+			}
+			
+			desc = aux;
+			
+			while(array[i].charAt(ind)!=':') {
+				ind++;
+			}
+			String aux2 = "";
+			ind++;
+			
+			while(array[i].charAt(ind)!='}') {
+				aux2 = aux2 + array[i].charAt(ind);
+				ind++;
+			}
+			
+			fech = aux2;
+			
+		}
+
+		JLabel descr = new JLabel(desc);
+		descr.setBounds(70, 118, 70, 15);
 		contenido.add(descr);
+		
+		JLabel fecha = new JLabel("Fecha de obtención: "+ fech);
+		fecha.setBounds(70, 191, 70, 15);
+		contenido.add(fecha);
 		
 		JButton botonVolver = new JButton("Volver");
 		botonVolver.setBounds(518, 460, 117, 25);

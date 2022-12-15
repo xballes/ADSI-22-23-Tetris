@@ -18,17 +18,18 @@ private static GestorPremios puntero;
 		return GestorPremios.puntero;
 	}
 	
-	public String obtenerDetalles(String pNombre)
+	public String obtenerDetalles(String pNombre, String pPremio)
 	{
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT descripcion, fechaObtencion FROM premio WHERE nombre='"+pNombre+"'");
+		Gson json6 = new Gson();
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT descripcion, fechaObtencion FROM usuariopremio INNER JOIN nombrepremio=nombre WHERE nombreusuario='"+pNombre+"' AND nombrepremio='"+pPremio+"'");
 		try
 		{
-			Gson json6 = new Gson();
 			r.next();
 			String descr = r.getString("descripcion");
 			Date fecha = r.getDate("fechaObtencion");
-			//Añadir a json
+			DatosPremio datos = new DatosPremio(descr, fecha);
 			r.close();
+			String res = json6.toJson(datos);
 			return res;
 		}
 		catch (SQLException e)
@@ -37,5 +38,16 @@ private static GestorPremios puntero;
 		} 
 		
 	}
+	
+	private class DatosPremio {
+		String descr;
+		Date fecha;
+		
+		public DatosPremio (String pDescr, Date pFecha) {
+			descr = pDescr;
+			fecha = pFecha;
+			}
+	}
+
 	
 }

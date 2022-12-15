@@ -20,9 +20,7 @@ public class ConsultarPremios extends JFrame
 	private static ConsultarPremios puntero;
 	private JPanel contenido;
 	private JLabel titulo;
-	
-	private JPanel[] pares;
-	private JTextField[] campos;
+	private JButton[] botones;
 	private JButton botonVolver;
 	
 	private String usuario;
@@ -57,7 +55,27 @@ public class ConsultarPremios extends JFrame
 		
 		//Obtener premios del usuario
 		
-		String premios = Gestor.getInstancia().obtenerPremios(pNombre);
+		String datos = Gestor.getInstancia().obtenerPremios(pNombre);
+		
+		String[] array = datos.split("{");
+		String[] premios = new String [array.length];
+		
+		for (int i = 0; i != array.length; i++) {
+			int ind = 0;
+			
+			while(array[i].charAt(ind)!=':') {
+				ind++;
+			}
+			String aux = "";
+			ind++;
+			
+			while(array[i].charAt(ind)!='}') {
+				aux = aux + array[i].charAt(ind);
+				ind++;
+			}
+			
+			premios[i] =aux;
+		}
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 553, 700, 10);
@@ -70,14 +88,19 @@ public class ConsultarPremios extends JFrame
 		this.contenido.add(panel_2);
 		
 		//Crear etiquetas y botones para cada premio
-		
-		JLabel premio = new JLabel("New label");
-		premio.setBounds(70, 118, 70, 15);
-		contenido.add(premio);
-		
-		JButton detalles = new JButton("New button");
-		detalles.setBounds(336, 113, 117, 25);
-		contenido.add(detalles);
+		int pos=0;
+		for(int i = 0; i != premios.length; i++)
+		{
+			pos = pos+100;
+			JLabel premio = new JLabel(premios[i]);
+			premio.setBounds(70, pos, 70, 15);
+			contenido.add(premio);
+			
+			JButton detalles = new JButton("Detalles");
+			detalles.setBounds(336, pos, 117, 25);
+			contenido.add(detalles);
+			botones[i].add(detalles);
+		}
 		
 		JButton botonVolver = new JButton("Volver");
 		botonVolver.setBounds(518, 460, 117, 25);
@@ -89,22 +112,26 @@ public class ConsultarPremios extends JFrame
 		
 		//Añadir actionlisteners a cada boton
 		this.botonVolver.addActionListener(new Accion1());
+		for(int i=0; i!=botones.hashCode(); i++)
+		{
+			botones[i].addActionListener(new Accion2());
+		}
 		
 	}
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			DetallesPremio.visibilizar(usuario);
+			MenuDeUsuario.visibilizar(usuario);
 		}	
 		
 	}
 	
 	private class Accion2 implements ActionListener {
 
-		public void actionPerformed(ActionEvent e, String pNombrePremio) {
+		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			DetallesPremio.visibilizar(pNombrePremio);
+			DetallesPremio.visibilizar(usuario, pNombrePremio);
 		}	
 		
 	}

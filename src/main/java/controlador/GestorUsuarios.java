@@ -2,6 +2,8 @@ package controlador;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import com.google.gson.Gson;
 
 public class GestorUsuarios {
 
@@ -64,9 +66,9 @@ public class GestorUsuarios {
 	}
 	
 	
-	public String obtContrase�a(String pMail) {
+	public String obtContraseña(String pMail) {
 		
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT contrase�a FROM Usuario WHERE email='"+pMail+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT contraseña FROM Usuario WHERE email='"+pMail+"'");
 		try {
 			if (r.next()) {
 				String res = r.getString(1);
@@ -116,15 +118,13 @@ public class GestorUsuarios {
 		
 	public String obtenerPremios(String pNombre)
 	{
+		ArrayList<String> premios = new ArrayList<String>();
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT nombrePremio FROM usuariopremio WHERE nombreUsuario = '"+pNombre+"'");
 		try
 		{
-			if(r.next())
+			while(r.next())
 			{
-				while(r.next())
-				{
-					r.getString("nombre");
-				}
+				premios.add(r.getString("nombre"));
 			}
 			r.close();
 		}
@@ -132,7 +132,9 @@ public class GestorUsuarios {
 		{
 			return null;
 		}
-		
+		Gson json5 = new Gson();
+		String res = json5.toJson(premios);
+		return res;
 		
 	}
 	
