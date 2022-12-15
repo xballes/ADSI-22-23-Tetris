@@ -112,7 +112,7 @@ public class ConsultarPremios extends JFrame
 		
 		//Añadir actionlisteners a cada boton
 		this.botonVolver.addActionListener(new Accion1());
-		for(int i=0; i!=botones.hashCode(); i++)
+		for(int i=0; i!=botones.length; i++)
 		{
 			botones[i].addActionListener(new Accion2());
 		}
@@ -132,7 +132,7 @@ public class ConsultarPremios extends JFrame
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
 			DetallesPremio.visibilizar(usuario, pNombrePremio);
-		}	
+		}
 		
 	}
 }
