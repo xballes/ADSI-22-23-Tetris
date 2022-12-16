@@ -117,7 +117,7 @@ public class SGBD {
 						+ "FECHAPARTIDA timestamp(6),\r\n"
 						+ "NOMBREUSUARIO varchar(20),\r\n"
 						+ "PRIMARY KEY(NUMCOLUMNA, FECHAPARTIDA, NOMBREUSUARIO),\r\n"
-						+ "FOREIGN KEY(NOMBREUSUARIO, FECHAPARTIDA) REFERENCES PARTIDA(NOMBREUSUARIO, FECHAPARTIDA)\r\n"
+						+ "FOREIGN KEY(NOMBREUSUARIO, FECHAPARTIDA) REFERENCES PARTIDA(NOMBREUSUARIO, FECHAPARTIDA) ON DELETE CASCADE ON UPDATE CASCADE\r\n"
 						+ ")");
 				
 				ps.executeUpdate();
@@ -174,7 +174,7 @@ public class SGBD {
 			ps.executeUpdate();
 			conexion.close();
 		} catch (Exception e) {
-			System.out.println("Error al conectar con BD. Asegúrate que Apache y MariaDB estén activados en XAMPP y hayas importado el .sql en la BD 'adsi'");
+			e.printStackTrace();
 		}
 		
 	}
