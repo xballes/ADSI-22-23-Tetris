@@ -154,6 +154,7 @@ public class ConsultarPremios extends JFrame
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
 			DetallesPremio.visibilizar(usuario, "Tetris!");
+			//
 		}
 		
 	}
