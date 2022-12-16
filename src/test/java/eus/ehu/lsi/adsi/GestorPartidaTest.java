@@ -50,11 +50,18 @@ public class GestorPartidaTest {
 		matrizOrigen1[0][1]=1;
 		matrizOrigen1[1][0]=1;
 		matrizOrigen1[1][1]=1;
+		matrizOrigen1[1][3]=1;
 		Timestamp fecha1 = new Timestamp(System.currentTimeMillis());
 		this.gestor.getInstancia().guardarPartida(matrizOrigen1,"administrador",10,null,1, false);
 		String json=this.gestor.getInstancia().mostrarPartidas("administrador");
 		matrizPruebas1=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
 		assertEquals(matrizPruebas1[0][0], 1);
+		assertEquals(matrizPruebas1[1][3],1);
+		try {
+			Thread.sleep(1500);
+		}catch(InterruptedException e) {
+			
+		}
 		//------------------NIVEL 2--------------------------------------------------------------------------------------------
 		for(int i=0;i<22;i++) {
 			for(int j=0;j<12;j++) {
@@ -71,6 +78,11 @@ public class GestorPartidaTest {
 		//String json=this.gestor.getInstancia().mostrarPartidas("administrador");
 		matrizPruebas2=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],2);
 		assertEquals(matrizPruebas2[0][0], 1);
+		try {
+			Thread.sleep(1500);
+		}catch(InterruptedException e) {
+			
+		}
 		
 		//------------------NIVEL 3--------------------------------------------------------------------------------------------
 				for(int i=0;i<22;i++) {
@@ -79,18 +91,21 @@ public class GestorPartidaTest {
 						matrizPruebas3[i][j]=0;
 					}
 				}
-				matrizOrigen2[0][0]=1;
-				matrizOrigen2[0][1]=1;
-				matrizOrigen2[1][0]=1;
-				matrizOrigen2[1][1]=1;
+				matrizOrigen3[0][0]=1;
+				matrizOrigen3[0][1]=1;
+				matrizOrigen3[1][0]=1;
+				matrizOrigen3[1][1]=1;
 				Timestamp fecha3 = new Timestamp(System.currentTimeMillis());
 				this.gestor.getInstancia().guardarPartida(matrizOrigen3,"administrador",14,null,3, false);
 				//String json=this.gestor.getInstancia().mostrarPartidas("administrador");
 				matrizPruebas3=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],3);
 				assertEquals(matrizPruebas3[0][0], 1);
 		
-		
-		
+				try {
+					Thread.sleep(1500);
+				}catch(InterruptedException e) {
+					
+				}
 		
 	}
 	
@@ -166,7 +181,7 @@ public class GestorPartidaTest {
 
 	}
 
-	
+	@Test
 	public void testCargarPartida() {
 		this.gestor.getInstancia().resetearBD();
 		//Poner a 0 todos los valores de la matriz(Resetear)
@@ -182,21 +197,32 @@ public class GestorPartidaTest {
 		this.gestor.getInstancia().guardarPartida(matrizOrigen1,"administrador",10,null,1, false);
 		matrizPruebas1=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
 		assertEquals(matrizPruebas1[0][0],7);
+		try {
+			Thread.sleep(1500);
+		}catch(InterruptedException e) {
+			
+		}
 		//---------------------NIVEL 2---------------------------------------------------
+		this.gestor.getInstancia().resetearBD();
 		for(int i=1;i<22;i++) {
 			for(int j=0;j<12;j++) {
 				matrizOrigen2[i][j]=0;
 			}
 		}
 		matrizOrigen2[0][11]=7;
-		matrizOrigen2[0][12]=7;
+		matrizOrigen2[0][10]=7;
 		matrizOrigen2[1][9]=7;
 		this.gestor.getInstancia().guardarPartida(matrizOrigen2,"administrador",12,null,2, false);
 		matrizPruebas2=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],2);
 		assertEquals(matrizPruebas2[0][11],7);
+		try {
+			Thread.sleep(1500);
+		}catch(InterruptedException e) {
+			
+		}
 		
 		//---------------------NIVEL 3---------------------------------------------------
-		
+		this.gestor.getInstancia().resetearBD();
 		for(int i=1;i<22;i++) {
 			for(int j=0;j<14;j++) {
 				matrizOrigen3[i][j]=0;
@@ -208,6 +234,11 @@ public class GestorPartidaTest {
 		this.gestor.getInstancia().guardarPartida(matrizOrigen3,"administrador",14,null,3, false);
 		matrizPruebas3=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],3);
 		assertEquals(matrizPruebas3[0][13],4);		
+		try {
+			Thread.sleep(1500);
+		}catch(InterruptedException e) {
+			
+		}
 	}
 
 	@Test
@@ -229,7 +260,13 @@ public class GestorPartidaTest {
 		this.gestor.getInstancia().borrarPartida("administrador",Timestamp.valueOf(fechaTransformada));
 		assertEquals(this.mostrarFechas("administrador").length,0);
 		
+		try {
+			Thread.sleep(1500);
+		}catch(InterruptedException e) {
+			
+		}
 		//-----------------------------NIVEL 2-------------------------------------------------------------------------------
+		this.gestor.getInstancia().resetearBD();
 		for(int i=1;i<22;i++) {
 			for(int j=0;j<12;j++) {
 				matrizOrigen2[i][j]=0;
@@ -245,9 +282,15 @@ public class GestorPartidaTest {
 		String fechaTransformada2 = this.gestor.getInstancia().transformarFormato(fechaAConvertir2);
 		this.gestor.getInstancia().borrarPartida("administrador",Timestamp.valueOf(fechaTransformada2));
 		assertEquals(this.mostrarFechas("administrador").length,0);
+		try {
+			Thread.sleep(1500);
+		}catch(InterruptedException e) {
+			
+		}
 		
 		//-----------------------------NIVEL 3-------------------------------------------------------------------------------
-				for(int i=1;i<22;i++) {
+		this.gestor.getInstancia().resetearBD();		
+		for(int i=1;i<22;i++) {
 					for(int j=0;j<12;j++) {
 						matrizOrigen3[i][j]=0;
 					}
@@ -262,6 +305,11 @@ public class GestorPartidaTest {
 				String fechaTransformada3 = this.gestor.getInstancia().transformarFormato(fechaAConvertir3);
 				this.gestor.getInstancia().borrarPartida("administrador",Timestamp.valueOf(fechaTransformada3));
 				assertEquals(this.mostrarFechas("administrador").length,0);
+				try {
+					Thread.sleep(1500);
+				}catch(InterruptedException e) {
+					
+				}
 		
 	}
 
