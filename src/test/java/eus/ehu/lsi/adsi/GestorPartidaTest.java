@@ -20,33 +20,78 @@ import controlador.GestorUsuarios;
 public class GestorPartidaTest {
 	
 	private GestorPartida gestor;
-	int[][]matrizOrigen;
-	int[][]matrizPruebas;
+	int[][]matrizOrigen1;
+	int[][]matrizPruebas1;
+	int[][]matrizOrigen2;
 	int[][]matrizPruebas2;
+	int[][]matrizOrigen3;
+	int[][]matrizPruebas3;
 	
 	public GestorPartidaTest () {
 		this.gestor = GestorPartida.getInstancia();
-		this.matrizOrigen=new int[22][10];//nivel 1
-		this.matrizPruebas=new int[22][10];//nivel 1
+		this.matrizOrigen1=new int[22][10];//nivel 1
+		this.matrizPruebas1=new int[22][10];//nivel 1
+		this.matrizOrigen2=new int[22][12];//nivel 2
+		this.matrizPruebas2=new int[22][12];//nivel 2
+		this.matrizOrigen3=new int[22][14];//nivel 3
+		this.matrizPruebas3=new int[22][14];//nivel 3
+		
 	}
 	@Test
 	public void testGuardarPartida() {
 		this.gestor.getInstancia().resetearBD();
 		for(int i=0;i<22;i++) {
 			for(int j=0;j<10;j++) {
-				matrizOrigen[i][j]=0;
-				matrizPruebas[i][j]=0;
+				matrizOrigen1[i][j]=0;
+				matrizPruebas1[i][j]=0;
 			}
 		}
-		matrizOrigen[0][0]=1;
-		matrizOrigen[0][1]=1;
-		matrizOrigen[1][0]=1;
-		matrizOrigen[1][1]=1;
+		matrizOrigen1[0][0]=1;
+		matrizOrigen1[0][1]=1;
+		matrizOrigen1[1][0]=1;
+		matrizOrigen1[1][1]=1;
 		Timestamp fecha1 = new Timestamp(System.currentTimeMillis());
-		this.gestor.getInstancia().guardarPartida(matrizOrigen,"administrador",10,null,1, false);
+		this.gestor.getInstancia().guardarPartida(matrizOrigen1,"administrador",10,null,1, false);
 		String json=this.gestor.getInstancia().mostrarPartidas("administrador");
-		matrizPruebas=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
-		assertEquals(matrizPruebas[0][0], 1);
+		matrizPruebas1=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
+		assertEquals(matrizPruebas1[0][0], 1);
+		//------------------NIVEL 2--------------------------------------------------------------------------------------------
+		for(int i=0;i<22;i++) {
+			for(int j=0;j<12;j++) {
+				matrizOrigen2[i][j]=0;
+				matrizPruebas2[i][j]=0;
+			}
+		}
+		matrizOrigen2[0][0]=1;
+		matrizOrigen2[0][1]=1;
+		matrizOrigen2[1][0]=1;
+		matrizOrigen2[1][1]=1;
+		Timestamp fecha2 = new Timestamp(System.currentTimeMillis());
+		this.gestor.getInstancia().guardarPartida(matrizOrigen2,"administrador",12,null,2, false);
+		//String json=this.gestor.getInstancia().mostrarPartidas("administrador");
+		matrizPruebas2=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],2);
+		assertEquals(matrizPruebas2[0][0], 1);
+		
+		//------------------NIVEL 3--------------------------------------------------------------------------------------------
+				for(int i=0;i<22;i++) {
+					for(int j=0;j<14;j++) {
+						matrizOrigen3[i][j]=0;
+						matrizPruebas3[i][j]=0;
+					}
+				}
+				matrizOrigen2[0][0]=1;
+				matrizOrigen2[0][1]=1;
+				matrizOrigen2[1][0]=1;
+				matrizOrigen2[1][1]=1;
+				Timestamp fecha3 = new Timestamp(System.currentTimeMillis());
+				this.gestor.getInstancia().guardarPartida(matrizOrigen3,"administrador",14,null,3, false);
+				//String json=this.gestor.getInstancia().mostrarPartidas("administrador");
+				matrizPruebas3=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],3);
+				assertEquals(matrizPruebas3[0][0], 1);
+		
+		
+		
+		
 	}
 	
 
@@ -104,18 +149,19 @@ public class GestorPartidaTest {
 		this.gestor.getInstancia().resetearBD();
 		for(int i=1;i<22;i++) {
 			for(int j=0;j<10;j++) {
-				matrizOrigen[i][j]=0;
+				matrizOrigen1[i][j]=0;
 			}
 		}
-		matrizOrigen[0][0]=7;
-		matrizOrigen[0][1]=7;
-		matrizOrigen[1][2]=7;
+		matrizOrigen1[0][0]=7;
+		matrizOrigen1[0][1]=7;
+		matrizOrigen1[1][2]=7;
 		Timestamp fechaAct = new Timestamp(System.currentTimeMillis()); //2022-12-15 18:40:13.655
-		this.gestor.getInstancia().guardarPartida(matrizOrigen,"administrador",10,null,1, false);
-		matrizPruebas=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
+		this.gestor.getInstancia().guardarPartida(matrizOrigen1,"administrador",10,null,1, false);
+		matrizPruebas1=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
 		String fechaAConvertir = this.mostrarFechas("administrador")[0];
 		String fechaTransformada = this.gestor.getInstancia().transformarFormato(fechaAConvertir);
 		assertEquals(this.mostrarFechas("administrador").length,1);
+		
 		
 
 	}
@@ -126,19 +172,42 @@ public class GestorPartidaTest {
 		//Poner a 0 todos los valores de la matriz(Resetear)
 		for(int i=0;i!=22;i++) {
 			for(int j=0;j!=10;j++) {
-				matrizOrigen[i][j]=0;
+				matrizOrigen1[i][j]=0;
 			}
 		}
-		matrizOrigen[0][0]=7;
-		matrizOrigen[0][1]=7;
-		matrizOrigen[1][2]=7;
+		matrizOrigen1[0][0]=7;
+		matrizOrigen1[0][1]=7;
+		matrizOrigen1[1][2]=7;
 		//Introducir valores en la matriz 
+		this.gestor.getInstancia().guardarPartida(matrizOrigen1,"administrador",10,null,1, false);
+		matrizPruebas1=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
+		assertEquals(matrizPruebas1[0][0],7);
+		//---------------------NIVEL 2---------------------------------------------------
+		for(int i=1;i<22;i++) {
+			for(int j=0;j<12;j++) {
+				matrizOrigen2[i][j]=0;
+			}
+		}
+		matrizOrigen2[0][11]=7;
+		matrizOrigen2[0][12]=7;
+		matrizOrigen2[1][9]=7;
+		this.gestor.getInstancia().guardarPartida(matrizOrigen2,"administrador",12,null,2, false);
+		matrizPruebas2=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],2);
+		assertEquals(matrizPruebas2[0][11],7);
 		
-		this.gestor.getInstancia().guardarPartida(matrizOrigen,"administrador",10,null,1, false);
-		matrizPruebas=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
-		assertEquals(matrizPruebas[0][0],7);
+		//---------------------NIVEL 3---------------------------------------------------
 		
-		
+		for(int i=1;i<22;i++) {
+			for(int j=0;j<14;j++) {
+				matrizOrigen3[i][j]=0;
+			}
+		}
+		matrizOrigen3[0][13]=4;
+		matrizOrigen3[0][10]=4;
+		matrizOrigen3[1][9]=4;
+		this.gestor.getInstancia().guardarPartida(matrizOrigen3,"administrador",14,null,3, false);
+		matrizPruebas3=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],3);
+		assertEquals(matrizPruebas3[0][13],4);		
 	}
 
 	@Test
@@ -146,19 +215,53 @@ public class GestorPartidaTest {
 		this.gestor.getInstancia().resetearBD();
 		for(int i=1;i<22;i++) {
 			for(int j=0;j<10;j++) {
-				matrizOrigen[i][j]=0;
+				matrizOrigen1[i][j]=0;
 			}
 		}
-		matrizOrigen[0][0]=7;
-		matrizOrigen[0][1]=7;
-		matrizOrigen[1][2]=7;
+		matrizOrigen1[0][0]=7;
+		matrizOrigen1[0][1]=7;
+		matrizOrigen1[1][2]=7;
 		Timestamp fechaAct = new Timestamp(System.currentTimeMillis()); //2022-12-15 18:40:13.655
-		this.gestor.getInstancia().guardarPartida(matrizOrigen,"administrador",10,null,1, false);
-		matrizPruebas=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
+		this.gestor.getInstancia().guardarPartida(matrizOrigen1,"administrador",10,null,1, false);
+		matrizPruebas1=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
 		String fechaAConvertir = this.mostrarFechas("administrador")[0];
 		String fechaTransformada = this.gestor.getInstancia().transformarFormato(fechaAConvertir);
 		this.gestor.getInstancia().borrarPartida("administrador",Timestamp.valueOf(fechaTransformada));
 		assertEquals(this.mostrarFechas("administrador").length,0);
+		
+		//-----------------------------NIVEL 2-------------------------------------------------------------------------------
+		for(int i=1;i<22;i++) {
+			for(int j=0;j<12;j++) {
+				matrizOrigen2[i][j]=0;
+			}
+		}
+		matrizOrigen2[0][0]=7;
+		matrizOrigen2[0][1]=7;
+		matrizOrigen2[1][2]=7;
+		Timestamp fechaAct2 = new Timestamp(System.currentTimeMillis()); //2022-12-15 18:40:13.655
+		this.gestor.getInstancia().guardarPartida(matrizOrigen2,"administrador",12,null,2, false);
+		matrizPruebas2=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],2);
+		String fechaAConvertir2 = this.mostrarFechas("administrador")[0];
+		String fechaTransformada2 = this.gestor.getInstancia().transformarFormato(fechaAConvertir2);
+		this.gestor.getInstancia().borrarPartida("administrador",Timestamp.valueOf(fechaTransformada2));
+		assertEquals(this.mostrarFechas("administrador").length,0);
+		
+		//-----------------------------NIVEL 3-------------------------------------------------------------------------------
+				for(int i=1;i<22;i++) {
+					for(int j=0;j<12;j++) {
+						matrizOrigen3[i][j]=0;
+					}
+				}
+				matrizOrigen3[0][0]=7;
+				matrizOrigen3[0][1]=7;
+				matrizOrigen3[1][2]=7;
+				Timestamp fechaAct3 = new Timestamp(System.currentTimeMillis()); //2022-12-15 18:40:13.655
+				this.gestor.getInstancia().guardarPartida(matrizOrigen2,"administrador",12,null,2, false);
+				matrizPruebas3=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],2);
+				String fechaAConvertir3 = this.mostrarFechas("administrador")[0];
+				String fechaTransformada3 = this.gestor.getInstancia().transformarFormato(fechaAConvertir3);
+				this.gestor.getInstancia().borrarPartida("administrador",Timestamp.valueOf(fechaTransformada3));
+				assertEquals(this.mostrarFechas("administrador").length,0);
 		
 	}
 
