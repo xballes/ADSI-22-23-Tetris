@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import controlador.Gestor;
-import vista.MenuDeUsuario.Accion1;
 
 @SuppressWarnings("serial")
 
@@ -114,7 +113,22 @@ public class ConsultarPremios extends JFrame
 		this.botonVolver.addActionListener(new Accion1());
 		for(int i=0; i!=botones.length; i++)
 		{
-			botones[i].addActionListener(new Accion2());
+			if(premios[i].contentEquals("Gana 1 partida"))
+			{
+				botones[i].addActionListener(new Accion2());
+			}
+			else if(premios[i].contentEquals("Gana 10 partidas"))
+			{
+				botones[i].addActionListener(new Accion3());
+			}
+			else if(premios[i].contentEquals("Gana 25 partidas"))
+			{
+				botones[i].addActionListener(new Accion4());
+			}
+			else
+			{
+				botones[i].addActionListener(new Accion5());
+			}
 		}
 		
 	}
@@ -131,10 +145,38 @@ public class ConsultarPremios extends JFrame
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			DetallesPremio.visibilizar(usuario, pNombrePremio);
+			DetallesPremio.visibilizar(usuario, "Gana 1 partida");
 		}
 		
 	}
+	
+	private class Accion3 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			DetallesPremio.visibilizar(usuario, "Gana 10 partidas");
+		}
+		
+	}
+	
+	private class Accion4 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			DetallesPremio.visibilizar(usuario, "Gana 25 partidas");
+		}
+		
+	}
+	
+	private class Accion5 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			DetallesPremio.visibilizar(usuario, "Tetris!");
+		}
+		
+	}
+	
 }
 	
 	
