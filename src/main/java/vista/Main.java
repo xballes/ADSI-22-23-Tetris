@@ -1,5 +1,8 @@
 package vista;
 
+import java.sql.Timestamp;
+
+import controlador.GestorPremios;
 
 public class Main {
 	
@@ -8,8 +11,6 @@ public class Main {
 	
 	public static void main (String args[]) {
 	
-
-		
 
 		
 

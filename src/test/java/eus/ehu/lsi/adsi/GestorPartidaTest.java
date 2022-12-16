@@ -17,6 +17,8 @@ import controlador.GestorPartida;
 // Nota: La ejecucion de la JUnit es lenta porque se frena a proposito el script para que no genere
 //       dos guardados en el mismo segundo y se den problemas de unicidad de clave en BD
 
+@SuppressWarnings("static-access")
+
 public class GestorPartidaTest {
 	
 	private GestorPartida gestor;
@@ -51,9 +53,7 @@ public class GestorPartidaTest {
 		matrizOrigen1[1][0]=1;
 		matrizOrigen1[1][1]=1;
 		matrizOrigen1[1][3]=1;
-		Timestamp fecha1 = new Timestamp(System.currentTimeMillis());
 		this.gestor.getInstancia().guardarPartida(matrizOrigen1,"administrador",10,null,1, false);
-		String json=this.gestor.getInstancia().mostrarPartidas("administrador");
 		matrizPruebas1=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
 		assertEquals(matrizPruebas1[0][0], 1);
 		assertEquals(matrizPruebas1[1][3],1);
@@ -91,7 +91,6 @@ public class GestorPartidaTest {
 		matrizOrigen2[0][1]=1;
 		matrizOrigen2[1][0]=1;
 		matrizOrigen2[1][1]=1;
-		Timestamp fecha2 = new Timestamp(System.currentTimeMillis());
 		this.gestor.getInstancia().guardarPartida(matrizOrigen2,"administrador",12,null,2, false);
 		//String json=this.gestor.getInstancia().mostrarPartidas("administrador");
 		matrizPruebas2=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],2);
@@ -114,7 +113,6 @@ public class GestorPartidaTest {
 				matrizOrigen3[0][1]=1;
 				matrizOrigen3[1][0]=1;
 				matrizOrigen3[1][1]=1;
-				Timestamp fecha3 = new Timestamp(System.currentTimeMillis());
 				this.gestor.getInstancia().guardarPartida(matrizOrigen3,"administrador",14,null,3, false);
 				//String json=this.gestor.getInstancia().mostrarPartidas("administrador");
 				matrizPruebas3=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],3);
@@ -189,11 +187,8 @@ public class GestorPartidaTest {
 		matrizOrigen1[0][0]=7;
 		matrizOrigen1[0][1]=7;
 		matrizOrigen1[1][2]=7;
-		Timestamp fechaAct = new Timestamp(System.currentTimeMillis()); //2022-12-15 18:40:13.655
 		this.gestor.getInstancia().guardarPartida(matrizOrigen1,"administrador",10,null,1, false);
 		matrizPruebas1=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
-		String fechaAConvertir = this.mostrarFechas("administrador")[0];
-		String fechaTransformada = this.gestor.getInstancia().transformarFormato(fechaAConvertir);
 		assertEquals(this.mostrarFechas("administrador").length,1);
 		
 		
@@ -271,7 +266,6 @@ public class GestorPartidaTest {
 		matrizOrigen1[0][0]=7;
 		matrizOrigen1[0][1]=7;
 		matrizOrigen1[1][2]=7;
-		Timestamp fechaAct = new Timestamp(System.currentTimeMillis()); //2022-12-15 18:40:13.655
 		this.gestor.getInstancia().guardarPartida(matrizOrigen1,"administrador",10,null,1, false);
 		matrizPruebas1=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],1);
 		String fechaAConvertir = this.mostrarFechas("administrador")[0];
@@ -294,7 +288,6 @@ public class GestorPartidaTest {
 		matrizOrigen2[0][0]=7;
 		matrizOrigen2[0][1]=7;
 		matrizOrigen2[1][2]=7;
-		Timestamp fechaAct2 = new Timestamp(System.currentTimeMillis()); //2022-12-15 18:40:13.655
 		this.gestor.getInstancia().guardarPartida(matrizOrigen2,"administrador",12,null,2, false);
 		matrizPruebas2=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],2);
 		String fechaAConvertir2 = this.mostrarFechas("administrador")[0];
@@ -317,7 +310,6 @@ public class GestorPartidaTest {
 				matrizOrigen3[0][0]=7;
 				matrizOrigen3[0][1]=7;
 				matrizOrigen3[1][2]=7;
-				Timestamp fechaAct3 = new Timestamp(System.currentTimeMillis()); //2022-12-15 18:40:13.655
 				this.gestor.getInstancia().guardarPartida(matrizOrigen2,"administrador",12,null,2, false);
 				matrizPruebas3=this.gestor.getInstancia().cargarPartida("administrador",this.mostrarFechas("administrador")[0],2);
 				String fechaAConvertir3 = this.mostrarFechas("administrador")[0];

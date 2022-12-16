@@ -1,7 +1,10 @@
 package controlador;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+
+import com.google.gson.Gson;
 
 public class GestorPremios {
 
@@ -57,6 +60,38 @@ public class GestorPremios {
 		SGBD.getInstancia().execSQLVoid("INSERT INTO USUARIOPREMIO VALUES('"+pUser+"','"+this.premiosDisponibles[id]+"', '"+pFecha+"')");
 	}
 	
+	
+	
+	public String obtenerDetalles(String pNombre, String pPremio)
+	{
+		Gson json6 = new Gson();
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT descripcion, fechaObtencion FROM usuariopremio INNER JOIN premio ON nombrepremio=nombre WHERE nombreusuario='"+pNombre+"' AND nombrepremio='"+pPremio+"'");
+		try
+		{
+			r.next();
+			String descr = r.getString("descripcion");
+			Timestamp fecha = r.getTimestamp("fechaObtencion");
+			DatosPremio datos = new DatosPremio(descr, fecha);
+			r.close();
+			String res = json6.toJson(datos);
+			return res;
+		}
+		catch (SQLException e)
+		{
+			return null;
+		} 
+		
+	}
+	
+	private class DatosPremio {
+		String descr;
+		Timestamp fecha;
+		
+		public DatosPremio (String pDescr, Timestamp pFecha) {
+			descr = pDescr;
+			fecha = pFecha;
+			}
+	}
 	
 	
 }

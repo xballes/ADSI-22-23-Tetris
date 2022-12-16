@@ -99,6 +99,18 @@ public class Gestor {
 	public void darPremio(String pUser, int id, Timestamp pFecha) {
 		GestorPremios.getInstancia().darPremio(pUser, id, pFecha);
 	}
+	
+	
+	public String[] obtenerPremios(String pNombre)
+	{
+		return GestorUsuarios.getInstancia().obtenerPremios(pNombre);
+	}
+	
+	public String obtenerDetallesPremio(String pNombre, String pPremio)
+	{
+		return GestorPremios.getInstancia().obtenerDetalles(pNombre, pPremio);
+	}
+	
 	public String mapearFecha(String fecha) {
 		return GestorPartida.getInstancia().transformarFormato(fecha);
 	}

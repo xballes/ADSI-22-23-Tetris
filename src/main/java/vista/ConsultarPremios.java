@@ -1,144 +1,140 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import controlador.Gestor;
+
 @SuppressWarnings("serial")
 
-public class ConsultarPremios extends JFrame {
+public class ConsultarPremios extends JFrame
+{
+	
 	
 	private static ConsultarPremios puntero;
 	private JPanel contenido;
 	private JLabel titulo;
+	private JButton[] botones;
+	private JButton botonVolver;
+	
+	private String usuario;
 
-	
-	private JPanel filas;
-	private JButton[] botones; // Registrar, Iniciar Sesion, Recupero cont, Ranking
-	
-	
-	
-	// Variables internas de IU
-	
-	
-	private String usuario; 
-	
 	
 	
 
-
 	
-	public static void visibilizar(String pUser) {
-		ConsultarPremios.puntero = new ConsultarPremios(pUser);
-		
-		
+	public static void visibilizar(String pNombre) {
+		ConsultarPremios.puntero = new ConsultarPremios(pNombre);
+
 	}
 	
-	private ConsultarPremios (String pUser) {
-		
-		this.usuario = pUser.toLowerCase();
-		
+	private ConsultarPremios (String pNombre) {
 		// Crear panel principal
+		
+		
+		
+		this.usuario = pNombre;
 		
 		this.contenido = new JPanel();
 		super.setContentPane(this.contenido);
-		this.contenido.setLayout(new BorderLayout(50,50));
+		contenido.setLayout(null);
 		
 		// Crear titulo
 		
-		this.titulo = new JLabel("Bienvenido "+this.usuario, SwingConstants.CENTER);
+		this.titulo = new JLabel("PREMIOS", SwingConstants.CENTER);
+		titulo.setBounds(0, 0, 700, 36);
 		this.titulo.setFont(new Font(Font.SANS_SERIF, 1, 30));
-		this.contenido.add(this.titulo, BorderLayout.NORTH);
+		this.contenido.add(this.titulo);
 		
-		// Crear estructura para botones
+		//Crear contenido 
 		
-		this.filas = new JPanel();
+		//Obtener premios del usuario
 		
-		int filas;
-		
-		if (this.usuario.contentEquals("administrador")) {
-			filas = 9;
-		} else {
-			filas = 8;
-		}
+		String[] premios = Gestor.getInstancia().obtenerPremios(pNombre);
 		
 		
-		this.filas.setLayout(new GridLayout(filas,1,5,5));
-		this.botones = new JButton[filas];
-		
-		for (int i = 0; i != filas; i++) {
-			String val = null;
-			switch (i) {
-			case 0: val = "Partida Nueva"; break;
-			case 1: val = "Cargar Partida"; break;	
-			case 2: val = "Personalizar"; break;	
-			case 3: val = "Ver Ranking General"; break;	
-			case 4: val = "Ver Ranking Personal"; break;	
-			case 5: val = "Ver Premios Obtenidos"; break;	
-			case 6: val = "Cambiar Contrase�a"; break;	
-			case 7: val = "Cerrar Sesi�n"; break;	
-			case 8: val = "Admin: Eliminar Usuarios"; break;	
 
-			}
+		this.botones = new JButton[premios.length];
+		
+		//Crear etiquetas y botones para cada premio
+		
+		
+		
+		
+		int pos=0;
+		for(int i = 0; i != premios.length; i++)
+		{
+			pos = pos+100;
+			JLabel premio = new JLabel(premios[i]);
+			premio.setBounds(70, pos, 300, 15);
+			contenido.add(premio);
 			
-			this.botones[i] = new JButton(val);
-			this.filas.add(this.botones[i]);
+			JButton detalles = new JButton("Detalles");
+			detalles.setBounds(500, pos, 117, 25);
+			contenido.add(detalles);
+			botones[i] = detalles;
 		}
-		this.botones[0].addActionListener(new Accion1());
-		this.botones[1].addActionListener(new Accion2());
-		this.botones[2].addActionListener(new Accion3());
-		this.botones[3].addActionListener(new Accion4());
-		this.botones[4].addActionListener(new Accion5());
-		this.botones[5].addActionListener(new Accion6());
-		this.botones[6].addActionListener(new Accion7());
-		this.botones[7].addActionListener(new Accion8());
-		if (filas == 9) {this.botones[8].addActionListener(new Accion9());}
 		
+		botonVolver = new JButton("Volver");
+		botonVolver.setBounds(290, 480, 117, 25);
+		contenido.add(botonVolver);
 
 
 		
-		this.contenido.add(this.filas, BorderLayout.CENTER);
-		this.contenido.add(new JPanel(), BorderLayout.WEST);
-		this.contenido.add(new JPanel(), BorderLayout.SOUTH);
-		this.contenido.add(new JPanel(), BorderLayout.EAST);
-
-		super.setBounds(500, 50, 700, 900);
+		//Añadir actionlisteners a cada boton
+		this.botonVolver.addActionListener(new Accion1());
+		for(int i=0; i!=botones.length; i++)
+		{
+			if(premios[i].contentEquals("Gana 1 partida"))
+			{
+				botones[i].addActionListener(new Accion2());
+			}
+			else if(premios[i].contentEquals("Gana 10 partidas"))
+			{
+				botones[i].addActionListener(new Accion3());
+			}
+			else if(premios[i].contentEquals("Gana 25 partidas"))
+			{
+				botones[i].addActionListener(new Accion4());
+			}
+			else
+			{
+				botones[i].addActionListener(new Accion5());
+			}
+		}
+		
+		super.setBounds(100, 100, 700, 600);
 		this.setResizable(false);
 		this.setVisible(true);
 		
-		
 	}
-	
-	
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A NIVELES
-
-		}
-		
-		
+			puntero.dispose();
+			MenuDeUsuario.visibilizar(usuario);
+		}	
 		
 	}
+	
 	private class Accion2 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A CARGAR PARTIDA (EL QUE SE ENCARGA DE GUARDAR PARTIDA ES EL QUE IMPLEMENTA ESTO)
+			puntero.dispose();
+			DetallesPremio.visibilizar(usuario, "Gana 1 partida");
 		}
-		
 		
 	}
 	
 	private class Accion3 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// LLAMADA A PERSONALIZAR
+			puntero.dispose();
+			DetallesPremio.visibilizar(usuario, "Gana 10 partidas");
 		}
-		
 		
 	}
 	
@@ -146,63 +142,19 @@ public class ConsultarPremios extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			MenuRankingPublico.visibilizar(usuario);
+			DetallesPremio.visibilizar(usuario, "Gana 25 partidas");
 		}
-		
 		
 	}
 	
 	private class Accion5 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// VER RANKING PERSONAL
-		}
-		
-		
-	}
-	
-	private class Accion6 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			// VER PREMIOS OBTENIDOS
-		}
-		
-		
-	}
-	
-	private class Accion7 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			CambioContraseña.visibilizar(usuario);
-		}
-		
-		
-	}
-	
-	private class Accion8 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			MenuPrincipal.visibilizar();		
+			DetallesPremio.visibilizar(usuario, "Tetris!");
 			
 		}
 		
-		
 	}
-	
-	private class Accion9 implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			EliminarUsuario.visibilizar();
-		}
-		
-		
-	}
-
-
 	
 }
-	
-	

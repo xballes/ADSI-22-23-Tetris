@@ -258,6 +258,45 @@ public class GestorUsuarios {
 		}
 	}
 	
+	public String[] obtenerPremios(String pNombre)
+	{
+		String[] premios = null;
+		String[] res = null;
+
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT NOMBREPREMIO FROM USUARIOPREMIO WHERE NOMBREUSUARIO = '"+pNombre+"'");
+		try
+		{
+
+			
+			
+			premios = new String[4];
+			
+			int i = 0;
+			
+			while (r.next()) 
+			{
+				premios[i] = r.getString("NOMBREPREMIO");
+				i++;
+			} 
+			r.close();
+			res = new String[i];
+			
+			for (int j = 0; j != i; j++) {
+				res[j] = premios[j];
+			}
+			
+			
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+
+		return res;
+		
+	}
+	
 
 
 }

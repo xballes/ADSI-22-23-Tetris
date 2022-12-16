@@ -181,7 +181,8 @@ public class MenuDeUsuario extends JFrame {
 	private class Accion6 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// VER PREMIOS OBTENIDOS
+			puntero.dispose();
+			ConsultarPremios.visibilizar(usuario);
 		}
 		
 		
