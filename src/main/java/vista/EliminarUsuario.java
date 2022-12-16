@@ -35,8 +35,14 @@ public class EliminarUsuario extends JFrame implements Ventana {
 	
 
 	@Override
-	public void redirigir() {
-		EliminarUsuario.visibilizar();
+	public void redirigir(boolean pInfo) {
+		
+		if (pInfo) {
+			MenuDeUsuario.visibilizar("administrador");
+		} else {
+			EliminarUsuario.visibilizar();
+		}
+		
 	}
 	
 	
@@ -121,14 +127,14 @@ public class EliminarUsuario extends JFrame implements Ventana {
 			puntero.dispose();
 			
 			if (Gestor.getInstancia().borrarUsuario(campo.getText().toLowerCase())) {
-				PopUp.visibilizar("Usuario borrado correctamente", puntero);
+				PopUp.visibilizar("Usuario borrado correctamente", puntero, true);
 				
 			} else if (campo.getText().toLowerCase().contentEquals("administrador")) {
-				PopUp.visibilizar("No te puedes borrar a ti mismo", puntero);
+				PopUp.visibilizar("No te puedes borrar a ti mismo", puntero, false);
 
 				
 			} else {
-				PopUp.visibilizar("El usuario no existe", puntero);
+				PopUp.visibilizar("El usuario no existe", puntero, false);
 
 			}
 		}

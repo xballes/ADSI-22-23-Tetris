@@ -18,19 +18,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CambiarSonido extends JFrame implements Ventana {
-	
 	private JPanel contentPane;
 	private String nombreUsuario;
 	private static CambiarSonido puntero;
 
 	
-	
 	@Override
-	public void redirigir() {
+	public void redirigir(boolean pInfo) {
 		puntero.dispose();
-		CambiarSonido.visibilizar(nombreUsuario);
+		Personalizar.visibilizar(nombreUsuario);
 		
 	}
+	
 
 	public static void visibilizar(String pNombre) {
 		CambiarSonido.puntero = new CambiarSonido(pNombre);
@@ -45,14 +44,14 @@ public class CambiarSonido extends JFrame implements Ventana {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(20, 20));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("Cambiar sonido");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
 		
-		JButton btnNewButton = new JButton("Guardar Cambios");
+		JButton btnNewButton = new JButton("Volver");
 		btnNewButton.addActionListener(new Accion2());
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 		
@@ -68,21 +67,16 @@ public class CambiarSonido extends JFrame implements Ventana {
 		panel.add(boton);
 		
 		
-		panel.add(new JLabel("X",SwingConstants.CENTER));
+		panel.add(new JLabel("Version Mario Bros",SwingConstants.CENTER));
 		 boton = new Boton(1,"Elegir");
 		boton.addActionListener(new Accion1());
 		panel.add(boton);
 		
 		
-		panel.add(new JLabel("Y",SwingConstants.CENTER));
+		panel.add(new JLabel("Version Moderna",SwingConstants.CENTER));
 		 boton = new Boton(2,"Elegir");
 		boton.addActionListener(new Accion1());
 		panel.add(boton);
-		
-		
-		contentPane.add(new JPanel(), BorderLayout.EAST);
-		contentPane.add(new JPanel(), BorderLayout.WEST);
-
 		super.setResizable(false);
 		super.setVisible(true);
 	}
@@ -100,7 +94,7 @@ public class CambiarSonido extends JFrame implements Ventana {
             int id=(((Boton)e.getSource()).id);
             Gestor.getInstancia().cambiarSonido(nombreUsuario, id);
             puntero.dispose();
-            PopUp.visibilizar("Canción asignada", puntero);
+            PopUp.visibilizar("Canción asignada", puntero, true);
 
 
         }

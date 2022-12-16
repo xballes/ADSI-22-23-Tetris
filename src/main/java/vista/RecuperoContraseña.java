@@ -32,8 +32,15 @@ public class RecuperoContraseña extends JFrame implements Ventana {
 	
 	
 	@Override
-	public void redirigir() {
-		RecuperoContraseña.visibilizar();
+	public void redirigir(boolean pInfo) {
+		
+		if (pInfo) {
+			MenuPrincipal.visibilizar();
+		} else {
+			RecuperoContraseña.visibilizar();
+
+		}
+		
 	}
 	
 	public static void visibilizar() {
@@ -116,10 +123,10 @@ public class RecuperoContraseña extends JFrame implements Ventana {
 			puntero.dispose();
 			
 			if (cont == null) {
-				PopUp.visibilizar("Error: Email incorrecto", puntero);
+				PopUp.visibilizar("Error: Email incorrecto", puntero, false);
 				
 			} else {
-				PopUp.visibilizar("¡Éxito! Tu contraseña es: "+cont, puntero);
+				PopUp.visibilizar("¡Éxito! Tu contraseña es: "+cont, puntero, true);
 
 				
 			}

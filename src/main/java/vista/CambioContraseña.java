@@ -37,8 +37,8 @@ public class CambioContraseña extends JFrame implements Ventana {
 
 	
 	@Override
-	public void redirigir() {
-		CambioContraseña.visibilizar(this.usuario);
+	public void redirigir(boolean pInfo) {
+		MenuDeUsuario.visibilizar(this.usuario);
 		
 	}
 	
@@ -126,10 +126,10 @@ public class CambioContraseña extends JFrame implements Ventana {
 			puntero.dispose();
 
 			if (Gestor.getInstancia().cambiarCont(usuario, campo.getText())) {
-				PopUp.visibilizar("Se ha cambiado la contraseña", puntero);
+				PopUp.visibilizar("Se ha cambiado la contraseña", puntero, true);
 				
 			} else {
-				PopUp.visibilizar("Acorta la contraseña para poder cambiarla", puntero);
+				PopUp.visibilizar("Acorta la contraseña para poder cambiarla", puntero, false);
 
 			}
 			

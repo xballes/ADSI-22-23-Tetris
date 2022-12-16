@@ -33,7 +33,7 @@ public class InicioSesion extends JFrame implements Ventana {
 	
 	
 	@Override
-	public void redirigir() {
+	public void redirigir(boolean pInfo) {
 		InicioSesion.visibilizar();
 		
 	}
@@ -131,7 +131,7 @@ public class InicioSesion extends JFrame implements Ventana {
 				
 			} else {
 				puntero.dispose();
-				PopUp.visibilizar("Nombre de usuario o contraseña inválidos", puntero);
+				PopUp.visibilizar("Nombre de usuario o contraseña inválidos", puntero, false);
 				
 			}
 			

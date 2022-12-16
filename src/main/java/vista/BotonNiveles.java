@@ -108,7 +108,7 @@ public class BotonNiveles extends JFrame {
 		
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			Tetris.getInstancia(usuario, null, 1, null);
+			Tetris.getInstancia(usuario, null, 1, null, 0);
 		}
 		
 		
@@ -118,7 +118,7 @@ public class BotonNiveles extends JFrame {
 		
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			Tetris.getInstancia(usuario, null, 2, null);
+			Tetris.getInstancia(usuario, null, 2, null, 0);
 		}
 		
 		
@@ -128,7 +128,7 @@ public class BotonNiveles extends JFrame {
 		
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			Tetris.getInstancia(usuario, null, 3, null);
+			Tetris.getInstancia(usuario, null, 3, null, 0);
 		}
 		
 		

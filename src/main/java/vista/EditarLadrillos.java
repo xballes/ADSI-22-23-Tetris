@@ -24,8 +24,8 @@ public class EditarLadrillos extends JFrame implements Ventana {
 	private static EditarLadrillos puntero;
 	
 	@Override
-	public void redirigir() {
-		EditarLadrillos.visibilizar(nombreUsuario);
+	public void redirigir(boolean pInfo) {
+		Personalizar.visibilizar(nombreUsuario);
 		
 	}
 
@@ -37,47 +37,47 @@ public class EditarLadrillos extends JFrame implements Ventana {
 		Color[][] matrizLadrillos = new Color[5][7];
 		//CASE 0
 		matrizLadrillos[1][0]= new Color(211,142,220);
-		matrizLadrillos[0][0] = new Color(204, 102, 102);
-    	matrizLadrillos[0][1] = new Color(102, 204, 102);
-    	matrizLadrillos[0][2] = new Color(102, 102, 204);
-    	matrizLadrillos[0][3] = new Color(204, 204, 102);
-    	matrizLadrillos[0][4] = new Color(204, 102, 204);
-    	matrizLadrillos[0][5] = new Color(102, 204, 204);
-    	matrizLadrillos[0][6] = new Color(218, 170, 0);
+		matrizLadrillos[0][0] = new Color(204, 102, 102);//rojo
+    	matrizLadrillos[0][1] = new Color(102, 204, 102);//verde
+    	matrizLadrillos[0][2] = new Color(102, 102, 204);//azul
+    	matrizLadrillos[0][3] = new Color(204, 204, 102);//amarillo
+    	matrizLadrillos[0][4] = new Color(204, 102, 204);//rosa
+    	matrizLadrillos[0][5] = new Color(102, 204, 204);//cielo
+    	matrizLadrillos[0][6] = new Color(218, 170, 0);//naranja
     	
+    	//CASE 1
+    	matrizLadrillos[1][0] = new Color(102, 204, 102);
+    	matrizLadrillos[1][1] = new Color(204, 102, 102);
+    	matrizLadrillos[1][2] = new Color(204, 204, 102);
+    	matrizLadrillos[1][3] = new Color(102, 102, 204);
+    	matrizLadrillos[1][4] = new Color(102, 204, 204);
+    	matrizLadrillos[1][5] = new Color(218, 170, 0);
+    	matrizLadrillos[1][6] = new Color(204, 102, 204);
     	
-    	matrizLadrillos[1][0] = new Color(204, 102, 102);
-    	matrizLadrillos[1][1] = new Color(102, 204, 102);
-    	matrizLadrillos[1][2] = new Color(102, 102, 204);
-    	matrizLadrillos[1][3] = new Color(204, 204, 102);
-    	matrizLadrillos[1][4] = new Color(204, 102, 204);
-    	matrizLadrillos[1][5] = new Color(102, 204, 204);
-    	matrizLadrillos[1][6] = new Color(218, 170, 0);
-    	
-    	
-    	matrizLadrillos[2][0] = new Color(204, 102, 102);
-    	matrizLadrillos[2][1] = new Color(102, 204, 102);
-    	matrizLadrillos[2][2] = new Color(102, 102, 204);
-    	matrizLadrillos[2][3] = new Color(204, 204, 102);
-    	matrizLadrillos[2][4] = new Color(204, 102, 204);
-    	matrizLadrillos[2][5] = new Color(102, 204, 204);
-    	matrizLadrillos[2][6] = new Color(218, 170, 0);
-    	
-    	matrizLadrillos[3][0] = new Color(204, 102, 102);
-    	matrizLadrillos[3][1] = new Color(102, 204, 102);
-    	matrizLadrillos[3][2] = new Color(102, 102, 204);
-    	matrizLadrillos[3][3] = new Color(204, 204, 102);
-    	matrizLadrillos[3][4] = new Color(204, 102, 204);
-    	matrizLadrillos[3][5] = new Color(102, 204, 204);
-    	matrizLadrillos[3][6] = new Color(218, 170, 0);
-    	
-    	matrizLadrillos[4][0] = new Color(204, 102, 102);
-    	matrizLadrillos[4][1] = new Color(102, 204, 102);
-    	matrizLadrillos[4][2] = new Color(102, 102, 204);
-    	matrizLadrillos[4][3] = new Color(204, 204, 102);
-    	matrizLadrillos[4][4] = new Color(204, 102, 204);
-    	matrizLadrillos[4][5] = new Color(102, 204, 204);
-    	matrizLadrillos[4][6] = new Color(218, 170, 0);
+    	//CASE 2
+    	matrizLadrillos[2][0] = new Color(102, 102, 204);//azul
+    	matrizLadrillos[2][1] = new Color(204, 204, 102);//amarillo
+    	matrizLadrillos[2][2] = new Color(102, 204, 102);//verde
+    	matrizLadrillos[2][3] = new Color(204, 102, 102);//rojo
+    	matrizLadrillos[2][4] = new Color(218, 170, 0);//naranja
+    	matrizLadrillos[2][5] = new Color(204, 102, 204);//rosa
+    	matrizLadrillos[2][6] = new Color(102, 204, 204);//cielo
+    	//CASE 3
+    	matrizLadrillos[3][0] = new Color(218, 170, 0);//naranja
+    	matrizLadrillos[3][1] = new Color(102, 204, 204);//cielo
+    	matrizLadrillos[3][2] = new Color(204, 102, 204);//rosa
+    	matrizLadrillos[3][3] = new Color(102, 102, 204);//azul
+    	matrizLadrillos[3][4] = new Color(204, 204, 102);//amarillo
+    	matrizLadrillos[3][5] = new Color(102, 204, 102);//verde
+    	matrizLadrillos[3][6] = new Color(204, 102, 102);//rojo
+    	//CASE 4
+    	matrizLadrillos[4][0] = new Color(204, 204, 102);//amarillo
+    	matrizLadrillos[4][1] = new Color(204, 102, 204);//rosa
+    	matrizLadrillos[4][2] = new Color(218, 170, 0);//naranja
+    	matrizLadrillos[4][3] = new Color(102, 204, 204);//cielo
+    	matrizLadrillos[4][4] = new Color(204, 102, 102);//rojo
+    	matrizLadrillos[4][5] = new Color(102, 102, 204);//azul
+    	matrizLadrillos[4][6] = new Color(102, 204, 102);//verde
 		
     	
     	
@@ -95,7 +95,7 @@ public class EditarLadrillos extends JFrame implements Ventana {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
 		
-		JButton btnNewButton = new JButton("Guardar Cambios");
+		JButton btnNewButton = new JButton("Volver");
 		btnNewButton.addActionListener(new Accion2());
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 		
@@ -145,7 +145,7 @@ public class EditarLadrillos extends JFrame implements Ventana {
             int id=(((Boton)e.getSource()).id);
             Gestor.getInstancia().editarLadrillos(nombreUsuario, id);
             puntero.dispose();
-            PopUp.visibilizar("Se ha adjudicado el SET de colores", puntero);
+            PopUp.visibilizar("Se ha adjudicado el SET de colores", puntero, true);
 
 
         }

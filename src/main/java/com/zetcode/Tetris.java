@@ -31,28 +31,28 @@ public class Tetris extends JFrame {
 
     
     
-    private Tetris(String pUser, Timestamp fechaSave, int pNivel, int[][] pMatriz) {
+    private Tetris(String pUser, Timestamp fechaSave, int pNivel, int[][] pMatriz, int pPuntos) {
     	
     	// Si pMatriz == null --> Es una partida nueva, no cargada
     	
     	this.nombreUsuario = pUser;
     	this.fechaDeSave = fechaSave;
-        initUI(pNivel, pMatriz);
+        initUI(pNivel, pMatriz, pPuntos);
     }
     
-    public static Tetris getInstancia(String pUser, Timestamp fechaSave, int pNivel, int[][] pMatriz) {
-    	Tetris.puntero = new Tetris(pUser, fechaSave, pNivel, pMatriz);
+    public static Tetris getInstancia(String pUser, Timestamp fechaSave, int pNivel, int[][] pMatriz, int pPuntos) {
+    	Tetris.puntero = new Tetris(pUser, fechaSave, pNivel, pMatriz, pPuntos);
     	return Tetris.puntero;
     }
 
-    private void initUI(int pNivel, int[][] pMatriz) {
+    private void initUI(int pNivel, int[][] pMatriz, int pPuntos) {
     	
     	// Inicializar la ventana de juego
 
-        statusbar = new JLabel(" 0");
+        statusbar = new JLabel(" "+pPuntos);
         add(statusbar, BorderLayout.SOUTH);
 
-        var board = new Board(this);
+        var board = new Board(this, pPuntos);
         add(board);
         board.setDif(pNivel);
         
@@ -61,6 +61,7 @@ public class Tetris extends JFrame {
         if (pMatriz != null) {
         	board.volcarMatriz(pMatriz);
         }
+        
         
         // Cargar colores
         

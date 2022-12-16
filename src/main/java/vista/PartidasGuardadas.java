@@ -16,7 +16,7 @@ import controlador.Gestor;
 
 @SuppressWarnings("serial")
 
-public class PartidasGuardadas extends JFrame implements Ventana {
+public class PartidasGuardadas extends JFrame {
 	
 	// Pantalla que se abre cuando un usuario decide cargar una partida
 	// Muestra todos los saves que tiene, y le da la opcion de elegir uno de ellos para jugar.
@@ -34,12 +34,6 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 	private String usuario;
 	private JPanel contentPane;
 
-	
-	@Override
-	public void redirigir() {
-		PartidasGuardadas.visibilizar(this.usuario);
-		
-	}
 	
 	
 	public static void visibilizar(String pUser) {
@@ -100,7 +94,7 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 		this.contenido.add(botonVolver,BorderLayout.SOUTH);
 		this.contenido.add(new JPanel(), BorderLayout.EAST);
 		this.contenido.add(new JPanel(), BorderLayout.WEST);
-		super.setBounds(100, 100, 700, 500);
+		super.setBounds(100, 100, 900, 500);
 		this.setResizable(false);
 		this.setVisible(true);
 		String partidas=Gestor.getInstancia().mostrarPartidas(usuario);
@@ -183,7 +177,7 @@ public class PartidasGuardadas extends JFrame implements Ventana {
 			int id=(((Boton)e.getSource()).id);
 			Gestor.getInstancia().cargarPartida(usuario, fechas[id], Integer.parseInt(niveles[id]));
 			puntero.dispose();
-			Tetris.getInstancia(usuario,Timestamp.valueOf(Gestor.getInstancia().mapearFecha(fechas[id])),Integer.parseInt(niveles[id]),Gestor.getInstancia().cargarPartida(usuario, fechas[id], Integer.parseInt(niveles[id])));
+			Tetris.getInstancia(usuario,Timestamp.valueOf(Gestor.getInstancia().mapearFecha(fechas[id])),Integer.parseInt(niveles[id]),Gestor.getInstancia().cargarPartida(usuario, fechas[id], Integer.parseInt(niveles[id])), Integer.parseInt(puntos[id]));
 			
 		}
 	}
