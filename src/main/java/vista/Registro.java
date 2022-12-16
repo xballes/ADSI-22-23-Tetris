@@ -30,8 +30,15 @@ public class Registro extends JFrame implements Ventana {
 
 	
 	@Override
-	public void redirigir() {
-		Registro.visibilizar();		
+	public void redirigir(boolean pInfo) {
+		
+		
+		if (pInfo) {
+			MenuPrincipal.visibilizar();
+		} else {
+			Registro.visibilizar();		
+		}
+		
 	}
 	
 	public static void visibilizar() {
@@ -120,11 +127,11 @@ public class Registro extends JFrame implements Ventana {
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
 			switch (Gestor.getInstancia().registrar(campos[0].getText(), campos[1].getText(), campos[2].getText())) {
-			case 0: PopUp.visibilizar("Se ha registrado el usuario", puntero); break;
-			case 1: PopUp.visibilizar("Error: campos entre 1 y 30 chars", puntero); break;
-			case 2: PopUp.visibilizar("Error: Nombre ya en uso", puntero); break;
-			case 3: PopUp.visibilizar("Error: Email ya en uso", puntero); break;
-			case 4: PopUp.visibilizar("Error: Usa alfanuméricos en campos", puntero);
+			case 0: PopUp.visibilizar("Se ha registrado el usuario", puntero, true); break;
+			case 1: PopUp.visibilizar("Error: campos entre 1 y 30 chars", puntero, false); break;
+			case 2: PopUp.visibilizar("Error: Nombre ya en uso", puntero, false); break;
+			case 3: PopUp.visibilizar("Error: Email ya en uso", puntero, false); break;
+			case 4: PopUp.visibilizar("Error: Usa alfanuméricos en campos", puntero, false);
 			
 			}
 		}

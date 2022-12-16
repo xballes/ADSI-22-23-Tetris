@@ -18,9 +18,11 @@ public class Reproductor {
 	private Clip gameOver;
 	
 	public Reproductor () {
-		this.archivos = new String[1];
+		this.archivos = new String[3];
 	
 		this.archivos[0] = "tetrisOST";
+		this.archivos[1]="tetrisMario";
+		this.archivos[2]="versionModerna1";
 
 		try { 
 
@@ -48,7 +50,7 @@ public class Reproductor {
 		
 		/* Pre: int en dominio de array archivos. Dicho int apunta al nombre de la cancion que se desea reproducir en la array archivos. El .wav que tiene dicho nombre existe en la carpeta de recursos "materiales"
 		        
-		   Post: Se empezará a reproducir la música en loop infinito hasta que se le llame al metodo de pausar o terminar   
+		   Post: Se empezarï¿½ a reproducir la mï¿½sica en loop infinito hasta que se le llame al metodo de pausar o terminar   
 		
 		
 		
@@ -84,8 +86,8 @@ public class Reproductor {
 
 	public void pausarMusica() {
 
-	/*   Pre: Hay música en reproducción, ya que el atributo clip no es null
- 	     Post: Se pausa la música, pero no se pierde el puntero a la reproducción, llamando a despausarMusica() será posible continuar la reproduccion
+	/*   Pre: Hay mï¿½sica en reproducciï¿½n, ya que el atributo clip no es null
+ 	     Post: Se pausa la mï¿½sica, pero no se pierde el puntero a la reproducciï¿½n, llamando a despausarMusica() serï¿½ posible continuar la reproduccion
 		
 		  
 	  
@@ -93,7 +95,7 @@ public class Reproductor {
 
 		
 		if (this.clip != null) {this.clip.stop();}
-		else {System.out.println("DEBUG: El método no se ejectuto, elige antes que música quieres que toque");}
+		else {System.out.println("DEBUG: El mï¿½todo no se ejectuto, elige antes que mï¿½sica quieres que toque");}
 
 	}
 
@@ -101,8 +103,12 @@ public class Reproductor {
 
 
 
-		if (this.clip != null) {this.clip.start();}
-		else {System.out.println("DEBUG: El método no se ejectuto, elige antes que música quieres que toque");}	
+		if (this.clip != null) {
+			this.clip.setLoopPoints(0, -1);
+			this.clip.loop(Clip.LOOP_CONTINUOUSLY);
+			this.clip.start();
+		}
+		else {System.out.println("DEBUG: El mï¿½todo no se ejectuto, elige antes que mï¿½sica quieres que toque");}	
 
 }
 	public void acabarMusica(boolean pGameOver) {

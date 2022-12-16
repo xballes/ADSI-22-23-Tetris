@@ -15,10 +15,11 @@ import controlador.GestorPartida;
 
 @SuppressWarnings("serial")
 
-public class PausaGuardado extends JFrame {
+public class PausaGuardado extends JFrame implements Ventana {
 	
 	// Pantalla que se abre cuando un usuario pausa la partida de tetris (sobrescribe el pausado predefinido en 
 	// el software original)
+	// LA PAUSA SE PUEDE REALIZAR PULSANDO 'P' MIENTRAS SE ESTÁ JUGANDO UNA PARTIDA
 	
 	
 	private static PausaGuardado puntero;
@@ -30,6 +31,13 @@ public class PausaGuardado extends JFrame {
 	private JPanel filas;
 	private JButton[] botones; // Guardar partida, volver a la partida.
 
+	
+	@Override
+	public void redirigir(boolean pInfo) {
+		PausaGuardado.visibilizar(board);
+		
+	}	
+	
 	
 	public static void visibilizar(Board pPuntero) {
 		PausaGuardado.puntero = new PausaGuardado(pPuntero);
@@ -90,10 +98,20 @@ public class PausaGuardado extends JFrame {
 
 		public void actionPerformed(ActionEvent e) { //Botón guardar partida
 			puntero.dispose();
+			
+			if (board.getFechaSave() == null && Gestor.getInstancia().contarGuardados(board.getNombreUsuario()) == 10) {
+				PopUp.visibilizar("Error al guardar partida, has llegado al límite de partidas guardadas", puntero, false);
+			} else {
+				
+			
+			
+			
 			Gestor.getInstancia().guardarPartida(board.calcularMatriz(), board.getNombreUsuario(), board.getBOARD_WIDTH(), board.getFechaSave(), board.getNumLinesRemoved(), board.getTetrisRealizado());
 			board.forzarCerrado();
 			Gestor.getInstancia().acabarMusica(false);
 			MenuDeUsuario.visibilizar(board.getNombreUsuario());
+			
+			}
 		}
 		
 		
@@ -110,6 +128,7 @@ public class PausaGuardado extends JFrame {
 		}
 		
 		
-	}	
+	}
+
 }
 	

@@ -2,20 +2,20 @@ package eus.ehu.lsi.adsi;
 
 import static org.junit.Assert.*;
 
-import java.awt.BorderLayout;
 import java.sql.Timestamp;
 
-import javax.swing.JPanel;
 
 import org.junit.Test;
 
-import com.zetcode.Board;
-import com.zetcode.Shape.Tetrominoe;
-import com.zetcode.Tetris;
+
 
 import controlador.Gestor;
 import controlador.GestorPartida;
-import controlador.GestorUsuarios;
+
+
+
+// Nota: La ejecucion de la JUnit es lenta porque se frena a proposito el script para que no genere
+//       dos guardados en el mismo segundo y se den problemas de unicidad de clave en BD
 
 public class GestorPartidaTest {
 	

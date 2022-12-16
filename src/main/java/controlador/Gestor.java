@@ -84,6 +84,10 @@ public class Gestor {
 		return GestorPartida.getInstancia().mostrarPartidas(pNombreUsuario);
 	}
 	
+	public int contarGuardados(String pUser) {
+		return GestorPartida.getInstancia().contarGuardados(pUser);
+	}
+	
 	public void borrarPartida(String pUser, Timestamp fecha) {
 		GestorPartida.getInstancia().borrarPartida(pUser, fecha);
 	}

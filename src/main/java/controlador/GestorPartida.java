@@ -59,7 +59,7 @@ public class GestorPartida {
 		
 		if (fecha != null) {
 			SGBD.getInstancia().execSQLVoid("DELETE FROM COLUMNA WHERE FECHAPARTIDA='"+fecha+"' AND NOMBREUSUARIO='"+usuario+"'"); // Borrar la matriz anterior
-			SGBD.getInstancia().execSQLVoid("UPDATE PARTIDA SET FECHAPARTIDA='"+fechaAct+"' WHERE FECHAPARTIDA='"+fecha+"' AND NOMBREUSUARIO='"+usuario+"'"); // Actualizar la fecha de ultimo guardado
+			SGBD.getInstancia().execSQLVoid("UPDATE PARTIDA SET FECHAPARTIDA='"+fechaAct+"' ,PUNTUACION = "+puntuacion+" WHERE FECHAPARTIDA='"+fecha+"' AND NOMBREUSUARIO='"+usuario+"'"); // Actualizar la fecha de ultimo guardado
 		} else {
 			SGBD.getInstancia().execSQLVoid("INSERT INTO PARTIDA VALUES ('"+usuario+"','"+fechaAct+"','"+puntuacion+"',"+nivel+")"); // Crear la save porque no existia
 
@@ -278,6 +278,28 @@ public class GestorPartida {
 		
 		
 	}
+	
+	
+	
+	public int contarGuardados(String pUser) {
+		
+		try {
+			ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM PARTIDA WHERE NOMBREUSUARIO = '"+pUser+"'");
+			
+			int cant = 0;
+			
+			while (r.next()) {cant++;}
+			
+			r.close();
+			return cant;
+		} catch (Exception e) {}
+		
+		return -1;
+		
+
+	}
+	
+	
 	//-----------------------------------------------------------------
 	public void resetearBD() { //METODO DE USO EXCLUSIVO PARA JUNITS!
 		String sentencia = "DELETE FROM PARTIDA";

@@ -28,8 +28,8 @@ public class EditarColor extends JFrame implements Ventana {
 	
 	
 	@Override
-	public void redirigir() {
-		EditarColor.visibilizar(usuario);
+	public void redirigir(boolean pInfo) {
+		Personalizar.visibilizar(usuario);
 		
 	}
 
@@ -54,7 +54,7 @@ public class EditarColor extends JFrame implements Ventana {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
 		
-		JButton btnNewButton = new JButton("Guardar Cambios");
+		JButton btnNewButton = new JButton("Volver");
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 		btnNewButton.addActionListener(new Accion5());
 		
@@ -96,7 +96,7 @@ public class EditarColor extends JFrame implements Ventana {
 		public void actionPerformed(ActionEvent e) {
 			Gestor.getInstancia().cambiarColor(usuario, 0);
 			puntero.dispose();
-			PopUp.visibilizar("Se ha adjudicado el color blanco", puntero);
+			PopUp.visibilizar("Se ha adjudicado el color blanco", puntero, true);
 		}
 	}
 
@@ -105,7 +105,7 @@ public class EditarColor extends JFrame implements Ventana {
 		public void actionPerformed(ActionEvent e) {
 			Gestor.getInstancia().cambiarColor(usuario, 1);
 			puntero.dispose();
-			PopUp.visibilizar("Se ha adjudicado el color verde", puntero);
+			PopUp.visibilizar("Se ha adjudicado el color verde", puntero, true);
 		}
 	}
 
@@ -114,7 +114,7 @@ public class EditarColor extends JFrame implements Ventana {
 		public void actionPerformed(ActionEvent e) {
 			Gestor.getInstancia().cambiarColor(usuario, 2);
 			puntero.dispose();
-			PopUp.visibilizar("Se ha adjudicado el color amarillo", puntero);
+			PopUp.visibilizar("Se ha adjudicado el color amarillo", puntero, true);
 		}
 	}
 
@@ -123,7 +123,7 @@ public class EditarColor extends JFrame implements Ventana {
 		public void actionPerformed(ActionEvent e) {
 			Gestor.getInstancia().cambiarColor(usuario, 3);
 			puntero.dispose();
-			PopUp.visibilizar("Se ha adjudicado el color rosa", puntero);
+			PopUp.visibilizar("Se ha adjudicado el color rosa", puntero, true);
 		}
 	}
 

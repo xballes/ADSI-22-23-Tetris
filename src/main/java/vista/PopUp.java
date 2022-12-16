@@ -21,7 +21,7 @@ public class PopUp extends JFrame {
 	private JPanel filas;
 	
 	private JButton boton;
-	
+	private boolean target;
 
 	
 	
@@ -30,15 +30,15 @@ public class PopUp extends JFrame {
 	private Ventana redireccion;
 
 	
-	public static void visibilizar(String pTexto, Ventana pRedireccion) {
-		PopUp.puntero = new PopUp(pTexto, pRedireccion);
+	public static void visibilizar(String pTexto, Ventana pRedireccion, boolean pTarg) {
+		PopUp.puntero = new PopUp(pTexto, pRedireccion, pTarg);
 		
 	}
 	
-	private PopUp (String pTexto, Ventana pRedireccion) {
+	private PopUp (String pTexto, Ventana pRedireccion, boolean pTarg) {
 		
 		this.redireccion = pRedireccion;
-		
+		this.target = pTarg;
 		// Crear panel principal
 		
 		this.contenido = new JPanel();
@@ -77,7 +77,7 @@ public class PopUp extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			redireccion.redirigir();
+			redireccion.redirigir(target);
 			
 		}
 		

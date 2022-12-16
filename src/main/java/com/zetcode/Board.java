@@ -29,18 +29,19 @@ public class Board extends JPanel {
     private int curY = 0;
     private JLabel statusbar;             // Imagen del numero de puntuacion de abajo en la pantalla
     private Shape curPiece;               // Puntero a la pieza actual en movimiento
-    private Tetrominoe[] board;           // Lista de las piezas en pantalla??
+    private Tetrominoe[] board;           // Lista de las piezas en pantalla
     
     
     private Tetris puntero;
-    private boolean tetris; // Se hizo un tetris???
+    private boolean tetris; // Se hizo un tetris
     private int nivel;
     
     
     private Color[] colorPiezas;
 
-    public Board(Tetris parent) {
+    public Board(Tetris parent, int pPuntos) {
         initBoard(parent);
+        this.numLinesRemoved = pPuntos;
         this.tetris = false;
     }
     
@@ -402,10 +403,44 @@ public class Board extends JPanel {
     	
     	case 1: 
     		// PONER COLORES QUE QUIERAS AQUI 
+    	this.colorPiezas[1] =new Color(102, 204, 102);
+        this.colorPiezas[2] = new Color(204, 102, 102);    
+        this.colorPiezas[3] = new Color(204, 204, 102);
+        this.colorPiezas[4] = new Color(102, 102, 204);
+        this.colorPiezas[5] = new Color(102, 204, 204);
+        this.colorPiezas[6] = new Color(218, 170, 0);
+        this.colorPiezas[7] = new Color(204, 102, 204);
+        break;
+    		
+    	case 2:
+    	this.colorPiezas[1] = new Color(102, 102, 204);
+        this.colorPiezas[2] = new Color(204, 204, 102);    
+        this.colorPiezas[3] = new Color(102, 204, 102);
+        this.colorPiezas[4] = new Color(204, 102, 102);
+        this.colorPiezas[5] = new Color(218, 170, 0);
+        this.colorPiezas[6] = new Color(204, 102, 204);
+        this.colorPiezas[7] = new Color(102, 204, 204);	
     	break;	
-    
-    
- 
+    	
+    	case 3:
+    	this.colorPiezas[1] = new Color(218, 170, 0);
+        this.colorPiezas[2] = new Color(102, 204, 204);    
+        this.colorPiezas[3] = new Color(204, 102, 204);
+        this.colorPiezas[4] = new Color(102, 102, 204);
+        this.colorPiezas[5] = new Color(204, 204, 102);
+        this.colorPiezas[6] = new Color(102, 204, 102);
+        this.colorPiezas[7] = new Color(204, 102, 102);  		
+    	break;
+    	
+    	case 4:
+    	this.colorPiezas[1] = new Color(204, 204, 102);
+        this.colorPiezas[2] = new Color(204, 102, 204);    
+        this.colorPiezas[3] = new Color(218, 170, 0);
+        this.colorPiezas[4] = new Color(102, 204, 204);
+        this.colorPiezas[5] = new Color(204, 102, 102);
+        this.colorPiezas[6] = new Color(102, 102, 204);
+        this.colorPiezas[7] = new Color(102, 204, 102);
+    	break;
     	}
     	
     	
@@ -430,7 +465,6 @@ public class Board extends JPanel {
     	
 
     	/*private Tetrominoe shapeAt(int x, int y) {
-
             return board[(y * BOARD_WIDTH) + x];
         }*/
     	
@@ -479,7 +513,6 @@ public class Board extends JPanel {
     		
     		for (int col = 0; col != BOARD_WIDTH; col++) {
     			
-
     			Tetrominoe p;
     			int val2=matriz[col][alt];
     			if(val2==0) {
