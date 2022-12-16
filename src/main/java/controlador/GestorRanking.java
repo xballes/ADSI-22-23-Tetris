@@ -32,7 +32,7 @@ public class GestorRanking {
 		Gson json1 = new Gson();
 		
 		
-		ResultSet resul = SGBD.getInstancia().execSQL("SELECT usuario, nivel, puntosActuales FROM PUNTUACION ORDER BY puntosActuales DESC");
+		ResultSet resul = SGBD.getInstancia().execSQL("SELECT USUARIO, NIVEL, PUNTOSACTUALES FROM PUNTUACION ORDER BY PUNTOSACTUALES DESC");
 		
 		ArrayList<Tripleta> objeto = new ArrayList<Tripleta>();
 		
@@ -40,9 +40,9 @@ public class GestorRanking {
 		
 			int cont = 0;
 			while (resul.next() && cont < 10){
-			 String nombre  = resul.getString("usuario");
-			 int  nivel = resul.getInt("nivel");
-			 int puntos = resul.getInt("puntosActuales");
+			 String nombre  = resul.getString("USUARIO");
+			 int  nivel = resul.getInt("NIVEL");
+			 int puntos = resul.getInt("PUNTOSACTUALES");
 			 Tripleta tri = new Tripleta(puntos,nivel, nombre);
 			 objeto.add (tri);
 			 cont++;
@@ -74,7 +74,7 @@ public class GestorRanking {
 		int niv = pNivel;
 		
 		
-		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT usuario, puntosActuales FROM PUNTUACION  WHERE nivel = "+niv+"  ORDER BY puntosActuales DESC");
+		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT USUARIO, PUNTOSACTUALES FROM PUNTUACION  WHERE NIVEL = "+niv+"  ORDER BY PUNTOSACTUALES DESC");
 		
 		ArrayList<DuplaNivel> obj = new ArrayList<DuplaNivel>();
 		
@@ -82,8 +82,8 @@ public class GestorRanking {
 			
 			int cont=0;
 			while( resulNivel.next() && cont < 10) {
-				String nombre = resulNivel.getString("usuario");
-				int puntos = resulNivel.getInt("puntosActuales");
+				String nombre = resulNivel.getString("USUARIO");
+				int puntos = resulNivel.getInt("PUNTOSACTUALES");
 				DuplaNivel dup = new DuplaNivel(puntos, nombre);
 				obj.add(dup);
 				cont++;
@@ -111,7 +111,7 @@ public class GestorRanking {
 	
 		Gson json3 = new Gson();
 		
-		ResultSet resulTodos = SGBD.getInstancia().execSQL("SELECT nivel, puntosActuales FROM PUNTUACION WHERE usuario='"+pNombre+"' ORDER BY puntosActuales DESC");
+		ResultSet resulTodos = SGBD.getInstancia().execSQL("SELECT NIVEL, PUNTOSACTUALES FROM PUNTUACION WHERE USUARIO='"+pNombre+"' ORDER BY PUNTOSACTUALES DESC");
 		
 		ArrayList<DuplaTodos> objetos = new ArrayList<DuplaTodos>();
 		
@@ -119,8 +119,8 @@ public class GestorRanking {
 			
 			int cont=0;
 			while( resulTodos.next() && cont<10) {
-				int nivel = resulTodos.getInt("nivel");
-				int puntos = resulTodos.getInt("puntosActuales");
+				int nivel = resulTodos.getInt("NIVEL");
+				int puntos = resulTodos.getInt("PUNTOSACTUALES");
 				DuplaTodos dupla = new DuplaTodos(puntos,nivel);
 				objetos.add(dupla);
 				cont++;
@@ -146,14 +146,14 @@ public class GestorRanking {
 		 */
 		
 		
-		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT puntosActuales FROM PUNTUACION WHERE nivel="+pNivel+" && usuario='"+pNombre+"'  ORDER BY puntosActuales DESC");
+		ResultSet resulNivel = SGBD.getInstancia().execSQL("SELECT PUNTOSACTUALES FROM PUNTUACION WHERE NIVEL="+pNivel+" AND USUARIO='"+pNombre+"'  ORDER BY puntosActuales DESC");
 		
 		ArrayList<Integer> puntuaciones = new ArrayList<Integer>();
 		
 		try {
 			int cont=0;
 			while( resulNivel.next() && cont<10) {
-				int puntos = resulNivel.getInt("puntosActuales");
+				int puntos = resulNivel.getInt("PUNTOSACTUALES");
 				puntuaciones.add(puntos);
 				cont++;
 			}
@@ -176,7 +176,7 @@ public class GestorRanking {
 		 */
 		
 		
-		SGBD.getInstancia().execSQLVoid("INSERT INTO puntuacion(nivel, puntosActuales, usuario) VALUES ("+pNivel+", "+pPuntos+",'"+pUser+"')");
+		SGBD.getInstancia().execSQLVoid("INSERT INTO PUNTUACION(NIVEL, PUNTOSACTUALES, USUARIO) VALUES ("+pNivel+", "+pPuntos+",'"+pUser+"')");
 	}
 	
 	//Metodo exclusivo para las pruebas JUnit

@@ -46,16 +46,17 @@ public class MenuPrincipal extends JFrame {
 		// Crear estructura para botones
 		
 		this.filas = new JPanel();
-		this.filas.setLayout(new GridLayout(4,1,5,50));
-		this.botones = new JButton[4];
+		this.filas.setLayout(new GridLayout(5,1,5,30));
+		this.botones = new JButton[5];
 		
-		for (int i = 0; i != 4; i++) {
+		for (int i = 0; i != 5; i++) {
 			String val = null;
 			switch (i) {
 			case 0: val = "Registrarse"; break;
 			case 1: val = "Iniciar Sesión"; break;	
 			case 2: val = "Recuperar Contraseña"; break;	
 			case 3: val = "Ver Ranking General"; break;	
+			case 4: val = "Cerrar"; break;	
 
 			}
 			
@@ -66,6 +67,7 @@ public class MenuPrincipal extends JFrame {
 		this.botones[1].addActionListener(new Accion2());
 		this.botones[2].addActionListener(new Accion3());
 		this.botones[3].addActionListener(new Accion4());
+		this.botones[4].addActionListener(new Accion5());
 
 
 		
@@ -123,7 +125,15 @@ public class MenuPrincipal extends JFrame {
 		
 		
 	}
-	
+	private class Accion5 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			
+		}
+		
+		
+	}
 	
 }
 	

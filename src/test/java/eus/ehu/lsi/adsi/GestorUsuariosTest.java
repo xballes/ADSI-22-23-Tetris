@@ -95,7 +95,7 @@ public class GestorUsuariosTest {
 		this.gestor.registrar("Per1", "Pass", "Mail1");
 		
 		assertTrue(this.gestor.verificarUsuario("Per1", "Pass"));
-		assertTrue(this.gestor.verificarUsuario("Administrador", "123456"));
+		assertTrue(this.gestor.verificarUsuario("administrador", "123456"));
 
 		// Caso 3: No se llenan los campos
 		
@@ -244,9 +244,9 @@ public class GestorUsuariosTest {
 		// Caso 4 Borrar administrador
 
 		
-		assertTrue(this.gestor.contarUsuariosConEseNomnbre("Administrador") == 1);
-		assertTrue(!this.gestor.borrarUsuario("Administrador"));
-		assertTrue(this.gestor.contarUsuariosConEseNomnbre("Administrador") == 1);
+		assertTrue(this.gestor.contarUsuariosConEseNomnbre("administrador") == 1);
+		assertTrue(!this.gestor.borrarUsuario("administrador"));
+		assertTrue(this.gestor.contarUsuariosConEseNomnbre("administrador") == 1);
 
 		// Caso 5: Borrar vacío
 

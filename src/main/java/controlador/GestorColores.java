@@ -18,20 +18,20 @@ public class GestorColores {
 	
 	public void cambiarColor(String pNombre, int idColor ) {
 		
-		SGBD.getInstancia().execSQLVoid("UPDATE  usuario SET setColor="+idColor+" WHERE nombre='"+pNombre+"'");
+		SGBD.getInstancia().execSQLVoid("UPDATE  USUARIO SET SETCOLOR="+idColor+" WHERE NOMBRE='"+pNombre+"'");
 		
 		
 	}
 	
 	public int obtenerColor(String pNombre) {
 		
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT setColor FROM usuario WHERE nombre='"+pNombre+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT SETCOLOR FROM USUARIO WHERE NOMBRE='"+pNombre+"'");
 		int res = -1;
 		
 		
 		try {
 			r.next();
-			res = r.getInt("setColor");
+			res = r.getInt("SETCOLOR");
 			r.close();
 			
 			
