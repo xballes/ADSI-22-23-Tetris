@@ -175,7 +175,7 @@ public class MenuDeUsuario extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			CambioContrase�a.visibilizar(usuario);
+			CambioContraseña.visibilizar(usuario);
 		}
 		
 		
