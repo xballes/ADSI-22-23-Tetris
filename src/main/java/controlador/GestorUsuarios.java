@@ -116,7 +116,7 @@ public class GestorUsuarios {
 			
 		}
 		
-	public String obtenerPremios(String pNombre)
+	public String[] obtenerPremios(String pNombre)
 	{
 		ArrayList<String> premios = new ArrayList<String>();
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT nombrePremio FROM usuariopremio WHERE nombreUsuario = '"+pNombre+"'");
@@ -132,8 +132,7 @@ public class GestorUsuarios {
 		{
 			return null;
 		}
-		Gson json5 = new Gson();
-		String res = json5.toJson(premios);
+		String[] res = (String[]) premios.toArray();
 		return res;
 		
 	}

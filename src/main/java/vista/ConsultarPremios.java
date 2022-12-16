@@ -54,27 +54,8 @@ public class ConsultarPremios extends JFrame
 		
 		//Obtener premios del usuario
 		
-		String datos = Gestor.getInstancia().obtenerPremios(pNombre);
+		String[] premios = Gestor.getInstancia().obtenerPremios(pNombre);
 		
-		String[] array = datos.split("{");
-		String[] premios = new String [array.length];
-		
-		for (int i = 0; i != array.length; i++) {
-			int ind = 0;
-			
-			while(array[i].charAt(ind)!=':') {
-				ind++;
-			}
-			String aux = "";
-			ind++;
-			
-			while(array[i].charAt(ind)!='}') {
-				aux = aux + array[i].charAt(ind);
-				ind++;
-			}
-			
-			premios[i] =aux;
-		}
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 553, 700, 10);

@@ -21,7 +21,7 @@ private static GestorPremios puntero;
 	public String obtenerDetalles(String pNombre, String pPremio)
 	{
 		Gson json6 = new Gson();
-		ResultSet r = SGBD.getInstancia().execSQL("SELECT descripcion, fechaObtencion FROM usuariopremio INNER JOIN nombrepremio=nombre WHERE nombreusuario='"+pNombre+"' AND nombrepremio='"+pPremio+"'");
+		ResultSet r = SGBD.getInstancia().execSQL("SELECT descripcion, fechaObtencion FROM usuariopremio INNER JOIN premio ON nombrepremio=nombre WHERE nombreusuario='"+pNombre+"' AND nombrepremio='"+pPremio+"'");
 		try
 		{
 			r.next();
