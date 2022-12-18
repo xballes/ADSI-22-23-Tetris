@@ -64,5 +64,5 @@ public class GestorPremiosTest {
 		gestorP.darPremio("pepe", 2, timestamp);
 		gestorP.darPremio("pepe", 0, timestamp);
 		assertTrue(this.gestorU.obtenerPremios("pepe").length==3);
-		
+	}
 }
