@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class MenuRankingPublico extends JFrame {
 
 	
@@ -83,6 +84,7 @@ public class MenuRankingPublico extends JFrame {
 		
 	}
 	
+	// Acciones: 1 mostrar todos los rankings, 2-4 mostrar rankings nivel 1-3, 5 volver
 	
 	private class Accion1 implements ActionListener {
 

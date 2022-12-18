@@ -19,6 +19,7 @@ import java.sql.Timestamp;
 
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class GameOver extends JFrame {
 
 	
@@ -113,6 +114,7 @@ public class GameOver extends JFrame {
 
 	}
 	
+	// Accion: 1 volver
 	
 	private class Accion1 implements ActionListener {
 

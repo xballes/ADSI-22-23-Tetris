@@ -29,7 +29,7 @@ public class GestorPremios {
 	
 	public boolean tieneElPremio(String pUser, int id) {
 		
-		/* Pre: id = [0, 3], identifica el tipo de premio que se busca en el array de la clase
+		/* Pre: id = [0, 3], identifica el tipo de premio que se busca en el array de la clase (0 es ganar una partida, 1 es ganar 10 etc)
 		 *      User en BD
 		 * Post: True -> El premio lo tiene el user | False -> no lo tiene
 		  
@@ -63,6 +63,16 @@ public class GestorPremios {
 	
 	
 	public String obtenerDetalles(String pNombre, String pPremio)
+	
+	/* Pre: id = [0, 3], identifica el tipo de premio que se busca en el array de la clase (0 es ganar una partida, 1 es ganar 10 etc)
+	 *      User en BD
+	 * Post: Los detalles del premio obtenido
+	  
+	  
+	  
+	 */
+	
+	
 	{
 		Gson json6 = new Gson();
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT descripcion, fechaObtencion FROM usuariopremio INNER JOIN premio ON nombrepremio=nombre WHERE nombreusuario='"+pNombre+"' AND nombrepremio='"+pPremio+"'");
@@ -83,6 +93,12 @@ public class GestorPremios {
 		
 	}
 	
+	// Tuplas para poder almacenar varios valores a la vez y convertirlos a JSON
+	
+	// @SuppressWarnings --> Los atributos flageados como unused se usan para fabricar el JSON, pero el IDE no es capaz de deducirlo
+	
+	@SuppressWarnings("unused")
+
 	private class DatosPremio {
 		String descr;
 		Timestamp fecha;

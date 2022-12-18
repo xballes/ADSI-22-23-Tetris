@@ -28,7 +28,7 @@ public class InicioSesion extends JFrame implements Ventana {
 	
 	
 	private JPanel par;
-	private JButton[] botones; // Registrar, Volver (en ese orden)
+	private JButton[] botones; 
 
 	
 	
@@ -119,11 +119,11 @@ public class InicioSesion extends JFrame implements Ventana {
 		
 	}
 	
+	// Acciones: 1 iniciar sesion, 2 volver
 	
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// TEMPORAL
 			
 			if (Gestor.getInstancia().verificarUsuario(campos[0].getText(), campos[1].getText())) {
 				puntero.dispose();

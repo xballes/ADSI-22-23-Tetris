@@ -28,7 +28,7 @@ public class CambioContraseña extends JFrame implements Ventana {
 	private JPanel par;
 	private JPanel par2;
 
-	private JButton[] botones; // Registrar, Volver (en ese orden)
+	private JButton[] botones; 
 	
 	
 	// Variables de IU
@@ -117,12 +117,11 @@ public class CambioContraseña extends JFrame implements Ventana {
 		
 	}
 	
+	// Acciones: 1 cambiar la contraseña, 2 volver
 	
 	private class Accion1 implements ActionListener {
 
-		public void actionPerformed(ActionEvent e) {
-			// SUBRUTINA DE COMPORBACION DE DATOS AQUI
-			
+		public void actionPerformed(ActionEvent e) {			
 			puntero.dispose();
 
 			if (Gestor.getInstancia().cambiarCont(usuario, campo.getText())) {

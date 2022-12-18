@@ -8,8 +8,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 
-import com.zetcode.Board;
-import com.zetcode.Tetris;
+
 
 public class GestorPartida {
 
@@ -27,13 +26,13 @@ public class GestorPartida {
 	
 	public void guardarPartida(int[][] matriz, String usuario, int numCols, Timestamp fecha, int puntuacion, boolean tetris) {
 		
-		/* Pre: matriz --> Matriz de ints 22x(10,12,14. dificultad respectiva) con valores 0-7 representando que hay en cada celda
+		/* Pre: matriz --> Matriz de ints 22x(10,12,14. dificultad respectiva) con valores 0-7 representando que hay en cada celda (0 es nada, 1-7 son cuadrados de piezas respectivas en el orden de la enumeracion Tetrominoe del código original
 		 *      usuario --> nombre del usuario jugando, está en BD
 		 *      fecha --> Fecha del ultimo guardado de la partida cargada, NULL si se quiere guardar nueva partida. Si existe, sus nanos seran 0.
 		 *      puntu --> Puntuacion obtenida hasta ahota
 		 *      tetris --> ¿Performó al menos un tetris durante el tiempo que ha estado jugando desde que cargo/inicio partida?
 		  
-		  
+		  Post: Partida guardada en BD, si no fue cargada se ha generado una nueva, si era de otra ya cargada ha sobrescrito a la anterior
 		  
 		 */
 		
@@ -52,7 +51,7 @@ public class GestorPartida {
 		
 		
 		
-		fechaAct.setNanos(0); // Para encontrar la partida despues con un posible SELECT en el futuro, los nanos siempre dejarlas a 0
+		fechaAct.setNanos(0); // Para encontrar la partida despues con un posible SELECT en el futuro, los nanos siempre dejarlas a 0, la fecha solo se mide hasta el segundo
 		
 		
 		// Mirar si ya se hizo una save antes de esta partida, si es el caso sobrescribir la anterior
@@ -146,7 +145,7 @@ public class GestorPartida {
 		// Obtener la matriz de BD
 		
 		for(int x =0;x!=numcolumnas;x++) { 
-			/*
+			/* ejemplo de almacenamiento en BD:
 			  - - - - - - - - - - - -
 			  1 2 3 4 5 6 7 8 9 10 11 12  ... 22
 			  - - - - - - - - - - - -
@@ -179,8 +178,12 @@ public class GestorPartida {
 	
 	
 	public void borrarPartida(String pUser, Timestamp fecha) {
-		SGBD.getInstancia().execSQLVoid("DELETE FROM PARTIDA WHERE NOMBREUSUARIO = '"+pUser+"' AND FECHAPARTIDA = '"+fecha+"'");
 		
+		// Pre: User y fecha apuntan siempre a una y solo una instancia de save.
+		// Post: Se ha borrado la partida con su matriz
+		
+		SGBD.getInstancia().execSQLVoid("DELETE FROM PARTIDA WHERE NOMBREUSUARIO = '"+pUser+"' AND FECHAPARTIDA = '"+fecha+"'");
+		// El borrado en Cascada permite borrar los datos de la tabla Columna sin acceder a ella
 	}
 	
 
@@ -188,7 +191,7 @@ public class GestorPartida {
 	public String transformarFormato(String entrada) {
 		
 		// Pre: MMM DD, YYYY, HH:MM:SS (A/P)M
-		// Post: YYY-MM-DD HH:MM:SS.000000
+		// Post: YYYY-MM-DD HH:MM:SS.000000
 		
 		
 		// El método sirve para que basado en el formato de fecha dado por JSON se pueda generar despues en un objeto Timestamp
@@ -282,6 +285,10 @@ public class GestorPartida {
 	
 	
 	public int contarGuardados(String pUser) {
+		
+		
+		// Pre: User en BD
+		// Post: Un número de cuantas partidas tiene guardadas, será un valor de [0, 10]
 		
 		try {
 			ResultSet r = SGBD.getInstancia().execSQL("SELECT * FROM PARTIDA WHERE NOMBREUSUARIO = '"+pUser+"'");

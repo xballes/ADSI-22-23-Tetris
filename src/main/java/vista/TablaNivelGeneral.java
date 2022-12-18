@@ -19,6 +19,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 
+@SuppressWarnings("serial")
 public class TablaNivelGeneral extends JFrame {
 
 	// Muestra la tabla del top 10 puntuaciones, filtrando por un nivel concreto
@@ -142,7 +143,9 @@ public class TablaNivelGeneral extends JFrame {
 		super.setResizable(false);
 		super.setVisible(true);
 	}
-
+	
+	// Accion: 1 volver
+	
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {

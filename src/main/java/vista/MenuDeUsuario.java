@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import com.zetcode.Tetris;
 
 @SuppressWarnings("serial")
 
@@ -121,6 +119,8 @@ public class MenuDeUsuario extends JFrame {
 		
 	}
 	
+	// Acciones: 1 mostrar niveles para partida nueva, 2 cargar partida, 3 abrir personalizacion, 4 mostrar ranking publico,
+	//           5 mostrar ranking privado, 6 consultar premios, 7 cambiar contraseña, 8 volver, 9 borrar usuarios (solo disponible para admin)
 	
 	private class Accion1 implements ActionListener {
 
@@ -128,7 +128,6 @@ public class MenuDeUsuario extends JFrame {
 			puntero.dispose();
 			BotonNiveles.visibilizar(usuario);
 			
-			// LLAMADA A NIVELES
 
 		}
 		

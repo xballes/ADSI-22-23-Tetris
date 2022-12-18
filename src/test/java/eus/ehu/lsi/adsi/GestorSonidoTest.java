@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import controlador.Gestor;
 import controlador.GestorSonido;
 import controlador.GestorUsuarios;
 

@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import controlador.GestorRanking;
 
 
+@SuppressWarnings("serial")
 public class TablaTodosPersonal extends JFrame {
 
 	// Muestra la tabla del top 10 puntuaciones, filtrando por un usuario concreto
@@ -131,6 +132,8 @@ public class TablaTodosPersonal extends JFrame {
 		
 	}
 	
+	// Accion: 1 volver
+
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {

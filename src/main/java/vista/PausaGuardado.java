@@ -11,7 +11,6 @@ import javax.swing.*;
 import com.zetcode.Board;
 
 import controlador.Gestor;
-import controlador.GestorPartida;
 
 @SuppressWarnings("serial")
 
@@ -19,6 +18,7 @@ public class PausaGuardado extends JFrame implements Ventana {
 	
 	// Pantalla que se abre cuando un usuario pausa la partida de tetris (sobrescribe el pausado predefinido en 
 	// el software original)
+	
 	// LA PAUSA SE PUEDE REALIZAR PULSANDO 'P' MIENTRAS SE ESTÁ JUGANDO UNA PARTIDA
 	
 	
@@ -93,6 +93,7 @@ public class PausaGuardado extends JFrame implements Ventana {
 		
 	}
 	
+	// Acciones:  1 guardar y salir, 2 volver a la partida
 	
 	private class Accion1 implements ActionListener {
 

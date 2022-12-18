@@ -164,6 +164,8 @@ public class PartidasGuardadas extends JFrame {
 		this.contenido.add(panel, BorderLayout.CENTER);
 	}
 	
+	// Acciones: 1 volver, 2 cargar la partida elegida (implementada por tantas saves que tenga disponibles)
+	
 	private class Accion1 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();

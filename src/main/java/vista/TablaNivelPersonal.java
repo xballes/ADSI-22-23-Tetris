@@ -20,6 +20,7 @@ import controlador.GestorRanking;
 
 
 
+@SuppressWarnings("serial")
 public class TablaNivelPersonal extends JFrame {
 
 	// Muestra la tabla del top 10 puntuaciones, filtrando por un nivel y usuario concreto
@@ -97,7 +98,8 @@ public class TablaNivelPersonal extends JFrame {
 		super.setVisible(true);
 	}
 	
-	
+	// Accion: 1 volver
+
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {

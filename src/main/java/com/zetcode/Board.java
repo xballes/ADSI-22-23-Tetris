@@ -17,6 +17,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Timestamp;
 
+@SuppressWarnings("serial")
 public class Board extends JPanel {
     private int BOARD_WIDTH;   // Cuadrados de largo
     private int BOARD_HEIGHT;  // Cuadrados de alto

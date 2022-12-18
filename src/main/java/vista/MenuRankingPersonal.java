@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 
+@SuppressWarnings("serial")
 public class MenuRankingPersonal extends JFrame {
 
 	
@@ -80,6 +81,8 @@ public class MenuRankingPersonal extends JFrame {
 		
 		
 	}
+	
+	// Acciones: 1 mostrar todos los personales, 2-4 mostrar los rankings del user nivel 1-3, 5 volver
 	
 	private class Accion1 implements ActionListener {
 

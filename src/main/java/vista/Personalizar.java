@@ -15,7 +15,10 @@ import java.awt.event.ActionListener;
 
 
 
+@SuppressWarnings("serial")
 public class Personalizar extends JFrame {
+	
+	// Esta interfaz se abre para elegir cual de los 3 tipos de personalizacion se quieren elegir (fondo, ladrillo, musica)
 
 	private JPanel contentPane;
 	private String nombreUsuario;
@@ -70,12 +73,23 @@ public class Personalizar extends JFrame {
 		super.setResizable(false);
 		super.setVisible(true);
 	}
-
-	private class Accion4 implements ActionListener {
+	
+	// Acciones: 1 editar fondo, 2 editar ladrillos, 3 editar musica, 4 volver
+	
+	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			MenuDeUsuario.visibilizar(nombreUsuario);
+			EditarColor.visibilizar(nombreUsuario);
+		}
+	}
+	
+	
+	private class Accion2 implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			puntero.dispose();
+			EditarLadrillos.visibilizar(nombreUsuario);
 		}
 	}
 	
@@ -86,22 +100,19 @@ public class Personalizar extends JFrame {
 			CambiarSonido.visibilizar(nombreUsuario);
 		}
 	}
-	
-	private class Accion2 implements ActionListener {
+
+	private class Accion4 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			puntero.dispose();
-			EditarLadrillos.visibilizar(nombreUsuario);
+			MenuDeUsuario.visibilizar(nombreUsuario);
 		}
 	}
 	
-	private class Accion1 implements ActionListener {
 
-		public void actionPerformed(ActionEvent e) {
-			puntero.dispose();
-			EditarColor.visibilizar(nombreUsuario);
-		}
-	}
+
+	
+
 	
 	
 	

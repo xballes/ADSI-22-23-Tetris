@@ -18,8 +18,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class EditarColor extends JFrame implements Ventana {
 
+	
+	// Menu que se abre para elegir que música se desearía que sonase de fondo al jugar
+
+	
 	private JPanel contentPane;
 	
 	
@@ -90,6 +95,9 @@ public class EditarColor extends JFrame implements Ventana {
 		super.setVisible(true);
 		
 	}
+	
+	// Acciones: 1-4 adjudicar fondo correspondiente, 5 volver
+	
 	
 	private class Accion1 implements ActionListener {
 

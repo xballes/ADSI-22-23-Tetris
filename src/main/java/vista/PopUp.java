@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,6 +71,7 @@ public class PopUp extends JFrame {
 		
 	}
 	
+	// Accion: 1 volver a la ventana que redirija la interfaz de donde vinimos aqui
 	
 	private class Accion1 implements ActionListener {
 

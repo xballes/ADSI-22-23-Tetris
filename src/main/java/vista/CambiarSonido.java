@@ -17,7 +17,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class CambiarSonido extends JFrame implements Ventana {
+	
+	
+	// Menu que se abre para elegir que música se desearía que sonase de fondo al jugar
+
+	
 	private JPanel contentPane;
 	private String nombreUsuario;
 	private static CambiarSonido puntero;
@@ -89,6 +95,9 @@ public class CambiarSonido extends JFrame implements Ventana {
             this.id = id;
         }
 	}
+	
+	// Acciones: 1 adjudicar la música respectiva (implementado en los 3 botones de seleccion), 2 volver
+	
 	private class Accion1 implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             int id=(((Boton)e.getSource()).id);

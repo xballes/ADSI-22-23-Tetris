@@ -1,10 +1,7 @@
 package controlador;
 
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-
-import com.zetcode.Board;
 
 public class Gestor {
 
@@ -19,7 +16,7 @@ public class Gestor {
 		return Gestor.puntero;
 	}
 	
-	
+	// Gestión de usuarios
 	
 	
 	public boolean verificarUsuario(String pNombre, String pCont) {
@@ -54,6 +51,8 @@ public class Gestor {
 
 	}
 	
+	// Rankings
+	
 	public String obtenerRankingTodosNivelesPublico() {
 		return GestorRanking.getInstancia().obtenerRankingTodosNivelesPublico();
 	}
@@ -74,6 +73,8 @@ public class Gestor {
 		GestorRanking.getInstancia().publicarPuntuacion(pUser, pPuntos, pNivel);
 	}
 	
+	// Gestion de partidas guardadas
+	
 	public void guardarPartida(int[][] matriz, String usuario, int numCols, Timestamp fecha, int puntuacion, boolean tetris) {
 		GestorPartida.getInstancia().guardarPartida(matriz, usuario, numCols, fecha, puntuacion, tetris);
 	}
@@ -92,6 +93,12 @@ public class Gestor {
 		GestorPartida.getInstancia().borrarPartida(pUser, fecha);
 	}
 	
+	public String mapearFecha(String fecha) {
+		return GestorPartida.getInstancia().transformarFormato(fecha);
+	}
+	
+	// Premios
+	
 	public boolean tieneElPremio(String pUser, int id) {
 		return GestorPremios.getInstancia().tieneElPremio(pUser, id);
 	}
@@ -101,19 +108,15 @@ public class Gestor {
 	}
 	
 	
-	public String[] obtenerPremios(String pNombre)
-	{
+	public String[] obtenerPremios(String pNombre) {
 		return GestorUsuarios.getInstancia().obtenerPremios(pNombre);
 	}
 	
-	public String obtenerDetallesPremio(String pNombre, String pPremio)
-	{
+	public String obtenerDetallesPremio(String pNombre, String pPremio) {
 		return GestorPremios.getInstancia().obtenerDetalles(pNombre, pPremio);
 	}
 	
-	public String mapearFecha(String fecha) {
-		return GestorPartida.getInstancia().transformarFormato(fecha);
-	}
+	// Personalizacion
 	
 	public void cambiarColor(String pNombre, int idColor ) {
 		GestorColores.getInstancia().cambiarColor(pNombre, idColor);
@@ -139,17 +142,28 @@ public class Gestor {
 		return GestorSonido.getInstancia().obtenerSonido(pNombre);
 	}
 	
+	public void tocarMusica(int pId) {
+		GestorSonido.getInstancia().tocarMusica(pId);
+	}
 	
-	public void tocarMusica(int pId) {GestorSonido.getInstancia().tocarMusica(pId);}
+	public void acabarMusica(boolean pGameOver) {
+		GestorSonido.getInstancia().acabarMusica(pGameOver);
+	}
 	
-	public void acabarMusica(boolean pGameOver) {GestorSonido.getInstancia().acabarMusica(pGameOver);}
-	
-	public void pausaMusica() {GestorSonido.getInstancia().pausa();}
+	public void pausaMusica() {
+		GestorSonido.getInstancia().pausa();
+	}
 
-	public void despausaMusica() {GestorSonido.getInstancia().despausa();}
+	public void despausaMusica() {
+		GestorSonido.getInstancia().despausa();
+	}
 	
-	public void sonarLineaLimpia() {GestorSonido.getInstancia().sonarLineaLimpia();}
+	public void sonarLineaLimpia() {
+		GestorSonido.getInstancia().sonarLineaLimpia();
+	}
 	
-	public void sonarTetris() {GestorSonido.getInstancia().sonarTetris();}
+	public void sonarTetris() {
+		GestorSonido.getInstancia().sonarTetris();
+	}
 	
 }

@@ -122,6 +122,8 @@ public class Registro extends JFrame implements Ventana {
 	}
 	
 	
+	// Acciones: 1 registrar, 2 volver
+	
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {

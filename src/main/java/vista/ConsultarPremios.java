@@ -12,7 +12,8 @@ import controlador.Gestor;
 
 public class ConsultarPremios extends JFrame
 {
-	
+	// Menu que se abre para ver los premios obtenidos del jugador
+
 	
 	private static ConsultarPremios puntero;
 	private JPanel contenido;
@@ -111,6 +112,9 @@ public class ConsultarPremios extends JFrame
 		this.setVisible(true);
 		
 	}
+	
+	// Acciones: 1 volver, 2-5 mostrar premios respectivos (si un premio no fue obtenido, el boton con su accion correspondiente no es instanciado)
+	
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {

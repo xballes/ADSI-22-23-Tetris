@@ -1,6 +1,6 @@
 package vista;
 
-import java.awt.BorderLayout;import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -84,6 +84,7 @@ public class MenuPrincipal extends JFrame {
 		
 	}
 	
+	// Acciones: 1 registrar, 2 iniciar sesion, 3 recuperar contraseña , 4 ver ranking publico, 5 cerrar el programa
 	
 	private class Accion1 implements ActionListener {
 

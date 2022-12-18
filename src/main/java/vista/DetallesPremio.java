@@ -13,6 +13,9 @@ import controlador.Gestor;
 public class DetallesPremio extends JFrame
 {
 	
+	// Menu que se abre para ver los detalles concretos de un premio elegido del menú ConsultarPremios
+
+	
 	private static DetallesPremio puntero;
 	private JPanel contenido;
 	private JLabel titulo;
@@ -110,6 +113,9 @@ public class DetallesPremio extends JFrame
 		
 		
 	}
+	
+	// Accion: 1 volver
+	
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {

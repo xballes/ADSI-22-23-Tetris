@@ -19,6 +19,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class TablaTodosGeneral extends JFrame {
 
 	
@@ -163,7 +164,8 @@ public class TablaTodosGeneral extends JFrame {
 		super.setVisible(true);
 	}
 	
-	
+	// Accion: 1 volver
+
 	private class Accion1 implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {

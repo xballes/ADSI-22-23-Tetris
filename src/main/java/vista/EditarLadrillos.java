@@ -16,9 +16,12 @@ import controlador.Gestor;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+@SuppressWarnings("serial")
 public class EditarLadrillos extends JFrame implements Ventana {
 
+	// Menu que se abre para elegir el set de colores de ladrillos
+
+	
 	private JPanel contentPane;
 	private String nombreUsuario;
 	private static EditarLadrillos puntero;
@@ -35,7 +38,7 @@ public class EditarLadrillos extends JFrame implements Ventana {
 	private EditarLadrillos(String nombreusuartio) {
 		this.nombreUsuario= nombreusuartio;
 		Color[][] matrizLadrillos = new Color[5][7];
-		//CASE 0
+		//set 0
 		matrizLadrillos[1][0]= new Color(211,142,220);
 		matrizLadrillos[0][0] = new Color(204, 102, 102);//rojo
     	matrizLadrillos[0][1] = new Color(102, 204, 102);//verde
@@ -45,7 +48,7 @@ public class EditarLadrillos extends JFrame implements Ventana {
     	matrizLadrillos[0][5] = new Color(102, 204, 204);//cielo
     	matrizLadrillos[0][6] = new Color(218, 170, 0);//naranja
     	
-    	//CASE 1
+    	//set 1
     	matrizLadrillos[1][0] = new Color(102, 204, 102);
     	matrizLadrillos[1][1] = new Color(204, 102, 102);
     	matrizLadrillos[1][2] = new Color(204, 204, 102);
@@ -54,7 +57,7 @@ public class EditarLadrillos extends JFrame implements Ventana {
     	matrizLadrillos[1][5] = new Color(218, 170, 0);
     	matrizLadrillos[1][6] = new Color(204, 102, 204);
     	
-    	//CASE 2
+    	//set 2
     	matrizLadrillos[2][0] = new Color(102, 102, 204);//azul
     	matrizLadrillos[2][1] = new Color(204, 204, 102);//amarillo
     	matrizLadrillos[2][2] = new Color(102, 204, 102);//verde
@@ -62,7 +65,7 @@ public class EditarLadrillos extends JFrame implements Ventana {
     	matrizLadrillos[2][4] = new Color(218, 170, 0);//naranja
     	matrizLadrillos[2][5] = new Color(204, 102, 204);//rosa
     	matrizLadrillos[2][6] = new Color(102, 204, 204);//cielo
-    	//CASE 3
+    	//set 3
     	matrizLadrillos[3][0] = new Color(218, 170, 0);//naranja
     	matrizLadrillos[3][1] = new Color(102, 204, 204);//cielo
     	matrizLadrillos[3][2] = new Color(204, 102, 204);//rosa
@@ -70,7 +73,7 @@ public class EditarLadrillos extends JFrame implements Ventana {
     	matrizLadrillos[3][4] = new Color(204, 204, 102);//amarillo
     	matrizLadrillos[3][5] = new Color(102, 204, 102);//verde
     	matrizLadrillos[3][6] = new Color(204, 102, 102);//rojo
-    	//CASE 4
+    	//set 4
     	matrizLadrillos[4][0] = new Color(204, 204, 102);//amarillo
     	matrizLadrillos[4][1] = new Color(204, 102, 204);//rosa
     	matrizLadrillos[4][2] = new Color(218, 170, 0);//naranja
@@ -140,6 +143,9 @@ public class EditarLadrillos extends JFrame implements Ventana {
 	
     
 	}
+	
+	// Acciones: 1 adjudicar el set (implementado para 5 botones), 2 volver
+	
 	private class Accion1 implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             int id=(((Boton)e.getSource()).id);

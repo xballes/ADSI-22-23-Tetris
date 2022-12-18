@@ -24,6 +24,11 @@ public class GestorSonido {
 	
 	
 	public void cambiarSonido(String pNombre, int idSonido ) {
+		/* Pre: User en BD, sonido 0-2
+		 * Post: Audio por defecto cambiado para ese user en BD
+		  
+		 */
+		
 		
 		SGBD.getInstancia().execSQLVoid("UPDATE USUARIO SET SETSONIDO="+idSonido+" WHERE NOMBRE='"+pNombre+"'");
 		
@@ -32,6 +37,11 @@ public class GestorSonido {
 	
 	
 	public int obtenerSonido(String pNombre) {
+		
+		/* Pre: User en BD, es único
+		 * Post: Audio por defecto obtenido de BD
+		  
+		 */
 		
 		ResultSet r = SGBD.getInstancia().execSQL("SELECT SETSONIDO FROM USUARIO WHERE NOMBRE='"+pNombre+"'");
 		int res = -1;
@@ -49,6 +59,7 @@ public class GestorSonido {
 	}
 	
 	
+	// Métodos para cominicarse con el reproductor, documentados en reproductor (en package Modelo)
 	
 	
 	public void tocarMusica(int pId) {this.r.empezarMusica(pId);}

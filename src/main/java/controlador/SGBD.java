@@ -14,10 +14,15 @@ public class SGBD {
 	
 	private SGBD () {
 		
-		// Mirar si la BD está generada ya en el PC actual
+		// Este método se llama solo en la primera conexion que se intenta hacer con BD en toda la ejecución
+		
+
 		
 		
 		try {
+			
+			// Mirar si la BD está generada ya en el PC actual, si no lo está lo autogenera
+			
 			Class.forName("org.h2.Driver");
 			this.conexion = DriverManager.getConnection("jdbc:h2:"+System.getProperty("user.dir")+File.separator+"base"+File.separator+"adsi", "usu", "");
 
@@ -122,6 +127,8 @@ public class SGBD {
 				
 				ps.executeUpdate();
 				
+				// Además, añadir algunos datos que deben figurar como los premios y el administrador
+				
 				ps = conexion.prepareStatement("INSERT INTO USUARIO VALUES('administrador', '123456', 'email', 0,0,0,0)");
 				ps.executeUpdate();
 				ps = conexion.prepareStatement("INSERT INTO PREMIO VALUES('Gana 1 partida', 'Gana 1 partida')");
@@ -153,7 +160,6 @@ public class SGBD {
 			conexion = DriverManager.getConnection("jdbc:h2:"+System.getProperty("user.dir")+File.separator+"base"+File.separator+"adsi", "usu", "");
 			PreparedStatement ps = conexion.prepareStatement(pStr);
 			ResultSet r = ps.executeQuery();
-		//	conexion.close();
 			return r;
 		} catch (Exception  e) {
 			e.printStackTrace();
@@ -164,7 +170,7 @@ public class SGBD {
 	public void execSQLVoid(String pStr) {
 		
 		// Pre: String no null, contiene una consulta que NO es SELECT
-		// Post: El objeto ResultadoSQL correspondiente, en Java se llama ResultSet
+		// Post: Se realizo lo que se debia hacer en BD
 		
 		try {
 			Class.forName("org.h2.Driver");
@@ -172,7 +178,7 @@ public class SGBD {
 			conexion = DriverManager.getConnection("jdbc:h2:"+System.getProperty("user.dir")+File.separator+"base"+File.separator+"adsi", "usu", "");
 			PreparedStatement ps = conexion.prepareStatement(pStr);
 			ps.executeUpdate();
-			conexion.close();
+//			conexion.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

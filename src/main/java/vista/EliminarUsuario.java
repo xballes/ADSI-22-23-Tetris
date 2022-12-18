@@ -119,6 +119,7 @@ public class EliminarUsuario extends JFrame implements Ventana {
 		
 	}
 	
+	// Acciones: 1 borrar, 2 volver
 	
 	private class Accion1 implements ActionListener {
 

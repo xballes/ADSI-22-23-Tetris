@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,8 +13,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 
+@SuppressWarnings("serial")
 public class BotonNiveles extends JFrame {
 
+	// Menu que se abre para elegir el nivel con el que se desea empezar la partida nueva
+
+	
 	private JPanel contentPane;
 	private JPanel panel;
 	private JButton btnNewButton;
@@ -26,15 +29,7 @@ public class BotonNiveles extends JFrame {
 	private static BotonNiveles puntero;
 	
 	private String usuario;
-	/**
-	 * Launch the application.
-	 */
-	 
-	
 
-	/**
-	 * Create the frame.
-	 */
 	private BotonNiveles(String usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 588, 433);
@@ -103,6 +98,8 @@ public class BotonNiveles extends JFrame {
 		return btnNewButton_3;
 	}
 	
+	
+	// Acciones de botones: 1-3 empezar el nivel en su respectiva dificultad, 4 volver atrás
 	
 	private class Accion1 implements ActionListener {
 		

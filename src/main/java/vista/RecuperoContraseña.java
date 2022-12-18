@@ -115,6 +115,7 @@ public class RecuperoContraseña extends JFrame implements Ventana {
 		
 	}
 	
+	// Acciones: 1 mostrar la contraseña, 2 volver
 	
 	private class Accion1 implements ActionListener {
 

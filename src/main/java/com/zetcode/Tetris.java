@@ -19,7 +19,8 @@ Website: https://zetcode.com
 @SuppressWarnings("serial")
 public class Tetris extends JFrame {
 	
-	private static final Logger logger = LogManager.getLogger(Tetris.class);
+	@SuppressWarnings("unused")
+	private static final Logger logger = LogManager.getLogger(Tetris.class); 
 
 	private static Tetris puntero;
 	
